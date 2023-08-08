@@ -1,0 +1,17 @@
+.main-content.py-0
+  .section.bg-light.py-5
+    .container
+      .row.align-items-center.py-5
+        .col-lg-6.order-2.order-lg-1.overflow-hidden.py-3
+          .pr-lg-5.add-animate data-animated="fadeInLeft" 
+            h2.h1.font-weight-800.line-height-sm.mb-4 = t :complete_order_text_1
+            .zz-separator.zz-separator-wide.mb-4 data-width="93px" 
+            div data-height="20px" 
+            .lead
+              = t :complete_order_text_2
+            .description-info.mb-5
+              small = t :complete_order_text_3
+            = link_to "#{t 'complete_order_button'}", polygraphys_path(params[:locale]), class: 'btn btn-round btn-lg btn-primary'
+        .col-lg-6.order-1.order-lg-2
+          .px-3.pb-4.mb-5.px-md-5.px-lg-0.pb-lg-0.mb-lg-0
+            = image_tag 'cash_payment.svg', class: 'img-fluid add-animate', alt: 'Polygraphy App', data: {:animated => "fadeInRight"}

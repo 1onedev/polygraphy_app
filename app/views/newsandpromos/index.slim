@@ -1,0 +1,80 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-13.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :newsandpromos_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = t :newsandpromos_page
+
+.main-content.pb-0
+  .section.pt-4.pb-5
+    .container
+      - if Newsandpromo.published.present?
+        .row.mb-3
+          .col
+            .row.grid-item-layout.blog-container data-gutter="32" data-layout-mode="masonry" 
+              - @newsandpromos.each do |newsandpromo|
+                .col-md-6.col-lg-4.grid-item
+                  .card.card-blog-entry.border-0.plain-card
+                    .card-blog-img.hover-item.hover-scale.hover-uncaption
+                      = link_to newsandpromo
+                        .hover-transition
+                        figure
+                          = image_tag newsandpromo.image.url(:index), class: 'img-fluid', alt: newsandpromo.name
+                    .card-body.pt-0
+                      .category-btn
+                        - if newsandpromo.tag.present?
+                          .badge.badge-pill.badge-primary.mr-1.mb-1 = newsandpromo.tag
+                      h5.font-weight-700.mt-3
+                        = link_to newsandpromo.name, newsandpromo, class: 'text-dark-gray'
+                      ul.meta-entry
+                        li.meta-entry-item
+                          = newsandpromo.created_at.strftime('%d.%m.%Y')
+                      p.card-text = truncate_markup newsandpromo.description, 200
+                    .card-footer.border-0.bg-transparent
+                      .meta-item.float-left.mb-2
+                        = link_to newsandpromo
+                          i.far.fa-list-alt.text-black-50.mr-1
+                          = t :read_more
+
+        .row.mb-5
+          .col
+            = paginate @newsandpromos
+
+      - else
+        .row.mt-0.mb-5
+          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+            .text-center.mt-3.mb-4
+              h5.font-weight-400.mb-3 = t :newsandpromos_absent_1 
+              h2.h1.section-title-3.font-weight-800 = t :newsandpromos_absent_2
+              .lead-sm.pt-2
+                = t :newsandpromos_absent_3
+        .row.pb-4.mb-5
+          .col-lg-10.offset-lg-1
+            .text-center
+              = image_tag 'benefits-graphic.png', class: 'img-fluid add-animate', data: {:animated => 'fadeIn'}, alt: 'Polygraphy App'
+
+  .section.bg-image.py-5 data-img-src="#{image_path 'blog-cta-bg.jpg'}" 
+    .container
+      .row.my-5
+        .col-lg-8.offset-lg-2
+          .text-center.my-4
+            h5.font-weight-300.text-white.mb-3.mb-md-2 = t :subscribe_t_3
+            h2.display-5.font-weight-800.text-white.mb-4 = t :subscribe_t_1
+            div data-height="10px" 
+            .row
+              .col-md-10.offset-md-1.col-xl-8.offset-xl-2
+                = form_for Subscriber.new, remote: true, html: { id: 'new_subscriber', class: 'form-light-2 px-md-4' } do |f|
+                  .input-group.input-group-lg.input-group-round
+                    .input-group-inner
+                      = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                      .input-group-append
+                        = f.button class: 'btn btn-lg btn-round btn-light text-indigo mb-0', id: 'new_subscriber_send'
+                          = t :subscribe
+                      .input-focus-bg

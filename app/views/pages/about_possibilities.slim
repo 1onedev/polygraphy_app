@@ -1,0 +1,113 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-01.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :about_possibilities_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = t :about_possibilities_page
+
+
+.main-content.py-0
+  .section
+    .container-fluid.px-0
+      .row.no-gutters
+        .col-lg-6
+          .h-100.hover-item.hover-scale.hover-uncaption
+            .hover-transition
+            figure.h-100.bg-image data-img-src="#{image_path 'info-box-21.jpg'}"
+              = image_tag 'info-box-image-cover.png', class: 'w-100 h-100', alt: 'Polygraphy App' 
+        .col-lg-6.arrow-overflow-container.d-flex.align-items-center.bg-primary.text-white-75
+          svg.arrow-overflow-up.d-lg-none fill="#2196f3" height="18px" viewbox=("3 10.2 34 18") width="34px" xmlns="http://www.w3.org/2000/svg" 
+            path d="M20,10.2l-17,18h34L20,10.2z"
+          svg.arrow-overflow-left.d-none.d-lg-block fill="#2196f3" height="34px" viewbox=("9.4 3.8 18 34") width="18px" xmlns="http://www.w3.org/2000/svg" 
+            path d="M27.4,3.8l-18,17l18,17V3.8z"
+          .py-5
+            .row.no-gutters
+              .col-md-10.offset-md-1.px-4.py-5
+                h5.font-weight-400.text-white.my-2 = t :about_possibilities_b_1_t_1
+                div data-height="3px" 
+                h2.h1.section-title-4.title-light-1.text-left.font-weight-800.mb-4
+                  = t :about_possibilities_b_1_t_2
+                  .title-divider-round
+                .lead-sm.font-weight-500.pt-2.pb-4.mb-5
+                  = t :about_possibilities_b_1_t_3
+      .row.no-gutters
+        .col-lg-6.arrow-overflow-container.d-flex.align-items-center.bg-indigo.text-white-75.order-2.order-lg-1
+          svg.arrow-overflow-right.d-none.d-lg-block fill="#1565c0" height="34px" viewbox=("12.6 3.8 18 34") width="18px" xmlns="http://www.w3.org/2000/svg" 
+            path d="M12.6,3.8v34l18-17L12.6,3.8z"
+          svg.arrow-overflow-up.d-lg-none fill="#1565c0" height="18px" viewbox=("3 10.2 34 18") width="34px" xmlns="http://www.w3.org/2000/svg" 
+            path d="M20,10.2l-17,18h34L20,10.2z"
+          .py-5
+            .row.no-gutters
+              .col-md-10.offset-md-1.px-4.py-5
+                h5.font-weight-400.text-white.my-2 = t :about_possibilities_b_2_t_1
+                div data-height="3px" 
+                h2.h1.section-title-4.title-light-1.text-left.font-weight-800.mb-4
+                  = t :about_possibilities_b_2_t_2
+                  .title-divider-round
+                .lead-sm.font-weight-500.pt-2.pb-4.mb-5
+                  = t :about_possibilities_b_2_t_3
+        .col-lg-6.order-1.order-lg-2
+          .h-100.hover-item.hover-scale.hover-uncaption
+            .hover-transition
+            figure.h-100.bg-image data-img-src="#{image_path 'info-box-22.jpg'}" 
+              = image_tag 'info-box-image-cover.png', class: 'w-100 h-100', alt: 'Polygraphy App' 
+
+
+  .section.pt-5.pb-5.bg-image data-img-src="#{image_path 'services-cta-bg-01.jpg'}" 
+    .container
+      .row.my-5
+        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+          .text-center.mt-2.mb-md-4
+            h2.h1.section-title-3.title-light-1.font-weight-800 = t :cooperation_t_1
+            .lead-sm.text-white-75.pt-2
+              = t :cooperation_t_2
+      .row
+        .col
+          .bg-indigo.rounded-ultra.shadow-lg.px-4.py-5.p-md-5.mt-5.mt-md-0
+            .row.mt-5.mb-4
+              .col-lg-10.offset-lg-1
+                = form_for Cooperation.new, remote: true, html: { id: 'new_cooperation', class: 'form-light-2 px-md-4 px-lg-0 px-xl-4'} do |f|
+                  .form-row
+                    .col-lg-6
+                      .px-1.pb-3.mb-3
+                        .input-group.input-group-lg.input-group-round
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.far.fa-user
+                            = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name'}", required: 'required'
+                            .input-focus-bg
+                    .col-lg-6
+                      .px-1.pb-3.mb-3
+                        .input-group.input-group-lg.input-group-round
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.far.fa-envelope
+                            = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                            .input-focus-bg
+                    .col-lg-12
+                      .px-1.pb-3.mb-3
+                        .input-group.input-group-lg.input-group-round
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.fas.fa-mobile-alt
+                            = f.text_field :phone, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.phone'}", required: 'required'
+                            .input-focus-bg
+                    .col-lg-12
+                      .px-1.mb-5
+                        = f.text_area :text, class: 'form-control form-round form-control-lg py-3', placeholder: "#{t 'placeholder.text'}", rows: 5, required: 'required'
+                    .col-lg-6.offset-lg-3
+                      .px-1
+                        = f.button class: 'btn btn-lg btn-round btn-block btn-dark'
+                          = t :send
+
+

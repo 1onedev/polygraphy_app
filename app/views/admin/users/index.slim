@@ -1,0 +1,61 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_root_path
+                = t :home_page
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.all_clients')
+        div data-height="6px" 
+- if current_admin.vladelec? || current_admin.meneger?
+  .main-content.pt-0.mt-3.mt-lg-5
+    .section
+      .container
+        .row
+          .col-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-6
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.all_clients')
+                      .title-divider-round.mt-3
+                  .col-6.d-flex.justify-content-md-end
+                    = link_to new_admin_user_path, class: 'btn btn-round btn-icon-only btn-light  btn-sm tooltip-btn mb-0 ml-3'
+                      i.fas.fa-plus
+                - @users.each do |user|
+                  .row.align-items-center.justify-content-between.pb-4
+                    .col-md-6.mb-4.mb-md-0
+                      .d-flex.align-items-center.my-2
+                        - if user.image.exists?
+                          = image_tag user.image.url(:index), class: 'rounded-circle shadow admin-image', alt: user.name
+                        - else
+                          = image_tag 'placeholder/default-avatar.jpg', class: 'rounded-circle shadow admin-image', alt: user.name
+                        .ml-4.ml-lg-3.ml-xl-4
+                          h6.font-weight-700.mt-1.mb-0
+                            = link_to user.name, admin_user_path(user), class: 'text-dark-gray'
+                          small.d-block.mb-0 = user.email
+                          = user_groups_admin_tag(user)
+                    .col-md-3
+                      = form_for [:admin, user], remote: true do |f|
+                        .input-group-inner
+                          .custom-control.custom-switch
+                            = f.check_box :opt_price, id: "customSwitch#{user.id}", class: 'custom-control-input', onchange: "$('#edit_user_#{user.id}').submit()"
+                            = f.label :opt_price, (t 'opt_price_page'), for: "customSwitch#{user.id}", class: 'custom-control-label'
+                    .col-md-3.d-flex.justify-content-md-end
+                      - if user.messages_from_admin
+                        = link_to admin_messages_path(user_id: user.id), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3 ', data: {:placement => "top", :toggle => "tooltip"}, title: (t 'placeholder.text')
+                          i.far.fa-envelope
+                      = link_to [:admin, user], method: :delete, data: { confirm: "#{t 'delete_2'}", placement: 'top', toggle: 'tooltip', title: "#{t 'delete'}" }, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+                        i.far.fa-trash-alt
+                  .divider-2.mb-0
+                .pt-4
+                  = paginate @users
+
+- else
+  = render 'admin/no_access/noaccess'
+    
+

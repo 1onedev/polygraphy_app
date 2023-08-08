@@ -1,0 +1,104 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_root_path
+                = t :home_page
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.documents')
+        div data-height="6px"
+- if current_admin.vladelec? || current_admin.meneger?
+  .main-content.pt-0.mt-3.mt-lg-5
+    .section
+      .container
+        .row
+          .col-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                = form_for [:admin, documents], url: :admin_documents, method: :put do |f|
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'admin_path.documents')
+                        .title-divider-round.mt-3
+                  .form-row
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :privacy_policy_on_uk
+                      = f.text_area :privacy_policy, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :privacy_policy_on_ru
+                      = f.text_area :privacy_policy_ru, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :privacy_policy_on_en
+                      = f.text_area :privacy_policy_en, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :privacy_policy_on_he
+                      = f.text_area :privacy_policy_he, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :terms_of_use_on_uk
+                      = f.text_area :terms_of_use, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :terms_of_use_on_ru
+                      = f.text_area :terms_of_use_ru, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :terms_of_use_on_en
+                      = f.text_area :terms_of_use_en, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :terms_of_use_on_he
+                      = f.text_area :terms_of_use_he, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :delivery_on_uk
+                      = f.text_area :delivery, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :delivery_on_ru
+                      = f.text_area :delivery_ru, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :delivery_on_en
+                      = f.text_area :delivery_en, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :delivery_on_he
+                      = f.text_area :delivery_he, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :payments_on_uk
+                      = f.text_area :payments, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :payments_on_ru
+                      = f.text_area :payments_ru, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :payments_on_en
+                      = f.text_area :payments_en, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :payments_on_he
+                      = f.text_area :payments_he, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :protect_your_data_on_uk
+                      = f.text_area :protect_your_data, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :protect_your_data_on_ru
+                      = f.text_area :protect_your_data_ru, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :protect_your_data_on_en
+                      = f.text_area :protect_your_data_en, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :protect_your_data_on_he
+                      = f.text_area :protect_your_data_he, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :return_on_uk
+                      = f.text_area :return, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :return_on_ru
+                      = f.text_area :return_ru, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :return_on_en
+                      = f.text_area :return_en, class: 'ckeditor'
+                    .col-md-6.mb-5
+                      label.text-uppercase = t :return_on_he
+                      = f.text_area :return_he, class: 'ckeditor'
+                  .form-row
+                    = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                    = link_to "#{t 'cencel'}", edit_admin_documents_path, class: 'btn btn-lg btn-round btn-outline-primary'
+- else
+  = render 'admin/no_access/noaccess'

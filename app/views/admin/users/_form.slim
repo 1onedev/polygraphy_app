@@ -1,0 +1,64 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_users_path
+                = (t 'admin_path.all_clients')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.edit_users')
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .pb-3.mb-3
+        .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+          .row
+            .col-12
+              h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                = (t 'admin_path.edit_users')
+                .title-divider-round.mt-3
+          = form_for [:admin, @user] do |f|
+            .form-row
+              .col-md-6
+                .input-group.input-group-lg.input-group-round.mb-4
+                  label.text-uppercase = (t 'placeholder.name')
+                  .input-group-inner
+                    .input-group-prepend
+                      span.input-group-text.input-group-icon
+                        i.fas.fa-user-circle
+                    = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name'}", required: 'required'
+                    .input-focus-bg
+              .col-md-6
+                .input-group.input-group-lg.input-group-round.mb-4
+                  label.text-uppercase = (t 'devise.registrations.company_type')
+                  .input-group-inner
+                    .input-group-prepend
+                      span.input-group-text.input-group-icon
+                        i.fas.fa-check
+                    = f.select :user_group, User.user_groups.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'devise.registrations.company_type'}" }, { class: 'custom-select custom-select-lg', required: :required }
+                    .input-focus-bg
+              .col-md-6
+                .input-group.input-group-lg.input-group-round.mb-4
+                  label.text-uppercase = (t 'placeholder.email')
+                  .input-group-inner
+                    .input-group-prepend
+                      span.input-group-text.input-group-icon
+                        i.fas.fa-envelope-open-text
+                    = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                    .input-focus-bg
+              .col-md-6
+                .input-group.input-group-lg.input-group-round.mb-4
+                  label.text-uppercase = (t 'devise.sessions.password')
+                  .input-group-inner
+                    .input-group-prepend
+                      span.input-group-text.input-group-icon
+                        i.far.fa-eye-slash
+                    = f.password_field :password, class: 'form-control form-control-lg', placeholder: "#{t 'devise.sessions.password'}", required: 'required'
+                    .input-focus-bg
+              .col-12
+                .text-md-right
+                  = link_to "#{t 'cencel'}", admin_users_path, class: 'btn btn-lg btn-round btn-outline-primary mr-2'
+                  = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary'

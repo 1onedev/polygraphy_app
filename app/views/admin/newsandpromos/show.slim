@@ -1,0 +1,93 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_newsandpromos_path
+                = (t 'admin_path.news')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = @newsandpromo.name
+        div data-height="6px" 
+
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5 
+              .d-flex.justify-content-center.pb-5
+                = published_tag(@newsandpromo)
+              .d-flex.flex-column.w-100
+                .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path @newsandpromo.image.url(:show)}" 
+                  .container.page-title-container
+                    .row.py-5
+                      .col-lg-8.offset-lg-2.text-center
+                        .mb-3
+                          - if @newsandpromo.tag.present?
+                            .badge.badge-pill.badge-primary.mr-1.mb-1  = @newsandpromo.tag
+                        h1.display-4.font-weight-800.text-white.mb-3 = @newsandpromo.name
+                        nav aria-label="breadcrumb" 
+                          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+                            li.breadcrumb-item.text-uppercase
+                              a = (t 'admin_path.news')
+                            li.breadcrumb-item.text-uppercase
+                              a = @newsandpromo.name
+
+              .main-content
+                .section.pt-4
+                  .container
+                    .row.mt-3
+                      .col-lg-10.offset-lg-1
+                        .row.mb-5
+                          .col-12
+                            p = @newsandpromo.description
+
+                        - if @newsandpromo.image2.present? || @newsandpromo.image3.present?
+                          #carouselIndicatorsStandard.carousel.carousel-nav-lg.slide.gallery-slides.arrow-nav-overflow.rounded-lg.shadow-lg.mb-5 data-ride="carousel" 
+                            ol.carousel-indicators
+                              li.active data-slide-to="0" data-target="#carouselIndicatorsStandard" 
+                              li data-slide-to="1" data-target="#carouselIndicatorsStandard" 
+                              li data-slide-to="2" data-target="#carouselIndicatorsStandard" 
+                            .carousel-inner
+                              .carousel-item.active
+                                a data-caption=("Cursus Metus Purus") data-fancybox="slide-gallery-one" href="slide-gallery-01.jpg" 
+                                .gallery-slides-hover
+                                = image_tag @newsandpromo.image2.url(:show), class: 'd-block w-100', alt: @newsandpromo.name
+                              .carousel-item
+                                a data-caption=("Integer Gravida Varius") data-fancybox="slide-gallery-one" href="slide-gallery-02.jpg" 
+                                .gallery-slides-hover
+                                = image_tag @newsandpromo.image3.url(:show), class: 'd-block w-100', alt: @newsandpromo.name
+                              .carousel-item
+                                a data-caption=("Donec Nulla Vulputate") data-fancybox="slide-gallery-one" href="slide-gallery-03.jpg" 
+                                .gallery-slides-hover
+                                = image_tag @newsandpromo.image4.url(:show), class: 'd-block w-100', alt: @newsandpromo.name
+                            a.carousel-control-prev data-slide="prev" href="#carouselIndicatorsStandard" role="button"
+                              span.carousel-control-prev-icon aria-hidden="true" 
+                              span.sr-only Previous
+                            a.carousel-control-next data-slide="next" href="#carouselIndicatorsStandard" role="button"
+                              span.carousel-control-next-icon aria-hidden="true" 
+                              span.sr-only Next
+                        - if @newsandpromo.text.present?
+                          .pt-4.pb-5
+                            p = @newsandpromo.text
+
+                        .d-flex.align-items-center.justify-content-center
+                          span.badge.badge-pill.badge-light Поделиться
+                          .d-flex.ml-2
+                            a.d-flex.align-items-center.justify-content-center.text-dark data-height="40px" data-width="40px"
+                              i.fab.fa-facebook-f
+                            a.d-flex.align-items-center.justify-content-center.text-dark data-height="40px" data-width="40px"
+                              i.fab.fa-twitter
+                            a.d-flex.align-items-center.justify-content-center.text-dark data-height="40px" data-width="40px"
+                              i.fab.fa-linkedin-in
+                            a.d-flex.align-items-center.justify-content-center.text-dark data-height="40px" data-width="40px"
+                              i.fab.fa-pinterest-p
+                            a.d-flex.align-items-center.justify-content-center.text-dark data-height="40px" data-width="40px"
+                              i.fas.fa-paper-plane
+
+              .d-flex.justify-content-center
+                = link_to 'Редактировать', edit_admin_newsandpromo_path(@newsandpromo), class: 'btn btn-lg btn-round btn-outline-primary mr-2'
+                = link_to 'Все акции', admin_newsandpromos_path, class: 'btn btn-lg btn-round btn-primary'

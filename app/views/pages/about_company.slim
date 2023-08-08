@@ -1,0 +1,124 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-01.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :about_company_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = t :about_company_page
+
+
+.main-content.py-0
+  .section
+    .container-fluid.p-0
+      .row.no-gutters
+        .col-lg-4.bg-image.p-5.add-animate data-animated="fadeInLeft" data-img-src="#{image_path 'about-us-vision-bg-01.jpg'}" 
+          .row
+            .col-xl-10.offset-xl-1
+              .text-white-75.my-2
+                h3.h1.text-white.font-weight-800 01
+                h4.text-white.font-weight-800.text-uppercase.mb-3 = t :about_company_b_1_t_1
+                p = t :about_company_b_1_t_2
+        .col-lg-4.bg-image.p-5.add-animate data-animated="fadeInUp" data-img-src="#{image_path 'about-us-vision-bg-02.jpg'}" 
+          .row
+            .col-xl-10.offset-xl-1
+              .text-white-75.my-2
+                h3.h1.text-white.font-weight-800 02
+                h4.text-white.font-weight-800.text-uppercase.mb-3 = t :about_company_b_1_t_3
+                p = t :about_company_b_1_t_4
+        .col-lg-4.bg-image.p-5.add-animate data-animated="fadeInRight" data-img-src="#{image_path 'about-us-vision-bg-03.jpg'}" 
+          .row
+            .col-xl-10.offset-xl-1
+              .my-2
+                h3.h1.text-indigo.font-weight-800 03
+                h4.font-weight-800.text-uppercase.mb-3 = t :about_company_b_1_t_5
+                p = t :about_company_b_1_t_6
+
+  .section.py-5
+    .container
+      .row.align-items-center.py-4.my-5
+        .col-lg-6
+          .pt-lg-3.pr-lg-5.mb-5.mb-lg-0
+            h2.h1.section-title-3.text-left.font-weight-800.mb-5 = t :about_company_b_2_t_1
+            div data-height="10px" 
+            .icon-info-1.mb-5
+              .icon-element.text-primary
+                = image_tag 'benefit-icon-10.svg', class: 'add-animate faster', data: {:animated => 'zoomIn', :height => '60px', :width => '60px'}, alt: 'Polygraphy App'
+              .icon-info-text.pl-4
+                h5.font-weight-700 = t :about_company_b_2_t_2
+                p = t :about_company_b_2_t_3
+            .icon-info-1.mb-5
+              .icon-element.text-primary
+                = image_tag 'benefit-icon-11.svg', class: 'add-animate faster', data: {:animated => 'zoomIn', :height => '60px', :width => '60px'}, alt: 'Polygraphy App'
+              .icon-info-text.pl-4
+                h5.font-weight-700 = t :about_company_b_2_t_4
+                p = t :about_company_b_2_t_5
+            .icon-info-1
+              .icon-element.text-primary
+                = image_tag 'benefit-icon-12.svg', class: 'add-animate faster', data: {:animated => 'zoomIn', :height => '60px', :width => '60px'}, alt: 'Polygraphy App'
+              .icon-info-text.pl-4
+                h5.font-weight-700 = t :about_company_b_2_t_6
+                p = t :about_company_b_2_t_7
+        .col-lg-6
+          .row
+            .col-md-6
+              .add-animate data-animated="fadeInUp" 
+                .d-none.d-md-block data-height="95px" 
+                = image_tag 'about-why-us-01.jpg', class: 'img-fluid rounded-lg shadow-lg', alt: 'Polygraphy App'
+                div data-height="30px" 
+                = image_tag 'about-why-us-02.jpg', class: 'img-fluid rounded-lg shadow-lg', alt: 'Polygraphy App'
+                .d-md-none data-height="30px" 
+            .col-md-6
+              .add-animate data-animated="fadeInUp" 
+                = image_tag 'about-why-us-03.jpg', class: 'img-fluid rounded-lg shadow-lg', alt: 'Polygraphy App'
+                div data-height="30px" 
+                = image_tag 'about-why-us-04.jpg', class: 'img-fluid rounded-lg shadow-lg', alt: 'Polygraphy App'
+      div data-height="20px" 
+  .section.bg-image data-img-src="#{image_path 'about-us-cta-bg-01.jpg'}" 
+    .container
+      .row
+        .col-lg-6.align-self-end.order-2.order-lg-1
+          .mt-lg-up75.px-3.px-lg-0.text-center.section-about-company-padding
+            = image_tag 'Analyze-amico.svg', class: 'img-fluid add-animate', data: {:animated => 'fadeInLeft'}, alt: 'Polygraphy App'
+        .col-lg-6.align-self-center.order-1.order-lg-2
+          .py-5.my-5.add-animate data-animated="fadeInRight" 
+            blockquote.blockquote-2.blockquote-light-1.border-left.mb-0.mb-lg-5
+              p.mb-0 = t :about_company_b_3_t_1
+              footer.blockquote-footer = t :about_company_b_3_t_2
+            .d-none.d-lg-block data-height="52px" 
+  .bg-indigo
+    .section
+      .container
+        .row
+          .col
+            .bg-white.rounded-ultra.shadow-lg.px-4.py-5.p-md-5.mt-up100
+              .row.my-4
+                .col-lg-10.offset-lg-1.col-xl-8.offset-xl-2
+                  .text-center
+                    h2.h1.font-weight-800 = t :subscribe_t_1
+                    .lead-sm.mb-5
+                      = t :subscribe_t_2
+                    .row
+                      .col-lg-10.offset-lg-1
+                        = form_for Subscriber.new, remote: true, html: { id: 'new_subscriber', class: 'px-md-4 mb-1' } do |f|
+                          .input-group.input-group-lg.input-group-round
+                            .input-group-inner
+                              = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                              .input-group-append
+                                = f.button class: 'btn btn-lg btn-round btn-primary mb-0', id: 'new_subscriber_send'
+                                  = t :subscribe
+                              .input-focus-bg
+    
+  .section.bg-indigo.py-4.mt-up150
+    .container
+      div data-height="150px" 
+      .row.align-items-center.py-4
+        - @partners.each do |partner|
+          .col-6.col-md-4.col-lg-2
+            .text-center.px-2
+              = image_tag partner.image.url(:index), class: 'img-fluid', alt: partner.name

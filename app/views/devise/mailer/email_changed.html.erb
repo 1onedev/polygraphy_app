@@ -1,0 +1,22 @@
+<table cellspacing="0" cellpadding="0" border="0" align="center">
+  <tr>
+    <td align="center" width="100%" style="padding: 50px 0 50px 0;">
+      <%= email_image_tag "images/logo.jpg", style: "display: block", width: "300px", height: "auto"%>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="100%" style="background: #2296f3;font-weight: 800;line-height: 1.2;color: #fff;font-family: Montserrat, sans-serif;padding: 50px 50px 0 50px;border-radius: 2rem 2rem 0 0;">
+      <h3 style="margin: 0;font-size: 30px;">Вітаємо <%= @resource.name %>!</h3>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="100%" style="font-family: Montserrat, sans-serif;background: #2296f3;padding: 40px 50px 50px 50px;border-radius: 0 0 2rem 2rem">
+      <p style="color: #fff;margin: 0;">
+        Ми хотіли повідомити вам, що вашу електронну адресу було успішно змінено на <%= @resource.email %>
+      </p>
+      <p style="color: #fff;margin: 5px 0 0 0;">
+        Дякуємо, що працюєте разом з нами!
+      </p>
+    </td>
+  </tr>
+</table>

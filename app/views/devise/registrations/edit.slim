@@ -1,0 +1,39 @@
+.pb-3.mb-3
+  .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+      = (t 'user_path.securitys')
+      .title-divider-round.mt-3
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+      .form-row
+        .col-12
+          .input-group.input-group-lg.input-group-round.mb-4
+            label.text-uppercase = (t 'user_path.valid_password')
+            .input-group-inner
+              .input-group-prepend
+                span.input-group-text.input-group-icon
+                  i.fas.fa-unlock-alt
+              = f.password_field :current_password, class: 'form-control form-control-lg', placeholder: "#{t 'user_path.valid_password'}", required: 'required'
+              .input-focus-bg
+        .col-12
+          .input-group.input-group-lg.input-group-round.mb-4
+            label.text-uppercase = (t 'user_path.new_password')
+            .input-group-inner
+              .input-group-prepend
+                span.input-group-text.input-group-icon
+                  i.fas.fa-unlock-alt
+              = f.password_field :password, class: 'form-control form-control-lg', placeholder: "#{t 'user_path.new_password'}", required: 'required'
+              .input-focus-bg
+        .col-12
+          .input-group.input-group-lg.input-group-round.mb-4
+            label.text-uppercase = (t 'user_path.new_password_again')
+            .input-group-inner
+              .input-group-prepend
+                span.input-group-text.input-group-icon
+                  i.fas.fa-unlock-alt
+              = f.password_field :password_confirmation, class: 'form-control form-control-lg', placeholder: "#{t 'user_path.new_password_again'}", required: 'required'
+              .input-focus-bg
+        .col-12
+          .text-md-right
+            = link_to "#{t 'cencel'}", edit_user_registration_path, class: 'btn btn-lg btn-round btn-outline-primary mr-md-2'
+            = f.submit "#{t 'user_path.change_password_button'}", class: 'btn btn-lg btn-round btn-primary'

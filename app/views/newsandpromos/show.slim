@@ -1,0 +1,100 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path @newsandpromo.image.url(:show)}" 
+    .container.page-title-container
+      .row.py-5
+        .col-lg-8.offset-lg-2.text-center
+          .mb-3
+            - if @newsandpromo.tag.present?
+              .badge.badge-pill.badge-primary.mr-1.mb-1  = @newsandpromo.tag
+          h1.display-4.font-weight-800.text-white.mb-3 = @newsandpromo.name
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to newsandpromos_path(params[:locale])
+                  = t :all_news
+              li.breadcrumb-item.text-uppercase = @newsandpromo.name
+
+.main-content
+  .section.pt-4.pb-5
+    .container
+      .row.mt-3
+        .col-lg-10.offset-lg-1
+          .row.mb-5
+            .col-12
+              p = @newsandpromo.description
+
+          - if @newsandpromo.image2.present? || @newsandpromo.image3.present?
+            #carouselIndicatorsStandard.carousel.carousel-nav-lg.slide.gallery-slides.arrow-nav-overflow.rounded-lg.shadow-lg.mb-5 data-ride="carousel" 
+              ol.carousel-indicators
+                li.active data-slide-to="0" data-target="#carouselIndicatorsStandard" 
+                li data-slide-to="1" data-target="#carouselIndicatorsStandard" 
+                li data-slide-to="2" data-target="#carouselIndicatorsStandard" 
+              .carousel-inner
+                .carousel-item.active
+                  a data-caption=("Cursus Metus Purus") data-fancybox="slide-gallery-one" href="slide-gallery-01.jpg" 
+                  .gallery-slides-hover
+                  = image_tag @newsandpromo.image2.url(:show), class: 'd-block w-100', alt: @newsandpromo.name
+                .carousel-item
+                  a data-caption=("Integer Gravida Varius") data-fancybox="slide-gallery-one" href="slide-gallery-02.jpg" 
+                  .gallery-slides-hover
+                  = image_tag @newsandpromo.image3.url(:show), class: 'd-block w-100', alt: @newsandpromo.name
+                .carousel-item
+                  a data-caption=("Donec Nulla Vulputate") data-fancybox="slide-gallery-one" href="slide-gallery-03.jpg" 
+                  .gallery-slides-hover
+                  = image_tag @newsandpromo.image4.url(:show), class: 'd-block w-100', alt: @newsandpromo.name
+              a.carousel-control-prev data-slide="prev" href="#carouselIndicatorsStandard" role="button"
+                span.carousel-control-prev-icon aria-hidden="true" 
+                span.sr-only Previous
+              a.carousel-control-next data-slide="next" href="#carouselIndicatorsStandard" role="button"
+                span.carousel-control-next-icon aria-hidden="true" 
+                span.sr-only Next
+          - if @newsandpromo.text.present?
+            .pt-4.pb-5
+              p = @newsandpromo.text
+
+          .d-flex.align-items-center.justify-content-center
+            span.badge.badge-pill.badge-light = t :share
+            .d-flex.ml-2
+              #share
+
+  - if Newsandpromo.published.count>=3
+    .section.pt-5.pb-4
+      .container
+        .row
+          .col-lg-10.offset-lg-1
+            .row.align-items-center.mb-5
+              .col-md-6.mb-3.mb-md-0
+                h4.section-title-3.text-left.font-weight-700.mb-md-0 = t :last_news
+              .col-md-6
+                .text-md-right
+                  = link_to newsandpromos_path(params[:locale]), class: 'btn btn-round btn-primary mb-0'
+                    = t :look_all_news
+            .row
+              .col
+                .carousel-component data-autoplay="true" data-carousel-col="1" data-carousel-col-lg="3" data-carousel-col-md="2" data-carousel-col-sm="1" data-carousel-col-xl="3" data-carousel-gutter="30" data-dots="true" data-nav="false" 
+                  .carousel-component-inner.owl-carousel.owl-theme
+                    - @recent_newsandpromos.each do |newsandpromo|
+                      .carousel-component-item
+                        .card.card-blog-entry.border-0.plain-card.mb-3
+                          .card-blog-img.hover-item.hover-scale.hover-uncaption
+                            = link_to newsandpromo
+                              .hover-transition
+                              figure
+                                = image_tag newsandpromo.image.url(:index), class: 'img-fluid', alt: newsandpromo.name
+                          .card-body.pt-0
+                            .category-btn
+                              .badge.badge-pill.badge-primary.mr-1.mb-1  = newsandpromo.tag
+                            h5.font-weight-700.mt-3
+                              = link_to newsandpromo.name, newsandpromo, class: 'text-dark-gray'
+                            ul.meta-entry
+                              li.meta-entry-item = newsandpromo.created_at.strftime('%d.%m.%Y')
+                            p.card-text = truncate_markup newsandpromo.description, 100
+
+- content_for :js
+  javascript:
+    $("#share").jsSocials({
+      showLabel: false,
+      showCount: false,
+      shares: ["facebook", "twitter", "pinterest", "telegram", "whatsapp", "viber"]
+    });
+    $(".alert" ).fadeOut(3000);

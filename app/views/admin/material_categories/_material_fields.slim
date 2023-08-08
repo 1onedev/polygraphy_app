@@ -1,0 +1,87 @@
+/ do not remove .nested-fields class
+.col-12
+  .nested-fields
+    .form-row.edit-material-categories
+      .col-md-7.col-12.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :chroma
+          p.mb-0 = (t 'admin_path.edit_categories_materials_text1')
+      .col-md-2.col-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = t :chroma
+            .input-group-inner
+              = f.text_field :width, class: 'form-control form-control-lg', placeholder: '0'
+              .input-focus-bg
+      .col-md-1.col-2.d-flex.align-items-center.justify-content-center
+        |+
+      .col-md-2.col-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = t :chroma
+            .input-group-inner
+              = f.text_field :height, class: 'form-control form-control-lg', placeholder: '0'
+              .input-focus-bg
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'admin_path.paper_format')
+          p.mb-0 = (t 'admin_path.paper_format_text')
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.paper_format')
+            .input-group-inner
+              = f.select :paper_format, Material.paper_formats.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'admin_path.paper_format'}" }, { class: 'custom-select custom-select-lg' }
+              .input-focus-bg
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :name_of
+          p.mb-0 = (t 'admin_path.edit_categories_materials_text2')
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_uk')
+            .input-group-inner
+              = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_uk'}", required: 'required'
+              .input-focus-bg
+      .col-md-7
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_ru')
+            .input-group-inner
+              = f.text_field :name_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_ru'}"
+              .input-focus-bg
+      .col-md-7
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_en')
+            .input-group-inner
+              = f.text_field :name_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_en'}"
+              .input-focus-bg
+      .col-md-7
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_he')
+            .input-group-inner
+              = f.text_field :name_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_he'}"
+              .input-focus-bg
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :about_company_b_1_t_5
+          p.mb-0 = (t 'admin_path.edit_categories_materials_text3')
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = t :about_company_b_1_t_5
+            .input-group-inner
+              = f.text_field :price, class: 'form-control form-control-lg', placeholder: "#{t 'about_company_b_1_t_5'}", required: 'required'
+              .input-focus-bg
+      .col-12.d-flex.justify-content-center.p-3
+        = link_to_remove_association f, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0'
+          i.far.fa-trash-alt
+        span.ml-2 = (t 'delete')
+
+      

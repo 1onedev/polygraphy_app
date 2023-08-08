@@ -1,0 +1,56 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_root_path
+                = t :home_page
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.files')
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+              .header-with-action.d-flex.justify-content-between.align-items-center
+                .header-name-page
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = (t 'admin_path.files')
+                    .title-divider-round.mt-3
+              - if @items.present?
+                table.table.table-custom-2.mb-5
+                  tbody
+                    - @items.each do |item|
+                      tr
+                        th scope="row" 
+                          = link_to admin_order_path(item)
+                            = item.order.number_with_sign
+                        td = item.product_name
+                        - if item.item_file.present?
+                          td 
+                            = item.item_file.file_content_type
+                            =< file_format(item.item_file.file_file_size)
+                        - if item.item_file.present? && item.link.present?
+                          td.d-flex.justify-content-end
+                            - if item.item_file.present?
+                              = link_to item.item_file.file.url, download: item.item_file.file.original_filename, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3', data: {:placement => "top", :toggle => "tooltip"}, title: "#{t 'admin_path.download_file'}" 
+                                i.fas.fa-file-download
+                            - if item.link.present?
+                              = link_to item.link, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3', data: {:placement => "top", :toggle => "tooltip"}, title: "#{t 'admin_path.download_file'}"
+                                i.fas.fa-file-download
+                        - unless item.item_file.present? && item.link.present?
+                          td.d-flex.justify-content-end
+                            .text-danger
+                              = t :file_absent
+              - else
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-center.py-5
+                    h4.mb-0.d-inline-block = (t 'admin_path.no_data')
+              .pt-4
+                = paginate @items
+

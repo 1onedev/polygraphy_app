@@ -1,0 +1,132 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-08_2.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :calculator_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.active aria-current="page" = t :calculator_page
+
+.main-content.pb-0
+  .section.pb-5
+    .container
+      .row
+        .col
+          .bg-indigo.rounded-ultra.shadow-lg.px-4.py-5.p-md-5.mt-5.mt-md-0
+            .row.my-4
+              .col-md-10.offset-md-1.col-xl-8.offset-xl-2
+                .text-center.mt-2.mb-4.my-md-4.text-white-75
+                  h2.h1.section-title-3.font-weight-800.text-center.text-white.title-light-1 = t :calculator_b_1_t_1
+                  .lead-sm.pt-2
+                    = t :calculator_b_1_t_2
+
+            .row.mt-5.mb-4
+              .col-lg-10.offset-lg-1
+                = form_tag ajax_pre_calculators_path, class: 'form-light-2 px-md-4 px-lg-0 px-xl-4', id: 'pre_calculators_form'
+                  .form-row
+                    .col-12
+                      .card-price.d-flex.align-items-center
+                        .price.text-white.steps 1
+                        h4.steps.text-white = t :choose_order_type
+                    .col-12
+                      .px-1.pb-3.mb-3
+                        .input-group.input-group-lg.input-group-round
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.far.fa-list-alt
+                            = select_tag :product_id, options_from_collection_for_select(@products, :id, :name, params[:product_id]), { include_blank: "#{t 'choose_order_type'}", class: 'custom-select custom-select-lg pre_calculator_product_id' }
+                            .input-focus-bg
+
+                    .col-12
+                      .card-price.d-flex.align-items-center
+                        .price.text-white.steps 2
+                        h4.steps.text-white = t :select_print_options
+
+                    .col-6
+                      .card-price.d-flex.align-items-center.mb-4
+                        h6.steps.text-white = (t 'admin_path.product_size')
+                      .px-1.pb-3#sizes_select
+
+                    .col-6
+                      .card-price.d-flex.align-items-center.mb-4
+                        h6.steps.text-white = t :cover_material
+                      .px-1.pb-3#covers_select
+
+                    .col-6
+                      .card-price.d-flex.align-items-center.mb-4
+                        h6.steps.text-white = t :cover_chroma
+                      .px-1.pb-3#cover_colors_select
+
+                    .col-6
+                      .card-price.d-flex.align-items-center.mb-4
+                        h6.steps.text-white = t :material
+                      .px-1.pb-3#materials_select
+
+                    .col-6
+                      .card-price.d-flex.align-items-center.mb-4
+                        h6.steps.text-white = t :chroma
+                      .px-1.pb-3#colors_select
+
+                    .col-12
+                      .card-price.d-flex.align-items-center
+                        .price.text-white.steps 3
+                        h4.steps.text-white = t :enter_required_page_circulation
+
+                    .col-lg-12
+                      .px-1.pb-3.mb-3
+                        .input-group.input-group-lg.input-group-round
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.fas.fa-book-open
+                            = text_field_tag :select_page_circulation, nil, class: 'form-control form-control-lg select_page_circulation', placeholder: "0"
+                            .input-focus-bg
+
+                    .col-12
+                      .card-price.d-flex.align-items-center
+                        .price.text-white.steps 4
+                        h4.steps.text-white = t :enter_required_circulation
+
+                    .col-lg-12
+                      .px-1.pb-3.mb-3
+                        .input-group.input-group-lg.input-group-round
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.fas.fa-calculator
+                            = text_field_tag :select_circulation, nil, class: 'form-control form-control-lg select_circulation', placeholder: "0", id: 'select_circulation'
+                            .input-focus-bg
+                    .col-12
+                      .title-light-1.text-center
+                        .title-divider-round
+
+                    .col-12.mt-5
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.text-white.total-calculator#item_calc_total_price
+                          = price_format(0)
+
+  .section
+    .container
+      .row.mt-5
+        .col-lg-6.align-self-center
+          .px-xl-5.pt-2.pb-4.pb-md-5.mb-5.overflow-hidden
+            .add-animate data-animated="fadeInLeft" 
+              .mb-4
+                h5.font-weight-400 = t :calculator_b_2_t_1
+                div data-height="3px" 
+                h2.h1.section-title-4.text-left.font-weight-800.mb-4
+                  = t :calculator_b_2_t_2
+                  .title-divider-round
+                .lead-sm.pt-2
+                  = t :calculator_b_2_t_3
+              = link_to contacts_path, class: 'btn btn-lg btn-round btn-primary mb-0'
+                = t :contacts_page
+        .col-lg-6.align-self-end
+          .text-center.px-md-4.px-lg-0
+            = image_tag 'services-benefits-img-01.svg', class: 'img-fluid add-animate', data: {:animated => 'fadeInRight'}, alt: 'Polygraphy App'

@@ -1,0 +1,147 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_root_path
+                = t :home_page
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'calculations_settings')
+        div data-height="6px"
+
+.main-content.pt-0.mt-3.mt-lg-5
+    .section
+      .container
+        .row
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+                .header-with-action.d-flex.justify-content-between.align-items-center
+                  .header-name-page
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = t :calculations_settings
+                      .title-divider-round.mt-3
+                = form_for [:admin, calculation_settings], url: :admin_calculation_settings, method: :put do |f|
+                  .form-row
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :calculation_variable_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'calculation_variable')
+                          .input-group-inner
+                            = f.text_field :calculation_variable, class: 'form-control form-control-lg', placeholder: "#{t 'calculation_variable'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :time_to_one_color_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'time_to_one_color')
+                          .input-group-inner
+                            = f.text_field :time_to_one_color, class: 'form-control form-control-lg', placeholder: "#{t 'time_to_one_color'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :print_speed_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'print_speed')
+                          .input-group-inner
+                            = f.text_field :print_speed, class: 'form-control form-control-lg', placeholder: "#{t 'print_speed'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :work_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'work_price')
+                          .input-group-inner
+                            = f.text_field :work_price, class: 'form-control form-control-lg', placeholder: "#{t 'work_price'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :paint_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'paint_price')
+                          .input-group-inner
+                            = f.text_field :paint_price, class: 'form-control form-control-lg', placeholder: "#{t 'paint_price'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :lak_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'lak_price')
+                          .input-group-inner
+                            = f.text_field :lak_price, class: 'form-control form-control-lg', placeholder: "#{t 'lak_price'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = (t 'paint_per_paper_text')
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'paint_per_paper')
+                          .input-group-inner
+                            = f.text_field :paint_per_paper, class: 'form-control form-control-lg', placeholder: "#{t 'paint_per_paper'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :opt_discount_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'opt_discount')
+                          .input-group-inner
+                            = f.text_field :opt_discount, class: 'form-control form-control-lg', placeholder: "#{t 'opt_discount'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :podborka_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'podborka_price')
+                          .input-group-inner
+                            = f.text_field :podborka_price, class: 'form-control form-control-lg', placeholder: "#{t 'podborka_price'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :scoba_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'scoba_price')
+                          .input-group-inner
+                            = f.text_field :scoba_price, class: 'form-control form-control-lg', placeholder: "#{t 'scoba_price'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :skleyka_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'skleyka_price')
+                          .input-group-inner
+                            = f.text_field :skleyka_price, class: 'form-control form-control-lg', placeholder: "#{t 'skleyka_price'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :falcovka_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'falcovka_price')
+                          .input-group-inner
+                            = f.text_field :falcovka_price, class: 'form-control form-control-lg', placeholder: "#{t 'falcovka_price'}"
+                            .input-focus-bg
+                    .col-12.col-md-7.d-flex.align-items-center
+                      = t :lamination_price_text
+                    .col-12.col-md-5
+                      .price
+                        .input-group.input-group-lg.input-group-round.mb-4
+                          label.text-uppercase = (t 'lamination_price')
+                          .input-group-inner
+                            = f.text_field :lamination_price, class: 'form-control form-control-lg', placeholder: "#{t 'lamination_price'}"
+                            .input-focus-bg
+                  .form-row
+                    = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                    = link_to "#{t 'cencel'}", edit_admin_calculation_settings_path, class: 'btn btn-lg btn-round btn-outline-primary'

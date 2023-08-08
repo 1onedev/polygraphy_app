@@ -1,0 +1,16 @@
+.pb-3.mb-3
+  .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+      = (t 'admin_path.new_message')
+      .title-divider-round.mt-3
+    .row.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+      .col-12
+        = form_for [:user, Message.new(user_id: params[:user_id])] do |f|
+          = f.hidden_field :user_id, value: params[:user_id]
+          .input-group.input-group-lg.input-group-round.mb-4
+            .input-group-inner
+              = f.text_area :text, class: 'form-control form-control-lg py-3', placeholder: "#{t 'placeholder.text'}", rows: 7
+              .input-focus-bg
+          .d-flex.justify-content-center
+            = link_to "#{t 'cencel'}", user_messages_path, class: 'btn btn-round btn-outline-primary mr-2'
+            = f.submit "#{t 'send'}", class: 'btn btn-round btn-primary'

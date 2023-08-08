@@ -1,0 +1,11 @@
+.card-price.d-flex.justify-content-center.m-0
+  .price.admin = price_format(@items_clear_incomes.sum(&:profit))
+.d-flex.justify-content-center.mt-4
+  - if params[:date] == 'today'
+    small.text-uppercase = (t 'admin_path.for_today')
+  - if params[:date] == 'yesterday'
+    small.text-uppercase = (t 'admin_path.for_tomorow')
+  - if params[:date] == 'week'
+    small.text-uppercase = (t 'admin_path.for_week')
+  - if params[:date] == 'months'
+    small.text-uppercase = (t 'admin_path.for_month')

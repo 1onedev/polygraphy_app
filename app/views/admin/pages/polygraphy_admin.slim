@@ -1,0 +1,80 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_root_path
+                = t :home_page
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'polygraphys_page')
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+              .header-with-action.d-flex.justify-content-between.align-items-center
+                .header-name-page
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = t :categorys
+                    .title-divider-round.mt-3
+                .header-action-page.pb-2.mb-4
+                  = link_to new_admin_product_category_path, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => 'top', :toggle => 'tooltips'}, title: "#{t 'add_category'}"
+                    i.fas.fa-plus
+              - if @product_categories.present?
+                - @product_categories.each do |product_category|
+                  .row.align-items-center.justify-content-between.py-4
+                    .col-md-9.mb-4.mb-md-0
+                      .d-flex.align-items-center.my-2
+                        .answer-block.d-flex.align-items-center
+                          = link_to admin_product_category_path(product_category)
+                            h6.mb-0 = product_category.name
+                          span.badge.badge-pill.badge-primary.ml-2 = product_category.products.count
+                    .col-md-3.d-flex.justify-content-md-end
+                      = link_to edit_admin_product_category_path(product_category), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+                        i.fas.fa-pen
+                      = link_to [:admin, product_category], method: :delete, data: { confirm: "#{t 'delete_2'}", placement: 'top', toggle: 'tooltip', title: "#{t 'delete'}" }, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+                        i.far.fa-trash-alt
+                  .divider-2.mb-0
+              - else
+                h5.font-weight-700.section-title-4.my-5
+                  .text-center = t ('admin_path.no_data')
+              .pt-4
+                = paginate @product_categories
+
+
+
+        / .col-lg-12
+        /   .pb-3.mb-3
+        /     .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+        /       .header-with-action.d-flex.justify-content-between.align-items-center
+        /         .header-name-page
+        /           h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+        /             = t :fast_teg
+        /             .title-divider-round.mt-3
+        /         .header-action-page.pb-2.mb-4
+        /           = link_to new_admin_product_tag_path, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => 'top', :toggle => 'tooltips'}, title: "#{t 'add_fast_tag'}"
+        /             i.fas.fa-plus
+        /       - if @product_tags.present?
+        /         - @product_tags.each do |product_tag|
+        /           .row.align-items-center.justify-content-between.py-4
+        /             .col-md-9.mb-4.mb-md-0
+        /               .d-flex.align-items-center.my-2
+        /                 .answer-block.d-flex.align-items-center
+        /                   h6.mb-0 = product_tag.name
+        /                   span.badge.badge-pill.badge-primary.ml-2 = Product.where(product_tag_id: product_tag.id).count
+        /             .col-md-3.d-flex.justify-content-md-end
+        /               = link_to edit_admin_product_tag_path(product_tag), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+        /                 i.fas.fa-pen
+        /               = link_to [:admin, product_tag], method: :delete, data: { confirm: "#{t 'delete_2'}", placement: 'top', toggle: 'tooltip', title: "#{t 'delete'}" }, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+        /                 i.far.fa-trash-alt
+        /           .divider-2.mb-0
+        /       - else
+        /         h5.font-weight-700.section-title-4.my-5
+        /           .text-center = t ('admin_path.no_data')
+        /       .pt-4
+        /         = paginate @product_tags

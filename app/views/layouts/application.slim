@@ -1,0 +1,294 @@
+doctype html
+html lang="uk" 
+  head
+    meta charset="UTF-8"
+    meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport"
+    meta content="ie=edge" http-equiv="X-UA-Compatible"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = display_meta_tags
+    = stylesheet_link_tag 'application', media: 'all'
+
+    link rel="icon" sizes="32x32" type="image/png" href='/favicon/favicon-32x32.png' 
+    link rel="icon" sizes="16x16" type="image/png" href='/favicon/favicon-16x16.png'
+    link rel="icon" sizes="192x192" type="image/png" href='/favicon/android-chrome-192x192.png'
+    link rel="icon" sizes="512x512" type="image/png" href='/favicon/android-chrome-512x512.png'
+    link rel="apple-touch-icon" sizes="180x180" href='/favicon/apple-touch-icon.png'
+    link rel="icon" href="/favicon/favicon.ico"
+
+    link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet"
+    link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet"
+
+  body
+    = render 'layouts/alert'
+    /! Preloader
+    / .preloader-container
+    /   .preloader-wrapper
+    /     .preloader-border
+    /     .preloader-line-mask
+    /       .preloader-line
+    /! Navigation menu
+    .navik-header.header-shadow.navik-mega-menu.mega-menu-fullwidth
+      .bg-indigo
+        .container
+          - if current_user
+            .row.align-items-center.height-fast-menu
+              .col-lg-6.d-none.d-lg-block.text-white-75.text-center.text-lg-left.py-3.py-lg-0
+                small
+                  = t :header_menu_user_text1
+                  =< link_to user_orders_path(params[:locale]), class: 'text-white font-weight-600' 
+                    = t :header_menu_user_text2
+              .col-lg-6.d-flex.align-items-center.justify-content-center.justify-content-lg-end
+                .fast-image-user
+                  = link_to user_orders_path(params[:locale]), class: 'btn btn-indigo shadow-none rounded-0 mb-0 fast-image-user-padding'
+                    - if current_user.image.exists?
+                      = image_tag current_user.image.url(:index), class: 'rounded-circle shadow small-for-menu', alt: current_user.name
+                    - else
+                      = image_tag 'placeholder/default-avatar.jpg', class: 'rounded-circle shadow small-for-menu', alt: current_user.name
+                .dropdown
+                  a#dropdownMenuButtonCart.btn.btn-indigo.shadow-none.rounded-0.px-3.mb-0.text-white aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+                    i.fas.fa-shopping-cart.m-0
+                  span.badge.badge-pill.badge-primary.admin-badge.notification#cart_size
+                    = current_order.items.count
+                  .dropdown-menu.p-0.m-0.dropdown-menu-right.cart-list-menu aria-labelledby="dropdownMenuButtonCart"
+                    ul#cart_list
+                      = render 'shared/cart_products'
+                .dropdown
+                  a#dropdownMenuButton.btn.btn-indigo.shadow-none.rounded-0.px-3.mb-0.text-white aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+                    i.fas.fa-globe-europe.m-0
+                  .dropdown-menu.p-0.m-0.dropdown-menu-right aria-labelledby="dropdownMenuButton" 
+                    .lenguage-menu class="#{'active' if I18n.locale == :uk}"
+                      = link_to ({:locale => :uk}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | UA
+                    .lenguage-menu class="#{'active' if I18n.locale == :ru}"
+                      = link_to ({:locale => :ru}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | RU
+                    .lenguage-menu class="#{'active' if I18n.locale == :en}"
+                      = link_to ({:locale => :en}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | EN
+                    .lenguage-menu class="#{'active' if I18n.locale == :he}"
+                      = link_to ({:locale => :he}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | HE
+                = link_to destroy_user_session_path(params[:locale]), class: 'btn btn-indigo shadow-none rounded-0 mb-0 text-white fast-menu-user-padding'
+                    i.fas.fa-sign-out-alt.m-0
+          - else 
+            .row.align-items-center
+              .col-lg-6.d-none.d-lg-block.text-white-75.text-center.text-lg-left.py-3.py-lg-0
+                small
+                  = t :header_menu_text1
+                  =< link_to polygraphys_path(params[:locale]), class: 'text-white font-weight-600'
+                    = t :header_menu_text2
+              .col-lg-6.d-flex.align-items-center.justify-content-center.justify-content-lg-end
+                = link_to new_user_session_path, class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0'
+                  i.fas.fa-sign-in-alt
+                  = t :sign_in
+                = link_to new_user_registration_path, class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0'
+                  i.fas.fa-pen-nib
+                  = t :sign_up
+                .dropdown
+                  a#dropdownMenuButton.btn.btn-indigo.shadow-none.rounded-0.px-3.mb-0.text-white aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+                    i.fas.fa-globe-europe
+                    = t :lenguage
+                  .dropdown-menu.p-0.m-0.dropdown-menu-right aria-labelledby="dropdownMenuButton" 
+                    .lenguage-menu class="#{'active' if I18n.locale == :uk}"
+                      = link_to ({:locale => :uk}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | UA
+                    .lenguage-menu class="#{'active' if I18n.locale == :ru}"
+                      = link_to ({:locale => :ru}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | RU
+                    .lenguage-menu class="#{'active' if I18n.locale == :en}"
+                      = link_to ({:locale => :en}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | EN
+                    .lenguage-menu class="#{'active' if I18n.locale == :he}"
+                      = link_to ({:locale => :he}), class: 'btn btn-indigo shadow-none rounded-0 px-3 mb-0 dropdown-item'
+                        | HE
+                .dropdown
+                  a#dropdownMenuButtonCart.btn.btn-indigo.shadow-none.rounded-0.px-3.mb-0.text-white aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+                    i.fas.fa-shopping-cart.m-0
+                  span.badge.badge-pill.badge-primary.admin-badge.notification#cart_size
+                    = current_order.items.count
+                  .dropdown-menu.p-0.m-0.dropdown-menu-right.cart-list-menu aria-labelledby="dropdownMenuButtonCart"
+                    ul#cart_list
+                      = render 'shared/cart_products'
+                
+      .container
+        .navik-header-container
+          .logo data-mobile-logo="#{ image_path 'logo-dark.svg'}" data-sticky-logo="#{ image_path 'logo-dark.svg'}"
+            = link_to root_path(params[:locale])
+              = image_tag 'logo-dark.svg', alt: 'Polygraphy App'
+          /! Burger menu
+          .burger-menu
+            .line-menu.line-half.first-line
+            .line-menu
+            .line-menu.line-half.last-line
+          /! Navigation menu
+          nav.navik-menu.menu-caret.menu-hover-3.submenu-top-border.submenu-scale
+            ul
+              li class="#{'current-menu' if params[:controller] == 'home'}"
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.mega-menu class="#{'current-menu' if params[:controller] == 'polygraphys' or params[:controller] == 'calculators' or params[:action] == 'opt_price' or params[:controller] == 'ctps'}"
+                a href="#"
+                  = t :services_page
+                ul
+                  li
+                    .mega-menu-container
+                      .row
+                        .col-md-6.col-lg-3
+                          .mega-menu-box
+                            .mega-menu-thumbnail class="#{'current-menu' if params[:controller] == 'ctps'}"
+                              = link_to ctps_path(params[:locale])
+                                = image_tag 'mega-menu-service-01.jpg', alt: '#{t :making_CTP_page}'
+                            h4.mega-menu-heading.font-weight-700 class="#{'current-menu' if params[:controller] == 'ctps'}"
+                              = link_to ctps_path(params[:locale])
+                                = t :making_CTP_page
+                            .mega-menu-desc
+                              = t :making_CTP_page_description
+                        .col-md-6.col-lg-3
+                          .mega-menu-box 
+                            .mega-menu-thumbnail class="#{'current-menu' if params[:controller] == 'polygraphys'}"
+                              = link_to polygraphys_path(params[:locale])
+                                = image_tag 'mega-menu-service-02.jpg', alt: '#{t :polygraphys_page}'
+                            h4.mega-menu-heading.font-weight-700 class="#{'current-menu' if params[:controller] == 'polygraphys'}"
+                              = link_to polygraphys_path(params[:locale])
+                                = t :polygraphys_page
+                            .mega-menu-desc
+                              = t :polygraphys_page_description
+                        .col-md-6.col-lg-3
+                          .mega-menu-box
+                            .mega-menu-thumbnail class="#{'current-menu' if params[:controller] == 'calculators'}"
+                              = link_to calculators_path(params[:locale])
+                                = image_tag 'mega-menu-service-03.jpg', alt: '#{t :calculator_page}'
+                            h4.mega-menu-heading.font-weight-700 class="#{'current-menu' if params[:controller] == 'calculators'}"
+                              = link_to calculators_path(params[:locale])
+                                = t :calculator_page
+                            .mega-menu-desc
+                              = t :calculator_page_description
+                        .col-md-6.col-lg-3
+                          .mega-menu-box
+                            .mega-menu-thumbnail class="#{'current-menu' if params[:action] == 'opt_price'}"
+                              = link_to opt_price_path(params[:locale])
+                                = image_tag 'mega-menu-service-04.jpg', alt: '#{t :opt_price_page}'
+                            h4.mega-menu-heading.font-weight-700 class="#{'current-menu' if params[:action] == 'opt_price'}"
+                              = link_to opt_price_path(params[:locale])
+                                = t :opt_price_page
+                            .mega-menu-desc
+                              = t :opt_price_page_description
+              li class="#{'current-menu' if params[:controller] == 'newsandpromos'}"
+                = link_to newsandpromos_path(params[:locale])
+                  = t :newsandpromos_page
+              li class="#{'current-menu' if params[:action] == 'about_company' or params[:action] == 'about_equipment' or params[:action] == 'about_possibilities' or params[:action] == 'faqs'}"
+                = link_to about_company_path(params[:locale])
+                  = t :about_company_page
+                ul
+                  li class="#{'current-menu' if params[:action] == 'about_company'}"
+                    = link_to about_company_path(params[:locale]), class: 'text-uppercase'
+                      = t :about_company_page
+                  li class="#{'current-menu' if params[:action] == 'about_equipment'}"
+                    = link_to about_equipment_path(params[:locale]), class: 'text-uppercase'
+                      = t :about_equipment_page
+                  li class="#{'current-menu' if params[:action] == 'about_possibilities'}"
+                    = link_to about_possibilities_path(params[:locale]), class: 'text-uppercase'
+                      = t :about_possibilities_page
+                  li class="#{'current-menu' if params[:action] == 'faqs'}"
+                    = link_to faqs_path(params[:locale]), class: 'text-uppercase'
+                      = t :faqs_page
+              li class="#{'current-menu' if params[:action] == 'contacts'}"
+                = link_to contacts_path(params[:locale])
+                  = t :contacts_page
+    
+    = yield
+
+    /! Footer
+    .bg-viridian-500.text-white-50
+      .py-5
+        .container
+          .row.py-5.d-flex.justify-content-between
+            .col-lg-3.mb-5.mb-lg-0
+              .widget
+                = image_tag 'logo-light.svg', class: 'img-fluid d-block mb-4', alt: "Polygraphy App", data: {:height => '42px', :width => '146px'}, style: 'height: 42px; width: 146px;'
+                div data-height="5px" 
+                p = t :text_footer
+              / .widget
+              /   h6.widget-title.text-white.text-uppercase.font-weight-700.mb-4 = t :follow_us
+              /   .d-flex.ml-n2
+              /     a.d-flex.align-items-center.justify-content-center.text-white-25.text-hover-primary data-height="36px" data-width="36px" href="#" target="_blank" 
+              /       i.fab.fa-facebook-f
+              /     a.d-flex.align-items-center.justify-content-center.text-white-25.text-hover-primary data-height="36px" data-width="36px" href="#" target="_blank" 
+              /       i.fab.fa-instagram
+              /     a.d-flex.align-items-center.justify-content-center.text-white-25.text-hover-primary data-height="36px" data-width="36px" href="#" target="_blank" 
+              /       i.fab.fa-twitter
+            .col-lg-3.mb-5.mb-lg-0
+              .widget
+                h6.widget-title.text-white.text-uppercase.font-weight-700 = t :contacts_page
+                ul.custom-list.fa-ul.mb-0.ml-4
+                  li.mb-3
+                    span.fa-li
+                      i.fas.fa-map-marker-alt.text-primary
+                    = t :adress_name
+                  li.mb-3
+                    span.fa-li
+                      i.fas.fa-phone-alt.text-primary
+                    a.text-white-50 href="tel:+111111111" +111111111
+                  li
+                    span.fa-li
+                      i.fas.fa-envelope.text-primary
+                    a.text-white-50 href="mailto:polygraphyapp@gmail.com" polygraphyapp@gmail.com
+            / .col-lg-3.mb-5.mb-lg-0
+            /   .widget
+            /     h6.widget-title.text-white.text-uppercase.font-weight-700 = t :help
+            /     ul.custom-list.fa-ul.mb-0.ml-4
+            /       li class="#{'current-menu-help' if params[:action] == 'payments'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to payments_path(params[:locale]), class: 'text-white-50 text-hover-primary'
+            /           = t :payments_page
+            /       li class="#{'current-menu-help' if params[:action] == 'delivery'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to delivery_path(params[:locale]), class: 'text-white-50 text-hover-primary'
+            /           = t :delivery_page
+            /       li class="#{'current-menu-help' if params[:action] == 'return'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to return_path(params[:locale]), class: 'text-white-50 text-hover-primary' 
+            /           = t :return_page
+            /       li class="#{'current-menu-help' if params[:action] == 'protect_your_data'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to protect_your_data_path(params[:locale]), class: 'text-white-50 text-hover-primary' 
+            /           = t :protect_your_data_page
+            / .col-lg-3.mb-5.mb-lg-0
+            /   .widget
+            /     h6.widget-title.text-white.text-uppercase.font-weight-700 = t :fast_category
+            /     div
+            /       .nav-link-tag-application class="#{'active' if params[:product_tag] == nil && params[:controller] == 'polygraphys'}"
+            /         = link_to polygraphys_path(params[:locale], product_tag: nil), class: 'btn btn-round btn-sm btn-outline-primary mr-1 mb-2'
+            /           = t :all_categories
+            /       - product_tag_applications.each do |product_tag|
+            /         .nav-link-tag-application class="#{'active' if params[:product_tag] == product_tag.id.to_s}"
+            /           = link_to polygraphys_path(params[:locale], product_tag: product_tag.id), class: 'btn btn-round btn-sm btn-outline-primary mr-1 mb-2'
+            /             = product_tag.name
+      .footer-bottom.py-4
+        .container.footer-bottom-container
+          .row.py-3
+            .col-lg-6.text-center.text-lg-left.mb-2.mb-lg-0
+              small
+                | created by
+                a.ml-1 href='https://1onedev.com' target='_blank' 1ONEDEV
+            /.col-lg-6.text-center.text-lg-right
+            /  ul.menu-help2 
+            /    li class="#{'current-menu-help' if params[:action] == 'terms_of_use'}"
+            /      = link_to terms_of_use_path(params[:locale]), class: 'text-white-50 text-hover-primary mr-4'
+            /        = t :terms_of_use_page
+            /    li class="#{'current-menu-help' if params[:action] == 'privacy_policy'}"
+            /      = link_to privacy_policy_path(params[:locale]), class: 'text-white-50 text-hover-primary mr-4'
+            /        = t :privacy_policy_page         
+    /! Go to top
+    .go-to-top
+      a.rounded-circle href="#" 
+        i.fas.fa-chevron-up
+
+    = javascript_include_tag 'application'
+
+    = yield :js

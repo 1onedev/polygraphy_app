@@ -1,0 +1,53 @@
+.main-content.bg-light.pt-0
+  .section.mt-up75
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+              .row
+                .col-12
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = t ('admin_path.edit_product_tag')
+                    .title-divider-round.mt-3
+              = form_for [:admin, @product_tag] do |f|
+                .form-row
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = t ('admin_path.name_on_uk')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_uk'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = t ('admin_path.name_on_ru')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :name_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_ru'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = t ('admin_path.name_on_en')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :name_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_en'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = t ('admin_path.name_on_he')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :name_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_he'}"
+                        .input-focus-bg
+                .form-row
+                  = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                  = link_to "#{t 'cencel'}", admin_polygraphy_admin_path, class: 'btn btn-lg btn-round btn-outline-primary'  

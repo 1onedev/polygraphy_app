@@ -1,0 +1,51 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5.py-lg-0 data-img-src="#{image_path 'faq-page-title.jpg'}" 
+    .container.page-title-container
+      .row
+        .col.text-center
+          .d-none.d-lg-block data-height="80px" 
+          h1.display-4.font-weight-800.text-white.mb-1
+            = t :faqs_b_1_t_1
+          .lead.text-white-75.mb-5
+            = t :faqs_b_1_t_2
+          .row
+            .col-md-10.offset-md-1.col-lg-8.offset-lg-2.col-xl-6.offset-xl-3
+              = form_tag nil, method: :get, class: 'form-light-2 px-3 px-md-4'
+                .input-group.input-group-lg.input-group-round
+                  .input-group-inner
+                    = text_field_tag :q, params[:q], class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.search'}", requirder: 'required'
+                    .input-group-append
+                      = button_to nil, class: 'btn btn-round btn-lg btn-icon-only btn-primary mb-0' 
+                        i.fas.fa-search
+                    .input-focus-bg
+          .d-none.d-lg-block data-height="80px"  
+
+  .section.py-5
+    .container.mt-5      
+      .row
+        - @answers.each_with_index do |answer, index|
+          .col-12
+            .accordion.faqs id="topicOne#{index}"
+              .pr-xl-3
+                .card
+                  .card-header.shadow-sm id="topicOneHeading#{index}" aria-controls="topicOneCollapse#{index}" aria-expanded="true" data-target="#topicOneCollapse#{index}" data-toggle="collapse" 
+                    h5.accordion-title 
+                      = answer.question
+                  .collapse aria-labelledby="topicOneHeading#{index}" data-parent="#topicOne#{index}" id="topicOneCollapse#{index}"
+                    .card-body
+                      = answer.text
+        .col-12.mt-5
+          = paginate @answers
+
+  .section.bg-image.py-5 data-img-src="#{image_path 'faq-cta-bg.jpg'}" 
+    .container
+      .row.my-5
+        .col-lg-8.offset-lg-2
+          .text-center.my-4
+            h4.font-weight-300.text-white.mb-3.mb-md-2 = t :faqs_b_2_t_1
+            h2.display-4.font-weight-800.text-white.mb-4 = t :faqs_b_2_t_2
+            .lead-sm.text-white-75.mb-5
+              = t :faqs_b_2_t_3
+            div data-height="10px" 
+            = link_to contacts_path(params[:locale]), class: 'btn btn-lg btn-round btn-outline-light mb-0'
+              = t :contacts_page

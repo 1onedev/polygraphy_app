@@ -1,0 +1,87 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_price_admin_path
+                = (t 'admin_path.prices')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.edit_categories_materials')
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      = form_for [:admin, @material_category] do |f|
+        .row
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.category')
+                      .title-divider-round.mt-3
+                .row
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4
+                      label.text-uppercase = (t 'admin_path.name_on_uk')
+                      .input-group-inner
+                        = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_uk'}", required: 'required'
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4
+                      label.text-uppercase = (t 'admin_path.name_on_ru')
+                      .input-group-inner
+                        = f.text_field :name_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_ru'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4
+                      label.text-uppercase = (t 'admin_path.name_on_en')
+                      .input-group-inner
+                        = f.text_field :name_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_en'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4
+                      label.text-uppercase = (t 'admin_path.name_on_he')
+                      .input-group-inner
+                        = f.text_field :name_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_he'}"
+                        .input-focus-bg
+                  - unless MaterialCategory.exists?(color: true)
+                    .col-12.mt-2.d-flex.justify-content-between.align-items-center
+                      .pr-4.pr-md-5
+                        h6.font-weight-700 = t :chroma
+                        p.mb-0 = (t 'admin_path.set_color')
+                      .custom-control.custom-switch
+                        = f.check_box :color, id: "colors_check_2", class: 'custom-control-input'
+                        label.custom-control-label for="colors_check_2" 
+                  - unless MaterialCategory.exists?(size: true)
+                    .col-12.mt-2.d-flex.justify-content-between.align-items-center
+                      .pr-4.pr-md-5
+                        h6.font-weight-700 = t :size
+                        p.mb-0 = (t 'set_size')
+                      .custom-control.custom-switch
+                        = f.check_box :size, id: "colors_check_2", class: 'custom-control-input'
+                        label.custom-control-label for="colors_check_2" 
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.materials')
+                      .title-divider-round.mt-3
+                #tasks
+                  .form-row
+                    .col-12
+                      = f.fields_for :materials do |material|
+                        = render 'material_fields', f: material
+                  .row.d-flex.justify-content-center
+                    .links.p-5
+                      = link_to_add_association f, :materials, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0'
+                        i.fas.fa-plus
+                      span.ml-2 = (t 'admin_path.add_material')
+                .form-row
+                  = f.submit "#{t 'admin_path.save'}",class: 'btn btn-lg btn-round btn-primary mr-2'
+                  = link_to "#{t 'cencel'}", admin_price_admin_path, class: 'btn btn-lg btn-round btn-outline-primary'  

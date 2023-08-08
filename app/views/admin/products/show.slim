@@ -1,0 +1,90 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_product_category_path(@product.product_category)
+                = @product.product_category.name
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = @product.name
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+              .row
+                .col-lg-4
+                  .add-file-product
+                    = image_tag 'placeholder/placeholder-file.jpg', class: 'img-fluid mb-4', alt: @product.name
+                    .add-file-product-button.text-center
+                      a.btn.btn-round.btn-primary.text-white = t :upload_file
+                      p.text-center = t :or_add_link
+                      .input-check#input-check
+                        i.fas.fa-check.text-light
+                      input.form-control.form-round.product placeholder="https://" id="input_link"
+                      p.text-center = t :file_format
+                  = image_tag @product.image.url(:show), class: 'img-fluid mb-4', alt: @product.name
+                  = image_tag @product.image2.url(:show), class: 'img-fluid mb-4', alt: @product.name
+                .col-lg-8
+                  / - if @product.product_tag.present?
+                  /   .category-product.d-none.d-lg-block
+                  /     span.badge.badge-pill.badge-primary.mb-1 = @product.product_tag.name
+                  .name-product.d-none.d-md-block
+                    h5.font-weight-700.mt-2 = @product.name
+                    ul.meta-entry.mb-2
+                      li.meta-entry-item = @product.product_category.name
+                    p.mb-0 = @product.description
+                  .pb-2.pt-2
+                    .divider-2.mt-4-5
+                  .options-product
+                    form.px-md-4.px-lg-0.px-xl-4
+                      .form-row
+                        .col-12
+                          .card-price.d-flex.align-items-center
+                            .price.steps 1
+                            h4.steps = t :select_print_options
+                        .col-lg-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :material
+                          .px-1.pb-3
+                            - @product_materials.each_with_index do |material, index|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                input.custom-control-input type="radio" name="ProductMaterial" id="ProductMaterial#{index}"
+                                label.custom-control-label for='ProductMaterial#{index}'
+                                  = material.name
+
+
+                        .col-lg-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :chroma
+                          .px-1.pb-3
+                            - @product_colors.each_with_index do |color, index|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                input.custom-control-input type="radio" name="OptionPrint" id="OptionPrint#{index}"
+                                label.custom-control-label for="OptionPrint#{index}"
+                                  = color.width
+                                  |x
+                                  = color.height
+
+                        .col-12
+                          .card-price.d-flex.align-items-center
+                            .price.steps 2
+                            h4.steps = t :enter_required_circulation
+                        .col-12
+                          .input-group.input-group-lg.input-group-round.mb-5
+                            .input-group-inner
+                              select.custom-select.custom-select-lg
+                                option selected="" = (t 'admin_path.select_circulations')
+                                - @circulations.each_with_index do |circulation, index|
+                                  option value="#{index}" = count_format(circulation.count)
+                              .input-focus-bg
+                        .col-12.card-price.m-0.d-flex.justify-content-between.align-items-center.pb-3
+                          h4.steps.ml-0 = t :total
+                          .price.products = price_format('750')
+                        .col-12.d-flex.justify-content-end.pt-3
+                          = link_to "#{t 'admin_path.edit'}", edit_admin_product_category_path(@product.product_category), class: 'btn btn-round btn-primary'

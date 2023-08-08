@@ -1,0 +1,28 @@
+$('#cart_size').text('<%= cart_products.count %>')
+var $html = $('<%=j render partial: "shared/cart_products" %>');
+$('#cart_list').html($html);
+
+<% if @from_cart %>
+  $("#product-<%= params['product'] %>").remove();
+  
+  function getTotal() {
+    var total = 0;
+    $('.pro-subtotal').each(function () {
+      total += parseFloat(this.innerHTML);
+    });
+    $('.total-amount h4 strong').text(total);
+    
+  }
+  getTotal();
+
+  $(".pro-qty").each(function () {
+    var parent = $(this).parents('tr.calcutate'),
+
+    price = $('.pro-price', parent),
+    sum = $('.pro-subtotal span', parent),
+    value = parseInt(parseInt($(this).find('input').val())) * parseFloat(price.get(0).innerHTML || 0);
+    sum.text(value);
+
+    getTotal();
+  });
+<% end %>

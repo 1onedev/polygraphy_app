@@ -1,0 +1,168 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_sliders_path
+                = (t 'admin_path.sliders')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.edit_sliders')
+        div data-height="6px" 
+= form_for [:admin, @slider], html: { class: 'needs-validation form-custom' } do |f|
+  .main-content.pt-0.mt-3.mt-lg-5
+    .section
+      .container
+        .row
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-6
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.edit_sliders')
+                      .title-divider-round.mt-3
+                label.text-uppercase = (t 'admin_path.main_photo')
+                .row
+                  .col-md-6.text-center.text-md-left.mb-3.mb-md-0
+                    - if @slider.image.exists?
+                      = image_tag @slider.image.url(:index), class: 'shadow img-fluid img-radius-standart', id: 'imgpreview'
+                    - else
+                      = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid img-radius-standart', id: 'imgpreview'
+                  .col-md-6.d-flex.align-items-center.justify-content-center
+                    .buttons-admin-group.text-center
+                      label.btn.btn-lg.btn-round.btn-primary.mb-0
+                        = t :upload
+                        span style="display:none"
+                          = f.file_field :image, id: 'imginput'
+                      p.mb-0.mt-4 = (t 'admin_path.photo_set')
+                label.text-uppercase.mt-4 = t :main_video
+                .row
+                  .col-md-6.text-center.text-md-left.mb-3.mb-md-0
+                    - if @slider.video.exists?
+                      = video_tag @slider.video, autoplay: :autoplay, loop: :loop, muted: :muted, class: 'shadow w-100'
+                    - else
+                      = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid img-radius-standart'
+                  .col-md-6.d-flex.align-items-center.justify-content-center
+                    .buttons-admin-group.text-center
+                      label.btn.btn-lg.btn-round.btn-primary.mb-0
+                        = t :upload
+                        span style="display:none"
+                          = f.file_field :video
+                      p.mb-0.mt-4 = (t 'video_set')
+                .form-row.mt-4
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.top_text_on_uk')
+                      .input-group-inner
+                        = f.text_field :text, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.top_text_on_uk'}" , required: 'required'
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.top_text_on_ru')
+                      .input-group-inner
+                        = f.text_field :text_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.top_text_on_ru'}" 
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.top_text_on_en')
+                      .input-group-inner
+                        = f.text_field :text_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.top_text_on_en'}" 
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.top_text_on_he')
+                      .input-group-inner
+                        = f.text_field :text_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.top_text_on_he'}" 
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.center_text_on_uk')
+                      .input-group-inner
+                        = f.text_field :text2, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.center_text_on_uk'}", required: 'required'
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.center_text_on_ru')
+                      .input-group-inner
+                        = f.text_field :text2_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.center_text_on_ru'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.center_text_on_en')
+                      .input-group-inner
+                        = f.text_field :text2_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.center_text_on_en'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.center_text_on_he')
+                      .input-group-inner
+                        = f.text_field :text2_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.center_text_on_he'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.bottom_text_on_uk')
+                      .input-group-inner
+                        = f.text_field :text3, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.bottom_text_on_uk'}", required: 'required'
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.bottom_text_on_ru')
+                      .input-group-inner
+                        = f.text_field :text3_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.bottom_text_on_ru'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.bottom_text_on_en')
+                      .input-group-inner
+                        = f.text_field :text3_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.bottom_text_on_en'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.bottom_text_on_he')
+                      .input-group-inner
+                        = f.text_field :text3_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.bottom_text_on_he'}"
+                        .input-focus-bg
+                  .col-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.button_text_on_uk')
+                      .input-group-inner
+                        = f.text_field :button_title, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.button_text_on_uk'}"
+                        .input-focus-bg
+                  .col-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.button_text_on_ru')
+                      .input-group-inner
+                        = f.text_field :button_title_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.button_text_on_ru'}"
+                        .input-focus-bg
+                  .col-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.button_text_on_en')
+                      .input-group-inner
+                        = f.text_field :button_title_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.button_text_on_en'}"
+                        .input-focus-bg
+                  .col-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.button_text_on_he')
+                      .input-group-inner
+                        = f.text_field :button_title_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.button_text_on_he'}"
+                        .input-focus-bg
+                  .col-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.button_link')
+                      .input-group-inner
+                        = f.text_field :button_url, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.button_link'}"
+                        .input-focus-bg
+                .form-row
+                  = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                  = link_to "#{t 'cencel'}", admin_sliders_path, class: 'btn btn-lg btn-round btn-outline-primary'
+
+- content_for :js
+  javascript:
+    imginput.onchange = evt => {
+      const [file] = imginput.files
+      if (file) {
+        imgpreview.src = URL.createObjectURL(file)
+      }
+    }

@@ -1,0 +1,287 @@
+.d-flex.flex-column.w-100
+  - if params[:controller] == 'ctps' || product.product_category.ctp?
+    .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-08_3.jpg'}" 
+      .container.page-title-container
+        .row.py-5
+          .col.text-center
+            h1.display-3.font-weight-800.text-white.mb-0
+              = t :making_CTP_page
+            nav aria-label="breadcrumb" 
+              ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+                li.breadcrumb-item.text-uppercase
+                  = link_to root_path(params[:locale])
+                    = t :home_page
+                li.breadcrumb-item.text-uppercase.active aria-current="page" = t :making_CTP_page
+  - else
+    .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-08.jpg'}" 
+      .container.page-title-container
+        .row.py-5
+          .col.text-center
+            h1.display-3.font-weight-800.text-white.mb-0
+              = product.name
+            nav aria-label="breadcrumb" 
+              ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+                li.breadcrumb-item.text-uppercase
+                  = link_to polygraphys_path(params[:locale])
+                    = t :polygraphys_page
+                li.breadcrumb-item.text-uppercase.active aria-current="page" = product.name
+
+= form_for current_order, html: { class: 'order_item_calculation' } do |f|
+  = f.fields_for :items, f.object.items.build do |i|
+    = i.hidden_field :price, value: 0, id: 'item_total_price'
+    = i.hidden_field :item_file_identifier, id: 'item_file_identifier'
+    .main-content.pb-0
+      .section.pt-3.pb-5
+        .container
+          .row
+            .col-lg-4
+              .d-block.d-lg-none
+                / - if @product.product_tag.present?
+                /   .category-product
+                /     span.badge.badge-pill.badge-primary.mb-1.mr-2 = product.product_tag.name
+                .name-product
+                  - if params[:controller] == 'ctps' || product.product_category.ctp?
+                    h5.font-weight-700.mt-2 = t :making_CTP_page
+                    ul.meta-entry.mb-2 
+                      li.meta-entry-item = t :ctps_b_1_t_1
+                    p.mb-0 = t :ctps_b_1_t_2_html
+                  - else
+                    h5.font-weight-700.mt-2 = product.name
+                    ul.meta-entry.mb-2
+                      li.meta-entry-item = product.product_category.name
+                    p.mb-0 = product.description
+                .pb-2.pt-2
+                  .divider-2.mt-4-5
+              .add-file-product
+                - if params[:controller] == 'ctps' || product.product_category.ctp?
+                  = image_tag 'placeholder/placeholder-file.jpg', class: 'img-fluid mb-4', alt: "#{t 'making_CTP_page'}"
+                - else
+                  = image_tag 'placeholder/placeholder-file.jpg', class: 'img-fluid mb-4', alt: product.name
+                .add-file-product-button.text-center
+                  #singleupload.btn.btn-round.btn-primary 
+                    = t :upload_file
+                  p.text-center = t :or_add_link
+                  .input-check#input-check
+                    i.fas.fa-check.text-light
+                  = i.text_field :link, class: 'form-control form-round product', placeholder: "https://", id: "input_link"
+                  p.text-center = t :file_format
+
+              - if params[:controller] == 'ctps' || product.product_category.ctp?
+                = image_tag product.image.url(:show), class: 'img-fluid mb-4', alt: "#{t 'making_CTP_page'}"
+                = image_tag product.image2.url(:show), class: 'img-fluid mb-4', alt: "#{t 'making_CTP_page'}"
+              - else
+                = image_tag product.image.url(:show), class: 'img-fluid mb-4', alt: product.name
+                = image_tag product.image2.url(:show), class: 'img-fluid mb-4', alt: product.name
+            .col-lg-8
+              / - if product.product_tag.present?
+              /   .category-product.d-none.d-lg-block
+              /     span.badge.badge-pill.badge-primary.mb-1.mr-2 = product.product_tag.name
+              .name-product.d-none.d-md-block
+                - if params[:controller] == 'ctps' || product.product_category.ctp?
+                  h5.font-weight-700.mt-2 = t :making_CTP_page
+                  ul.meta-entry.mb-2
+                    li.meta-entry-item = t :ctps_b_1_t_1
+                  p.mb-0 = t :ctps_b_1_t_2_html
+                - else
+                  h5.font-weight-700.mt-2 = product.name
+                  ul.meta-entry.mb-2
+                    li.meta-entry-item = product.product_category.name
+                  p.mb-0 = product.description
+              .pb-2.pt-2
+                .divider-2.mt-4-5
+              .options-product
+                .form-row
+                  .col-12
+                    .card-price.d-flex.align-items-center
+                      .price.steps 1
+                      - if params[:controller] == 'ctps' || product.product_category.ctp?
+                        h4.steps = t :select_print_options_2
+                      - else
+                        h4.steps = t :select_print_options
+                  - if product.product_category.ctp?
+                    .col-lg-12
+                      .card-price.d-flex.align-items-center.mb-4
+                        h6.steps = (t 'admin_path.product_size')
+                      .px-1.pb-3
+                        - ::Products::MaterialsQuery.new(product, size: true).all.each do |material|
+                          .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                            = i.radio_button :material_color_id, material.id, checked: i.object.material_color_id == material.id, class: 'custom-control-input material_color_id', required: 'required'
+                            = i.label :material_color_id, material.name_with_size_ctp, value: material.id, class: 'custom-control-label'
+                  - else
+                    - case 
+                      - when product.brochure? || product.magazine?
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :cover_material
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_cover_id, material.id, checked: i.object.material_cover_id == material.id, class: 'custom-control-input material_cover_id', required: 'required'
+                                = i.label :material_cover_id, material.name, value: material.id, class: 'custom-control-label'
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :cover_chroma
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product, color: true).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_cover_color_id, material.id, checked: i.object.material_cover_color_id == material.id, class: 'custom-control-input material_cover_color_id', required: 'required'
+                                = i.label :material_cover_color_id, material.name, value: material.id, class: 'custom-control-label'
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :material
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_base_id, material.id, checked: i.object.material_base_id == material.id, class: 'custom-control-input material_base_id', required: 'required'
+                                = i.label :material_base_id, material.name, value: material.id, class: 'custom-control-label'
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :chroma
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product, color: true).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_color_id, material.id, checked: i.object.material_color_id == material.id, class: 'custom-control-input material_color_id', required: 'required'
+                                = i.label :material_color_id, material.name_with_size, value: material.id, class: 'custom-control-label'
+                        - if product.magazine?
+                          .col-12
+                            .input-group.input-group-lg.input-group-round.mb-5.card-price
+                              h6.steps.mb-4 = t :stitching_type
+                              .input-group-inner
+                                = i.select :stitching, Item.stitchings.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'stitching_type'}" }, { class: 'custom-select custom-select-lg product_stitching_id', required: :required }
+                                .input-focus-bg
+                          .col-12
+                            .input-group.input-group-lg.input-group-round.mb-5.card-price
+                              h6.steps.mb-4 = t :lamination
+                              .input-group-inner
+                                = i.select :lamination, Item.laminations.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'lamination'}" }, { class: 'custom-select custom-select-lg product_lamination_id', required: :required }
+                                .input-focus-bg
+                      - when product.etiketka?
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = (t 'admin_path.product_size')
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product, size: true).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_size_id, material.id, checked: i.object.material_size_id == material.id, class: 'custom-control-input material_size_id', required: 'required'
+                                = i.label :material_size_id, material.name, value: material.id, class: 'custom-control-label'
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :chroma
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product, color: true).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_color_id, material.id, checked: i.object.material_color_id == material.id, class: 'custom-control-input material_color_id', required: 'required'
+                                = i.label :material_color_id, material.name, value: material.id, class: 'custom-control-label'
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :cover_material
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product, color: false, size: false).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_base_id, material.id, checked: i.object.material_base_id == material.id, class: 'custom-control-input material_base_id', required: 'required'
+                                = i.label :material_base_id, material.name, value: material.id, class: 'custom-control-label'
+                        .col-12
+                          .input-group.input-group-lg.input-group-round.mb-5.card-price
+                            h6.steps.mb-4 = t :lak
+                            .input-group-inner
+                              = i.select :lak, Item.laks.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'lak'}" }, { class: 'custom-select custom-select-lg product_lak_id', required: :required }
+                              .input-focus-bg
+                      - else
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :material
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_base_id, material.id, checked: i.object.material_base_id == material.id, class: 'custom-control-input material_base_id', required: 'required'
+                                = i.label :material_base_id, material.name, value: material.id, class: 'custom-control-label'
+                        .col-6
+                          .card-price.d-flex.align-items-center.mb-4
+                            h6.steps = t :chroma
+                          .px-1.pb-3
+                            - ::Products::MaterialsQuery.new(product, color: true).all.each do |material|
+                              .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+                                = i.radio_button :material_color_id, material.id, checked: i.object.material_color_id == material.id, class: 'custom-control-input material_color_id', required: 'required'
+                                = i.label :material_color_id, material.name_with_size, value: material.id, class: 'custom-control-label'
+                        .col-12
+                          .input-group.input-group-lg.input-group-round.mb-5.card-price
+                            h6.steps.mb-4 = t :oborot
+                            .input-group-inner
+                              = i.select :oborot, Item.oborots.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'oborot'}" }, { class: 'custom-select custom-select-lg product_oborot_id', required: :required }
+                              .input-focus-bg
+                  .col-12
+                    .card-price.d-flex.align-items-center
+                      .price.steps 2
+                      h4.steps = t :enter_required_circulation
+                  - if product.brochure? || product.magazine?
+                    .col-12
+                      .input-group.input-group-lg.input-group-round.mb-5.card-price
+                        h6.steps.mb-4 = t :select_page_count
+                        .input-group-inner
+                          = i.select :page_circulation_id, options_from_collection_for_select(product.page_circulations.order(count: :asc), :id, :custom_name, i.object.page_circulation_id), { include_blank: false }, { class: 'custom-select custom-select-lg page_circulation_id' }
+                          .input-focus-bg
+                    .col-12
+                      .input-group.input-group-lg.input-group-round.mb-5.card-price
+                        h6.steps.mb-4 = t :select_count
+                        .input-group-inner
+                          = i.select :product_circulation_id, options_from_collection_for_select(product.product_circulations.order(count: :asc), :id, :custom_name, i.object.product_circulation_id), { include_blank: false }, { class: 'custom-select custom-select-lg product_circulation_id' }
+                          .input-focus-bg
+                  - else
+                    .col-12
+                      .input-group.input-group-lg.input-group-round.mb-5
+                        .input-group-inner
+                          = i.select :product_circulation_id, options_from_collection_for_select(product.product_circulations.order(count: :asc), :id, :custom_name, i.object.product_circulation_id), { include_blank: false }, { class: 'custom-select custom-select-lg product_circulation_id' }
+                          .input-focus-bg
+                  .col-12.card-price.m-0.d-flex.justify-content-between.align-items-center.pb-3
+                    h4.steps.ml-0 
+                      = t :total
+                    .price.products#item_calc_total_price
+                      = price_format(product.price)
+                  .col-12.d-flex.justify-content-end.pt-3
+                    = f.submit t(:buy_in_click), class: 'btn btn-round btn-outline-primary mr-2', name: 'buy_in_click'
+                    = f.submit t(:add_to_cart), class: 'btn btn-round btn-primary', data: { disable_with: "#{t 'item_file_uppload'}" }
+
+- content_for :js
+  javascript:
+    $(document).ready(function() {
+      var uploadObj = $("#singleupload").uploadFile({
+      url: "/item_files", //This is the POST/PUT URL
+      fileName: "file", //Name of the video file
+      autoSubmit: true, //SET TO FALSE, If TRUE, it will autosubmit       files which will create errors if not properly set up. Only submit when user clicks submit.
+      acceptFiles: "application/*", // Can use "image/*" for only image files
+      dragDrop: false,
+      multiple: false,
+      showDelete: true,
+      maxFileCount: 1, //Set the maximum number of files permitted
+      
+      //This is where we have to use caution. If you use the method "formData: {"name":"Ravi","age":31 }" option, it wont work since it only accepts hardcoded strings and integers. Thus, we had to use the below method to submit the params to the server.
+      dynamicFormData: function() {
+        var data = $('form').serializeArray();
+        return data;
+      },
+      onSuccess: function (files, data, xhr) {
+        $('#item_file_identifier').val(data.identifier)
+
+      },
+      deleteCallback: function (data, pd) {
+        for (var i = 0; i < data.length; i++) {
+          $.post("delete.php", {op: "delete",name: data[i]},
+            function (resp,textStatus, jqXHR) {
+              //Show Message  
+              alert("File Deleted");
+            });
+        }
+        pd.statusbar.hide(); //You choice.
+      }
+    });
+    
+    //This is triggered when the user clicks the submit button
+    $("#fileUpload").click(function (e) {
+    
+      //Prevents form from being submitted the normal way. The form data(parameters) will be uploaded by the upload file plugin on completion of the upload.
+      e.preventDefault();
+      
+      //Starts the uploading process
+      uploadObj.startUpload();
+      });
+    });

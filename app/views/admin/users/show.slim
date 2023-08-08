@@ -1,0 +1,442 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_users_path
+                = (t 'admin_path.all_clients')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = @user.name
+        div data-height="6px" 
+- if current_admin.vladelec? || current_admin.meneger?
+  - if @user.ur_lica? || @user.tipografia?
+    .main-content.pt-0.mt-3.mt-lg-5
+      .section
+        .container
+          .row
+            .col-12
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'user_path.general_settings')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_notifications')
+                        .custom-control.custom-switch
+                          - if @user.notifications_web
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_messages')
+                        .custom-control.custom-switch
+                          - if @user.messages_from_admin
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_mail')
+                        .custom-control.custom-switch
+                          - if @user.news_to_mail
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'admin_path.clients_info')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'admin_path.name_representative')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-user-circle
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.name
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+                        label.text-uppercase = (t 'placeholder.email')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-envelope-open-text
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.email
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'placeholder.phone')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-mobile-alt
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.phone
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+                        label.text-uppercase = (t 'admin_path.company_name')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.far.fa-building
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.company_name
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'admin_path.сod_ur')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.far.fa-file-alt
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.cod_ur
+                          .input-focus-bg
+                    .col-12
+                      .form-group
+                        label.text-uppercase = (t 'admin_path.company_description')
+                        .form-control.form-round.form-control-lg.p-3.h-100
+                          p.mb-0.font-weight-500 = @user.company_description
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'admin_path.company_social_links')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'admin_path.web')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-link
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_site.present?
+                              = link_to @user.web_site, @user.web_site, class: 'font-weight-500' 
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Facebook
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-facebook-f
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_facebook.present?
+                              = link_to @user.web_facebook, @user.web_facebook, class: 'font-weight-500' 
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Instagram
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-instagram
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_instagram.present?
+                              = link_to @user.web_instagram, @user.web_instagram, class: 'font-weight-500' 
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Telegram
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-telegram-plane
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_telegram.present?
+                              = link_to @user.web_telegram, @user.web_telegram, class: 'font-weight-500' 
+                          .input-focus-bg
+  - if @user.fiz_lica?
+    .main-content.pt-0.mt-3.mt-lg-5
+      .section
+        .container
+          .row
+            .col-12
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'user_path.general_settings')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_notifications')
+                        .custom-control.custom-switch
+                          - if @user.notifications_web
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_messages')
+                        .custom-control.custom-switch
+                          - if @user.messages_from_admin
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_mail')
+                        .custom-control.custom-switch
+                          - if @user.news_to_mail
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'admin_path.clients_info')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'placeholder.name')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-user-circle
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.name
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+                        label.text-uppercase = (t 'placeholder.email')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-envelope-open-text
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.email
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'placeholder.phone')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-mobile-alt
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.phone
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+                        label.text-uppercase = (t 'admin_path.cod_fiz')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.far.fa-file-alt
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.cod_fiz
+                          .input-focus-bg
+                    .col-12
+                      .form-group
+                        label.text-uppercase = (t 'admin_path.description_user')
+                        .form-control.form-round.form-control-lg.p-3.h-100
+                          p.mb-0.font-weight-500 = @user.company_description
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'admin_path.social_links')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Facebook
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-facebook-f
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_facebook.present?
+                              = link_to @user.web_facebook, @user.web_facebook, class: 'font-weight-500'
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Instagram
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-instagram
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_instagram.present?
+                              = link_to @user.web_instagram, @user.web_instagram, class: 'font-weight-500'
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Telegram
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-telegram-plane
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_telegram.present?
+                              = link_to @user.web_telegram, @user.web_telegram, class: 'font-weight-500'
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'admin_path.other_web')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-link
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_site.present?
+                              = link_to @user.web_site, @user.web_site, class: 'font-weight-500'
+                          .input-focus-bg
+  - if @user.posrednik?
+    .main-content.pt-0.mt-3.mt-lg-5
+      .section
+        .container
+          .row
+            .col-12
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'user_path.general_settings')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_notifications')
+                        .custom-control.custom-switch
+                          - if @user.notifications_web
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_messages')
+                        .custom-control.custom-switch
+                          - if @user.messages_from_admin
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+                    .col-12
+                      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .pr-4.pr-md-5
+                          h6.font-weight-700 = (t 'user_path.receive_mail')
+                        .custom-control.custom-switch
+                          - if @user.news_to_mail
+                            h6.font-weight-700.text-success = t :user_yes
+                          - else
+                            h6.font-weight-700.text-danger = t :user_no
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'admin_path.clients_info')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'placeholder.name')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-user-circle
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.name 
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+                        label.text-uppercase = (t 'placeholder.email')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-envelope-open-text
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.email
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'placeholder.phone')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-mobile-alt
+                          .form-control.form-control-lg.d-flex.align-items-center.font-weight-500 = @user.phone
+                          .input-focus-bg
+                    .col-12
+                      .form-group
+                        label.text-uppercase = (t 'admin_path.description_user')
+                        .form-control.form-round.form-control-lg.p-3.h-100
+                          p.mb-0.font-weight-500 = @user.company_description
+              .pb-3.mb-3
+                .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                  .header-with-action.d-flex.justify-content-between.align-items-center
+                    .header-name-page
+                      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                        = (t 'admin_path.social_links')
+                        .title-divider-round.mt-3
+                  .row
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Facebook
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-facebook-f
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_facebook.present?
+                              = link_to @user.web_facebook, @user.web_facebook, class: 'font-weight-500'
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Instagram
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-instagram
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_instagram.present?
+                              = link_to @user.web_instagram, @user.web_instagram, class: 'font-weight-500'
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase Telegram
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fab.fa-telegram-plane
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_telegram.present?
+                              = link_to @user.web_telegram, @user.web_telegram, class: 'font-weight-500'
+                          .input-focus-bg
+                    .col-md-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'admin_path.other_web')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-link
+                          .form-control.form-control-lg.d-flex.align-items-center.overflow-hidden
+                            - if @user.web_site.present?
+                              = link_to @user.web_site, @user.web_site, class: 'font-weight-500'
+                          .input-focus-bg
+
+- else
+  = render 'admin/no_access/noaccess'

@@ -1,0 +1,17 @@
+.main-content.bg-light
+  .section
+    .container
+      .row
+        .col-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+              .row
+                .col-12.col-md-10.offset-md-1.col-lg-8.offset-lg-2
+                  .text-center.mt-3.mb-4
+                    h5.font-weight-400.mb-3 = (t 'admin_path.no_access_1')
+                    h2.h1.section-title-3.font-weight-800 = (t 'admin_path.no_access_2')
+                    .lead-sm.pt-2
+                      = (t 'admin_path.no_access_3')
+                .col-lg-10.offset-lg-1
+                  .text-center
+                    = image_tag 'benefits-graphic.png', class: 'img-fluid add-animate', data: {:animated => 'fadeIn'}, alt: 'Polygraphy App'

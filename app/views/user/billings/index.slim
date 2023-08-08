@@ -1,0 +1,66 @@
+.pb-3.mb-3
+  .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+      = (t 'user_path.billings')
+      .title-divider-round.mt-3
+    .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3
+      .pr-4.pr-md-5
+        h6.font-weight-700 = (t 'user_path.payment_to_current')
+        p.mb-0 = (t 'user_path.payment_to_current_text1')
+      = form_for current_user, remote: true, url: user_billing_path(current_user) do |f|
+        .custom-control.custom-switch
+          = f.check_box :billing_to_check, class: 'custom-control-input', id: 'billing_to_check'
+          label.custom-control-label for="billing_to_check"
+
+
+    / Если не выбрана оплата на расчетный счет
+    / Если выбрана - ничего не показывается   
+
+    - if current_user.billing_card_number.present?
+      .row.align-items-center.justify-content-between.pb-3.mt-4
+        .col-md-9.col-xl-10.mb-4.mb-md-0
+          .d-md-flex.align-items-end
+            h6.font-weight-700
+              = current_user.billing_card_number
+          p.mb-0 = (t 'user_path.main_payment_method')
+        .col-md-3.col-xl-2.text-md-right
+          a.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-0 data-placement="top" data-toggle="tooltip" href="#" title="#{t 'user_path.delete_payment_method'}" 
+            i.far.fa-trash-alt
+- if current_user.billing_to_check?
+- else
+  .pb-3.mb-3.billing-to-check
+    .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+        = (t 'user_path.add_payment_method')
+        .title-divider-round.mt-3
+      = form_for current_user, url: user_billing_path(current_user) do |f|
+        .form-row
+          .col-12
+            .input-group.input-group-lg.input-group-round.mb-4
+              label.text-uppercase = (t 'user_path.card_number')
+              .input-group-inner
+                = f.text_field :billing_card_number, class: 'form-control form-control-lg', placeholder: "#{t 'user_path.card_number'}", required: 'required'
+                .input-focus-bg
+          .col-md-4
+            .input-group.input-group-lg.input-group-round.mb-4
+              label.text-uppercase = (t 'user_path.card_validity')
+              .input-group-inner
+                = f.text_field :billing_card_date, class: 'form-control form-control-lg', placeholder: "#{t 'user_path.card_validity'}", required: 'required'
+                .input-focus-bg
+          .col-md-4
+            .input-group.input-group-lg.input-group-round.mb-4
+              label.text-uppercase = (t 'user_path.card_cvv')
+              .input-group-inner
+                = f.text_field :billing_card_cvv, class: 'form-control form-control-lg', placeholder: 'CVV', required: 'required'
+                .input-focus-bg
+          .col-12.mt-3
+            .text-md-right
+              = link_to "#{t 'cencel'}", user_billings_path, class: 'btn btn-lg btn-round btn-outline-primary mr-2 mb-0'
+              = f.submit "#{t 'user_path.add'}", class: 'btn btn-lg btn-round btn-primary mb-0'
+
+- content_for :js
+  javascript:
+    $('#billing_to_check' ).click(function (){
+      $(this).find('[type=radio]').prop("checked", true);
+      $(this).closest('form').submit();
+    });

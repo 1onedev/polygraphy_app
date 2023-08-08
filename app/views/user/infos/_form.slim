@@ -1,0 +1,356 @@
+- if current_user.ur_lica? || current_user.tipografia?
+  = form_for current_user, url: user_info_path(current_user) do |f|
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.clients_info')
+          .title-divider-round.mt-3
+        .row
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'admin_path.name_representative')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-user-circle
+                = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_representative'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+              label.text-uppercase = (t 'placeholder.email')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-envelope-open-text
+                = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'placeholder.phone')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-mobile-alt
+                = f.text_field :phone, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.phone'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+              label.text-uppercase = (t 'admin_path.company_name')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.far.fa-building
+                = f.text_field :company_name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.company_name'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'admin_path.сod_ur')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.far.fa-file-alt
+                = f.text_field :cod_ur, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.сod_ur'}"
+                .input-focus-bg
+          .col-12
+            .form-group
+              label.text-uppercase = (t 'admin_path.company_description')
+              = f.text_area :company_description, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.company_description'}", rows: 5
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.photo')
+          .title-divider-round.mt-3
+        .row
+          .col-md-3.text-center.text-md-left.mb-3.mb-md-0
+            - if current_user.image.exists?
+              = image_tag current_user.image.url(:index), class: 'rounded-circle shadow admin-form', alt: current_user.name, id: 'imgpreview'
+            - else
+              = image_tag 'placeholder/default-avatar.jpg', class: 'rounded-circle shadow admin-form', alt: current_user.name, id: 'imgpreview'
+          .col-md-9.text-center.text-md-left
+            h5.font-weight-700.mb-4 = (t 'user_path.your_photo_or_logo')
+            .row.align-items-center.justify-content-between
+              .col-xl-8.mb-4.mb-xl-0
+                label.btn.btn-lg.btn-round.btn-primary.mr-1.mr-md-2.mb-0
+                  = t :upload
+                  span style="display:none"
+                    = f.file_field :image, id: 'imginput'
+              .col-xl-4
+                p.mb-0 = (t 'admin_path.photo_set')
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.company_social_links')
+          .title-divider-round.mt-3
+        .row
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'admin_path.web')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-link
+                = f.text_field :web_site, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_web'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Facebook
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-facebook-f
+                = f.text_field :web_facebook, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_fb'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Instagram
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-instagram
+                = f.text_field :web_instagram, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_insta'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Telegram
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-telegram-plane
+                = f.text_field :web_telegram, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_tg'}"
+                .input-focus-bg
+          .col-12.mt-2
+            .text-md-right
+              = link_to "#{t 'cencel'}", user_infos_path, class: 'btn btn-lg btn-round btn-outline-primary mr-2 mb-0'
+              = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mb-0'
+- if current_user.fiz_lica?
+  = form_for current_user, url: user_info_path(current_user) do |f|
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.clients_info')
+          .title-divider-round.mt-3
+        .row
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'placeholder.name')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-user-circle
+                = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+              label.text-uppercase = (t 'placeholder.email')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-envelope-open-text
+                = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'placeholder.phone')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-mobile-alt
+                = f.text_field :phone, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.phone'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+              label.text-uppercase = (t 'admin_path.cod_fiz')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.far.fa-file-alt
+                = f.text_field :cod_fiz, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.cod_fiz'}"
+                .input-focus-bg
+          .col-12
+            .form-group
+              label.text-uppercase = (t 'admin_path.description_user')
+              = f.text_area :company_description, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.description_user'}", rows: 5
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.photo')
+          .title-divider-round.mt-3
+        .row
+          .col-md-3.text-center.text-md-left.mb-3.mb-md-0
+            - if current_user.image.exists?
+              = image_tag current_user.image.url(:index), class: 'rounded-circle shadow admin-form', alt: current_user.name, id: 'imgpreview'
+            - else
+              = image_tag 'placeholder/default-avatar.jpg', class: 'rounded-circle shadow admin-form', alt: current_user.name, id: 'imgpreview'
+          .col-md-9.text-center.text-md-left
+            h5.font-weight-700.mb-4 = (t 'user_path.your_photo')
+            .row.align-items-center.justify-content-between
+              .col-xl-8.mb-4.mb-xl-0
+                label.btn.btn-lg.btn-round.btn-primary.mr-1.mr-md-2.mb-0
+                  = t :upload
+                  span style="display:none"
+                    = f.file_field :image, id: 'imginput'
+              .col-xl-4
+                p.mb-0 = (t 'admin_path.photo_set')
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.social_links')
+          .title-divider-round.mt-3
+        .row
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Facebook
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-facebook-f
+                = f.text_field :web_facebook, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_fb'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Instagram
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-instagram
+                = f.text_field :web_instagram, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_insta'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Telegram
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-telegram-plane
+                = f.text_field :web_telegram, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_tg'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'admin_path.other_web')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-link
+                = f.text_field :web_site, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_other_web'}"
+                .input-focus-bg
+          .col-12
+            .text-md-right
+              = link_to "#{t 'cencel'}", user_infos_path, class: 'btn btn-lg btn-round btn-outline-primary mr-2 mb-0'
+              = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mb-0'
+- if current_user.posrednik?
+  = form_for current_user, url: user_info_path(current_user) do |f|
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.clients_info')
+          .title-divider-round.mt-3
+        .row
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'placeholder.name')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-user-circle
+                = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pl-md-2
+              label.text-uppercase = (t 'placeholder.email')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-envelope-open-text
+                = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'placeholder.phone')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-mobile-alt
+                = f.text_field :phone, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.phone'}", required: 'required'
+                .input-focus-bg
+          .col-12
+            .form-group
+              label.text-uppercase = (t 'admin_path.description_user')
+              = f.text_area :company_description, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.description_user'}", rows: 5
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.photo')
+          .title-divider-round.mt-3
+        .row
+          .col-md-3.text-center.text-md-left.mb-3.mb-md-0
+            - if current_user.image.exists?
+              = image_tag current_user.image.url(:index), class: 'rounded-circle shadow admin-form', alt: current_user.name, id: 'imgpreview'
+            - else
+              = image_tag 'placeholder/default-avatar.jpg', class: 'rounded-circle shadow admin-form', alt: current_user.name, id: 'imgpreview'
+          .col-md-9.text-center.text-md-left
+            h5.font-weight-700.mb-4 = (t 'user_path.your_photo')
+            .row.align-items-center.justify-content-between
+              .col-xl-8.mb-4.mb-xl-0
+                label.btn.btn-lg.btn-round.btn-primary.mr-1.mr-md-2.mb-0
+                  = t :upload
+                  span style="display:none"
+                    = f.file_field :image, id: 'imginput'
+              .col-xl-4
+                p.mb-0 = (t 'admin_path.photo_set')
+    .pb-3.mb-3
+      .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = (t 'admin_path.social_links')
+          .title-divider-round.mt-3
+        .row
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Facebook
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-facebook-f
+                = f.text_field :web_facebook, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_fb'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Instagram
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-instagram
+                = f.text_field :web_instagram, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_insta'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase Telegram
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fab.fa-telegram-plane
+                = f.text_field :web_telegram, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_tg'}"
+                .input-focus-bg
+          .col-md-6
+            .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+              label.text-uppercase = (t 'admin_path.other_web')
+              .input-group-inner
+                .input-group-prepend
+                  span.input-group-text.input-group-icon
+                    i.fas.fa-link
+                = f.text_field :web_site, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.link_on_other_web'}"
+                .input-focus-bg
+          .col-12
+            .text-md-right
+              = link_to "#{t 'cencel'}", user_infos_path, class: 'btn btn-lg btn-round btn-outline-primary mr-2 mb-0'
+              = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mb-0'
+
+
+
+- content_for :js
+  javascript:
+    imginput.onchange = evt => {
+      const [file] = imginput.files
+      if (file) {
+        imgpreview.src = URL.createObjectURL(file)
+      }
+    }

@@ -1,0 +1,31 @@
+- if current_order.items.present?
+  .pb-2
+  - current_order.items.each do |item|
+    - if item.persisted?
+    
+      li.cart_product_list
+        .cart-img
+          = link_to polygraphy_path(item.product_circulation.product)
+            = image_tag item.product_circulation.product.image.url(:index)
+        h4
+          = link_to item.product_name, polygraphy_path(item.product_circulation.product)
+        span
+          = price_format(item.price.to_i)
+        = link_to order_item_path(current_order, item), method: :delete
+          i.fa.fa-times
+
+  li.cart_checkout_list
+    .mini-cart-price
+      h4.subtotal = t :total
+      span.subtotal-price
+        = price_format(current_order.items.sum(:price).to_i)
+    .checkout-btn.d-flex.justify-content-center
+      = link_to cart_path(params[:locale]), class: 'btn btn-round btn-primary'
+        = t :go_to_cart
+- else
+  .d-flex.justify-content-center.pt-4
+    p.m-0 = t :cart_empty
+  .d-flex.justify-content-center.pt-3
+    i.fas.fa-chevron-down
+  .d-flex.justify-content-center.pt-3.pb-4
+    = link_to "#{t :polygraphys_page}", polygraphys_path(params[:locale]), class: 'btn btn-round btn-primary m-0'

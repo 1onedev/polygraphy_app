@@ -1,0 +1,12 @@
+$('#sizes_select').html('')
+$('#covers_select').html('')
+$('#cover_colors_select').html('')
+$('#materials_select').html('')
+$('#colors_select').html('')
+
+
+$('#sizes_select').append('<%= j render partial: "sizes", locals: { sizes: @sizes } %>');
+$('#covers_select').append('<%= j render partial: "covers", locals: { covers: @covers } %>');
+$('#cover_colors_select').append('<%= j render partial: "cover_colors", locals: { cover_colors: @cover_colors } %>');
+$('#materials_select').append('<%= j render partial: "materials", locals: { materials: @materials } %>');
+$('#colors_select').append('<%= j render partial: "colors", locals: { colors: @colors } %>');

@@ -1,0 +1,67 @@
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      = form_for [:admin, @category] do |f|
+        .row
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.category_products')
+                      .title-divider-round.mt-3
+                .form-row
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_uk')
+                      .input-group-inner
+                        = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_uk'}", required: 'required'
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_ru')
+                      .input-group-inner
+                        = f.text_field :name_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_ru'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_en')
+                      .input-group-inner
+                        = f.text_field :name_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_en'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_he')
+                      .input-group-inner
+                        = f.text_field :name_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_he'}"
+                        .input-focus-bg
+                  - unless ProductCategory.exists?(ctp: true)
+                    .col-12.mt-2.d-flex.justify-content-between.align-items-center
+                      .pr-4.pr-md-5
+                        h6.font-weight-700 = t :making_CTP_page
+                        p.mb-0 = (t 'admin_path.set_ctp')
+                      .custom-control.custom-switch
+                        = f.check_box :ctp, id: "colors_check_2", class: 'custom-control-input'
+                        label.custom-control-label for="colors_check_2" 
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'services_page')
+                      .title-divider-round.mt-3
+                #products
+                  .form-row
+                    .col-12
+                      = f.fields_for :products do |product|
+                        = render 'product_fields', f: product
+                  .row.d-flex.justify-content-center
+                    .links.p-5
+                      = link_to_add_association f, :products, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0'
+                        i.fas.fa-plus
+                      span.ml-2 = (t 'admin_path.add_product')
+                .form-row
+                  = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                  = link_to "#{t 'cencel'}", admin_polygraphy_admin_path, class: 'btn btn-lg btn-round btn-outline-primary'  

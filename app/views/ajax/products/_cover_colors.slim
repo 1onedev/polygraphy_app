@@ -1,0 +1,5 @@
+- if @product.brochure? || @product.magazine?
+  - cover_colors.each do |cover_color|
+    .form-check.custom-control.custom-radio.mt-2.mb-0.my-md-2
+      = radio_button_tag :select_cover_color_id, cover_color.id, false, class: 'custom-control-input select_cover_color_id'
+      = label_tag "select_cover_color_id_#{cover_color.id}", cover_color.name_with_size, class: 'custom-control-label text-white-75'

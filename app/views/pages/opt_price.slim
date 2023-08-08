@@ -1,0 +1,37 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-08_4.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :opt_price_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = t :opt_price_page
+
+.section
+  .container-fluid.p-0
+    .row.no-gutters
+      .col-lg-5.bg-image.order-2.order-lg-1.d-flex.align-items-center data-img-src="#{image_path 'access-page-bg-02.jpg'}"  
+        .row
+          .col-12.pt-5.mt-4.pt-lg-0.mt-lg-0
+            .px-3.px-xl-4
+              blockquote.blockquote-2.blockquote-light-2.border-left.mb-5.mb-lg-0
+                p.mb-0 = t :opt_price_b_1_t_1
+                br = t :opt_price_b_1_t_2
+      .col-lg-7.order-1.order-lg-2
+        .py-5
+          .row.no-gutters
+            .col-md-10.offset-md-1.px-4
+              div data-height="7vw" 
+              h5.font-weight-400.mb-3 = t :opt_price_b_2_t_1
+              h2.h1.section-title-3.font-weight-800.text-left = t :opt_price_b_2_t_2
+              .lead-sm.pt-2.mb-5
+                = t :opt_price_b_2_t_3
+              div data-height="10px" 
+              = link_to new_user_registration_path, class: 'btn btn-lg btn-round btn-primary mb-0'
+                = t :sign_up
+              div data-height="7vw" 

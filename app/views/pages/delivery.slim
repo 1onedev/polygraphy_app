@@ -1,0 +1,22 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-01.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :delivery_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = t :delivery_page
+
+.main-content
+  .section.pt-4.pb-5
+    .container
+      .row.mt-3
+        .col-lg-10.offset-lg-1
+          .row.mb-5
+            .col-12
+              = @documents.delivery.try(:html_safe)

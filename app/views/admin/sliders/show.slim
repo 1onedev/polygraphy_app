@@ -1,0 +1,52 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_sliders_path
+                = (t 'admin_path.sliders')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = @slider.text
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+              .banner-slides-wrapper.arrow-nav-overflow data-dots="true" data-nav="true" 
+                .banner-slides-container.owl-carousel.owl-theme.owl-dot-light-1
+                  .d-flex.flex-column
+                    - if @slider.video.present? 
+                      .video-bg-block.d-flex.align-items-center
+                        = video_tag @slider.video, autoplay: :autoplay, loop: :loop, muted: :muted, class: 'bg-image'
+                        .container.video-bg
+                          .row
+                            .col-lg-8.col-xl-6.text-center.text-lg-left.py-5
+                              .px-md-5.pr-xl-0.py-5
+                                h2.h3.font-weight-300.text-white.add-animate.slide-animate data-animated="fadeInLeft"  = @slider.text
+                                h1.display-4.font-weight-800.text-white.mb-3.add-animate.slide-animate data-animated="fadeInRight" 
+                                  = @slider.text2
+                                .lead-sm.text-white-75.pb-3.mb-5.add-animate.slide-animate data-animated="fadeInLeft" = @slider.text3
+                                .add-animate.slide-animate data-animated="fadeIn" 
+                                  = link_to @slider.button_url, class: 'btn btn-lg btn-round btn-primary btn-gray-shadow mx-2 ml-lg-0' 
+                                    = @slider.button_title
+                    - else
+                      .page-header-block-height.d-flex.align-items-center.bg-image data-img-src="#{image_path @slider.image.url(:index)}" 
+                        .container
+                          .row
+                            .col-lg-8.col-xl-6.text-center.text-lg-left.py-5
+                              .px-md-5.pr-xl-0.py-5
+                                h2.h3.font-weight-300.text-white.add-animate.slide-animate data-animated="fadeInLeft"  = @slider.text
+                                h1.display-4.font-weight-800.text-white.mb-3.add-animate.slide-animate data-animated="fadeInRight" 
+                                  = @slider.text2
+                                .lead-sm.text-white-75.pb-3.mb-5.add-animate.slide-animate data-animated="fadeInLeft" = @slider.text3
+                                .add-animate.slide-animate data-animated="fadeIn" 
+                                  = link_to @slider.button_url, class: 'btn btn-lg btn-round btn-primary btn-gray-shadow mx-2 ml-lg-0' 
+                                    = @slider.button_title
+              .d-flex.justify-content-center.mt-5
+                = link_to "#{t 'admin_path.edit'}", edit_admin_slider_path(@slider), class: 'btn btn-lg btn-round btn-outline-primary mr-2'
+                = link_to "#{t 'admin_path.all_slides'}", admin_sliders_path, class: 'btn btn-lg btn-round btn-primary'

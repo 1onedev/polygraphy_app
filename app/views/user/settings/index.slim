@@ -1,0 +1,39 @@
+= form_for current_user, remote: true, url: user_setting_path(current_user) do |f|
+  .pb-3.mb-3
+    .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+        = (t 'user_path.general_settings')
+        .title-divider-round.mt-3
+      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'user_path.receive_notifications')
+          p.mb-0 = (t 'user_path.receive_notifications_text1')
+        .custom-control.custom-switch
+          = f.check_box :notifications_web, class: 'custom-control-input', id: 'customSwitch1'
+          label.custom-control-label for="customSwitch1" 
+      .d-flex.w-100.align-items-center.justify-content-between.pb-3.mb-4
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'user_path.receive_messages')
+          p.mb-0 = (t 'user_path.receive_messages_text1')
+        .custom-control.custom-switch
+          = f.check_box :messages_from_admin, class: 'custom-control-input', id: 'customSwitch2'
+          label.custom-control-label for="customSwitch2" 
+  .pb-3.mb-3
+    .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+      h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+        = (t 'user_path.mail_settings')
+        .title-divider-round.mt-3
+      .d-flex.w-100.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'user_path.receive_mail')
+          p.mb-0 = (t 'user_path.receive_mail_text1')
+        .custom-control.custom-switch
+          = f.check_box :news_to_mail, class: 'custom-control-input', id: 'customSwitch5'
+          label.custom-control-label for="customSwitch5" 
+
+- content_for :js
+  javascript:
+    $('#customSwitch1, #customSwitch2, #customSwitch5' ).click(function (){
+      $(this).find('[type=radio]').prop("checked", true);
+      $(this).closest('form').submit();
+    });

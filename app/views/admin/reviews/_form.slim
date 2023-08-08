@@ -1,0 +1,116 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_reviews_path
+                = (t 'admin_path.reviews')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.edit_reviews')
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+              .row
+                .col-12
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = (t 'admin_path.edit_reviews')
+                    .title-divider-round.mt-3
+              = form_for [:admin, @review] do |f|
+                .form-row
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.photo_reviews')
+                      .input-group-inner
+                        .row.d-flex.align-items-center
+                          .col-lg-2
+                            - if @review.image.exists?
+                              = image_tag @review.image.url(:index), class: 'rounded-circle shadow admin-image', alt: @review.client, id: 'imgpreview'
+                            - else
+                              = image_tag 'placeholder/default-avatar.jpg', class: 'rounded-circle shadow admin-image', alt: @review.client, id: 'imgpreview'
+                          .col-lg-10
+                            .row.align-items-center.justify-content-between
+                              .col-12.d-flex.align-items-center.mt-3.mt-lg-0
+                                label.btn.btn-lg.btn-round.btn-primary.mb-0
+                                  = t :upload
+                                  span style="display:none"
+                                    = f.file_field :image, id: 'imginput'
+                                p.mb-0.ml-lg-4 = (t 'admin_path.photo_set')
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'placeholder.name_on_uk')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :client, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name_on_uk'}", required: 'required'
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'placeholder.name_on_ru')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :client_ru, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name_on_ru'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'placeholder.name_on_en')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :client_en, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name_on_en'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'placeholder.name_on_he')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-user-circle
+                        = f.text_field :client_he, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.name_on_he'}"
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.review_on_uk')
+                      .input-group-inner
+                        = f.text_area :text, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.review_on_uk'}", rows: 4, required: 'required'
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.review_on_ru')
+                      .input-group-inner
+                        = f.text_area :text_ru, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.review_on_ru'}", rows: 4
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.review_on_en')
+                      .input-group-inner
+                        = f.text_area :text_en, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.review_on_en'}", rows: 4
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.review_on_he')
+                      .input-group-inner
+                        = f.text_area :text_he, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.review_on_he'}", rows: 4
+                        .input-focus-bg
+                .form-row
+                  = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                  = link_to "#{t 'cencel'}", admin_reviews_path, class: 'btn btn-lg btn-round btn-outline-primary'
+
+- content_for :js
+  javascript:
+    imginput.onchange = evt => {
+      const [file] = imginput.files
+      if (file) {
+        imgpreview.src = URL.createObjectURL(file)
+      }
+    }

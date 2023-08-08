@@ -1,0 +1,94 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-08.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :polygraphys_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.active aria-current="page" = t :polygraphys_page
+
+
+.main-content.pb-0
+  .section.pt-3.pb-5
+    .container
+      .row
+        .col-lg-4
+          .pb-3.mb-3
+            #sidebarMenu.d-block.collapse
+              ul.list-group.list-group-flush.pt-0
+                .border-active class="#{'active' if params[:product_category] == nil && params[:controller] == 'polygraphys'}"
+                    .list-group-item.list-group-item-action.d-flex.align-items-center.px-4.px-md-5.px-lg-4.px-xl-5.justify-content-between
+                      = link_to polygraphys_path(params[:locale], product_category: nil), class: 'text-dark'
+                        = t :all_categories
+                - @product_categories.each_with_index do |product_category, index|
+                  .border-active class="#{'active' if params[:product_category] == product_category.id.to_s}"
+                    .list-group-item.list-group-item-action.d-flex.align-items-center.px-4.px-md-5.px-lg-4.px-xl-5.justify-content-between
+                      = link_to polygraphys_path(params[:locale], product_category: product_category.id), class: 'text-dark'
+                        = product_category.name
+                        a data-toggle="collapse" href="#collapseExample#{index}" role="button" aria-expanded="false" aria-controls="collapseExample#{index}"
+                          i.fas.fa-plus
+                    .collapse id="collapseExample#{index}" class="#{'show' if params[:controller] == 'user/orders'}"
+                      ul.list-group.list-group-flush.pt-0.pb-0.pl-4.list-style-none
+                        - product_category.products.each do |product|
+                          li.pt-2.pb-2
+                            .child-border-active
+                              = link_to polygraphy_path(params[:locale], product.slug), class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                                = product.name
+
+
+
+
+        .col-lg-8
+          / .grid-item-filter2
+          /   ul.nav.nav-pills
+          /     li.nav-item.my-2
+          /       = link_to polygraphys_path(params[:locale], product_tag: nil)
+          /         .nav-link class="#{'active' if params[:product_tag] == nil && params[:controller] == 'polygraphys'}"
+          /           = t :all_categories
+          /     - @product_tags.each do |product_tag|
+          /       li.nav-item.my-2
+          /         = link_to polygraphys_path(params[:locale], product_tag: product_tag.id)
+          /           .nav-link class="#{'active' if params[:product_tag] == product_tag.id.to_s}"
+          /             = product_tag.name
+
+          .row.mb-2
+            .col-12
+              #portfolioItems.row.grid-item-layout data-gutter="32" data-layout-mode="fitRows" 
+                - @products.each do |product|
+                  .col-md-6.col-lg-4.grid-item
+                    .card.card-blog-entry.border-0.plain-card.mb-2
+                      .card-blog-img.hover-item.hover-scale.hover-uncaption.rounded
+                        = link_to polygraphy_path(params[:locale], product.slug)
+                          .hover-transition
+                          figure
+                            = image_tag product.image.url(:index), class: 'img-fluid', alt: product.name
+                      .card-body
+                        h5.font-weight-700.mt-2
+                          = link_to product.name, polygraphy_path(params[:locale], product.slug), class: 'text-dark-gray'
+                        ul.meta-entry.mb-2
+                          li.meta-entry-item
+                            = product.product_category.name
+                        .card-price
+                          .price = price_format(product.price)
+
+
+              .col-12
+                = paginate @products
+
+  .section.bg-image.py-5 data-img-src="#{image_path 'portfolio-cta-bg.jpg'}" 
+    .container
+      .row.my-5
+        .col-lg-8.offset-lg-2
+          .text-center.my-4
+            h4.font-weight-300.text-white.mb-3.mb-md-2 = t :polygraphys_b_1_t_1
+            h2.display-4.font-weight-800.text-white.mb-4 = t :polygraphys_b_1_t_2 
+            .lead-sm.text-white-75.mb-5
+              = t :polygraphys_b_1_t_3
+            div data-height="10px"
+            = link_to contacts_path(params[:locale]), class: 'btn btn-lg btn-round btn-dark mb-0'
+              = t :contacts_page

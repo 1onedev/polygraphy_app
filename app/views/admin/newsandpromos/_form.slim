@@ -1,0 +1,251 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_newsandpromos_path
+                = (t 'admin_path.news')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.edit_newsandpromo')
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+              .row
+                .col-12
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = (t 'admin_path.edit_newsandpromo')
+                    .title-divider-round.mt-3
+              = form_for [:admin, @newsandpromo] do |f|
+                .form-row
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.tag_on_uk')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-purchase-tag-alt
+                        = f.text_field :tag, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.tag_on_uk'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.tag_on_ru')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-purchase-tag-alt
+                        = f.text_field :tag_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.tag_on_ru'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.tag_on_en')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-purchase-tag-alt
+                        = f.text_field :tag_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.tag_on_en'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.tag_on_he')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-purchase-tag-alt
+                        = f.text_field :tag_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.tag_on_he'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_uk')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-text
+                        = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_uk'}", required: 'required'
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_ru')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-text
+                        = f.text_field :name_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_ru'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_en')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-text
+                        = f.text_field :name_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_en'}"
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.name_on_he')
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.bx.bx-text
+                        = f.text_field :name_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_he'}"
+                        .input-focus-bg
+                  .col-12
+                    .mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.main_photo')
+                      .row.d-flex.align-items-center
+                        .col-lg-5
+                          - if @newsandpromo.image.exists?
+                            = image_tag @newsandpromo.image.url(:index), class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview'
+                          - else
+                            = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview'
+                        .col-lg-7
+                          .row.align-items-center.justify-content-between
+                            .col-12
+                              label.btn.btn-lg.btn-round.btn-primary.mb-0
+                                = t :upload
+                                span style="display:none"
+                                  = f.file_field :image, id: 'imginput'
+                              p.mb-0.mt-4 = (t 'admin_path.photo_set')
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_up_slider_on_uk')
+                      .input-group-inner
+                        = f.text_area :description, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_up_slider_on_uk'}", rows: 7, required: 'required'
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_up_slider_on_ru')
+                      .input-group-inner
+                        = f.text_area :description_ru, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_up_slider_on_ru'}", rows: 7
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_up_slider_on_en')
+                      .input-group-inner
+                        = f.text_area :description_en, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_up_slider_on_en'}", rows: 7
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_up_slider_on_he')
+                      .input-group-inner
+                        = f.text_area :description_he, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_up_slider_on_he'}", rows: 7
+                        .input-focus-bg
+                  .col-12
+                    .mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.photo_for_slider')
+                      .row.d-flex.align-items-center
+                        .col-lg-5
+                          - if @newsandpromo.image2.exists?
+                            = image_tag @newsandpromo.image2.url(:index), class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview2'
+                          - else
+                            = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview2'
+                        .col-lg-7
+                          .row.align-items-center.justify-content-between
+                            .col-12
+                              label.btn.btn-lg.btn-round.btn-primary.mb-0
+                                = t :upload
+                                span style="display:none"
+                                  = f.file_field :image2, id: 'imginput2'
+                              p.mb-0.mt-4 = (t 'admin_path.photo_set')
+                  .col-12
+                    .mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.photo_for_slider')
+                      .row.d-flex.align-items-center
+                        .col-lg-5
+                          - if @newsandpromo.image3.exists?
+                            = image_tag @newsandpromo.image3.url(:index), class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview3'
+                          - else
+                            = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview3'
+                        .col-lg-7
+                          .row.align-items-center.justify-content-between
+                            .col-12
+                              label.btn.btn-lg.btn-round.btn-primary.mb-0
+                                = t :upload
+                                span style="display:none"
+                                  = f.file_field :image3, id: 'imginput3'
+                              p.mb-0.mt-4 = (t 'admin_path.photo_set')
+                  .col-12
+                    .mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.photo_for_slider')
+                      .row.d-flex.align-items-center
+                        .col-lg-5
+                          - if @newsandpromo.image4.exists?
+                            = image_tag @newsandpromo.image4.url(:index), class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview4'
+                          - else
+                            = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid border-radius-admin w-100', alt: @newsandpromo.name, id: 'imgpreview4'
+                        .col-lg-7
+                          .row.align-items-center.justify-content-between
+                            .col-12
+                              label.btn.btn-lg.btn-round.btn-primary.mb-0
+                                = t :upload
+                                span style="display:none"
+                                  = f.file_field :image4, id: 'imginput4'
+                              p.mb-0.mt-4 = (t 'admin_path.photo_set')
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_under_slider_on_uk')
+                      .input-group-inner
+                        = f.text_area :text, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_under_slider_on_uk'}", rows: 7, required: 'required'
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_under_slider_on_ru')
+                      .input-group-inner
+                        = f.text_area :text_ru, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_under_slider_on_ru'}", rows: 7
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_under_slider_on_en')
+                      .input-group-inner
+                        = f.text_area :text_en, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_under_slider_on_en'}", rows: 7
+                        .input-focus-bg
+                  .col-md-6
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'admin_path.text_under_slider_on_he')
+                      .input-group-inner
+                        = f.text_area :text_he, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.text_under_slider_on_he'}", rows: 7
+                        .input-focus-bg
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase Настройки
+                      .input-group-inner
+                        .custom-control.custom-switch
+                          = f.check_box :published, id:'customSwitch1', class: 'custom-control-input'
+                          = f.label :published, "#{t 'publishing'}", for: 'customSwitch1', class: 'custom-control-label'
+                .form-row
+                  = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                  = link_to "#{t 'cencel'}", admin_newsandpromos_path, class: 'btn btn-lg btn-round btn-outline-primary'
+
+- content_for :js
+  javascript:
+    imginput.onchange = evt => {
+      const [file] = imginput.files
+      if (file) {
+        imgpreview.src = URL.createObjectURL(file)
+      }
+    }
+    imginput2.onchange = evt => {
+      const [file] = imginput2.files
+      if (file) {
+        imgpreview2.src = URL.createObjectURL(file)
+      }
+    }
+    imginput3.onchange = evt => {
+      const [file] = imginput3.files
+      if (file) {
+        imgpreview3.src = URL.createObjectURL(file)
+      }
+    }
+    imginput4.onchange = evt => {
+      const [file] = imginput4.files
+      if (file) {
+        imgpreview4.src = URL.createObjectURL(file)
+      }
+    }

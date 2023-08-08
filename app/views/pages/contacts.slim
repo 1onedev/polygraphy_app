@@ -1,0 +1,54 @@
+.container-fluid.px-0
+  .row.map-wrapper.no-gutters
+    .col-12.map-container
+      iframe allowfullscreen="" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.512073835016!2d28.425364015283915!3d49.22877987932548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472d5c638c1cf647%3A0x9234ee4016654b5a!2z0YPQuy4gNjAwLdC70LXRgtC40Y8sIDE3LCDQktC40L3QvdC40YbQsCwg0JLQuNC90L3QuNGG0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCAyMTAwMA!5e0!3m2!1sru!2sua!4v1641564122849!5m2!1sru!2sua" style="border:0;" width="100%" height="100%"
+
+.main-content.py-0
+  .section.pb-5
+    .container
+      .row.no-gutters.position-relative.overflow-hidden.mt-up75.mt-md-up100.mt-lg-up125.mb-5.shadow-lg.rounded-xl
+        .col-lg-7.bg-white.px-3.py-5.p-md-5
+          .px-3.py-4
+            h3.section-title-3.text-left.font-weight-700.mb-4 = t :contact_b_1_t_1
+            = form_for Feedback.new, remote: true, html: { id: 'new_feedback', class: 'pt-4'} do |f|
+              .row
+                .form-group.col-md-6.pb-3.mb-3
+                  = f.text_field :name, class: 'form-control form-round form-control-lg', placeholder: "#{t 'placeholder.name'}", required: 'required'
+                .form-group.col-md-6.pb-3.mb-3
+                  = f.email_field :email, class: 'form-control form-round form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                .form-group.col-12.pb-3.mb-3
+                  = f.text_field :theme, class: 'form-control form-round form-control-lg', placeholder: "#{t 'placeholder.email_theme'}", required: 'required'
+                .form-group.col-12.mb-5
+                  = f.text_area :text, class: 'form-control form-round form-control-lg py-3', placeholder: "#{t 'placeholder.text'}", rows: 7, required: 'required'
+                .col-md-6.col-lg-12.col-xl-6
+                  = f.button class: 'btn btn-block btn-round btn-lg btn-primary'
+                    = t :send
+        .col-lg-5
+          .contact-box.h-100.px-4.py-5.text-white-75.bg-image data-img-src="#{image_path 'contact-box-bg-05.jpg'}" 
+            .px-xl-3.py-4
+              h3.section-title-3.title-light-1.text-left.font-weight-700.mb-4 = t :contacts_page
+              .row.contact-info-list.pt-4.mb-5
+                .col-md-6.col-lg-12.contact-info-item
+                  .icon-info-1
+                    .icon-element.text-white.pt-1
+                      i.fas.fa-map-marker-alt.fa-2x
+                    .icon-info-text.pl-2
+                      h6.mb-1.font-weight-700.text-white = t :adress
+                      p.mb-0
+                        = t :adress_name
+                .col-md-6.col-lg-12.contact-info-item
+                  .icon-info-1
+                    .icon-element.text-white.pt-1
+                      i.fas.fa-mobile-alt.fa-2x
+                    .icon-info-text.pl-2
+                      h6.mb-1.font-weight-700.text-white = t :phone
+                      p.mb-0
+                        a.text-white-75 href="tel:+111111111" +111111111
+                .col-md-6.col-lg-12.contact-info-item
+                  .icon-info-1
+                    .icon-element.text-white.pt-1
+                      i.fas.fa-paper-plane.fa-2x
+                    .icon-info-text.pl-2
+                      h6.mb-1.font-weight-700.text-white Email
+                      a.text-white-75 href="mailto:polygraphyapp@gmail.com" polygraphyapp@gmail.com
+      

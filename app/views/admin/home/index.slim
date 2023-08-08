@@ -1,0 +1,354 @@
+- if current_admin.vladelec?
+  .main-content.bg-light.pt-0
+    .section.mt-up75
+      .container
+        .row
+          .col-lg-4
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.income')
+                      .title-divider-round.mt-3
+                    .dropdown
+                      a#dropdownMenuButton.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-4.ml-3.dropdown-toggle.d-flex.justify-content-center aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+                      .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                        = link_to "#{t 'admin_path.for_today'}", admin_adminincomes_path(date: 'today'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_tomorow'}", admin_adminincomes_path(date: 'yesterday'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_week'}", admin_adminincomes_path(date: 'week'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_month'}", admin_adminincomes_path(date: 'months'), remote: true, class: 'dropdown-item'
+                  .col-12
+                    #total-income-count
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.admin = price_format(@items_all.sum(&:price) + @items_all_with_changed_price.sum(&:changed_price) + @items_all_additional_service.sum(&:price) + @items_all_with_changed_price_additional_service.sum(&:price))
+                      .d-flex.justify-content-center.mt-4
+                        small.text-uppercase = (t 'admin_path.for_today')
+          .col-lg-8
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'profit')
+                      .title-divider-round.mt-3
+                    .dropdown
+                      a#dropdownMenuButton.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-4.ml-3.dropdown-toggle.d-flex.justify-content-center aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+                      .dropdown-menu.dropdown-menu-right aria-labelledby="dropdownMenuButton" 
+                        = link_to "#{t 'admin_path.for_today'}", admin_adminclearincomes_path(date: 'today'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_tomorow'}", admin_adminclearincomes_path(date: 'yesterday'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_week'}", admin_adminclearincomes_path(date: 'week'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_month'}", admin_adminclearincomes_path(date: 'months'), remote: true, class: 'dropdown-item'
+                  .col-12
+                    #total-clear-income-count
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.admin = price_format(@items_clear_incomes.sum(&:profit))
+                      .d-flex.justify-content-center.mt-4
+                        small.text-uppercase = (t 'admin_path.for_today')
+          .col-lg-4
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'user_path.orders')
+                      .title-divider-round.mt-3
+                    .dropdown
+                      a#dropdownMenuButton.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-4.ml-3.dropdown-toggle.d-flex.justify-content-center aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+                      .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                        = link_to "#{t 'admin_path.for_today'}", admin_adminjsorders_path(date: 'today'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_tomorow'}", admin_adminjsorders_path(date: 'yesterday'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_week'}", admin_adminjsorders_path(date: 'week'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_month'}", admin_adminjsorders_path(date: 'months'), remote: true, class: 'dropdown-item'
+                  .col-12
+                    #total-orders-count
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.admin = @items_all.count + @items_all_with_changed_price.count
+                      .d-flex.justify-content-center.mt-4
+                        small.text-uppercase = (t 'admin_path.for_today')
+          .col-lg-4
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.orders_in_work')
+                      .title-divider-round.mt-3
+                  .col-12
+                    .card-price.d-flex.justify-content-center.m-0
+                      .price.admin = @items_in_work.count
+                    .d-flex.justify-content-center.mt-4
+                      small.text-uppercase = (t 'admin_path.in_work')
+
+          .col-lg-4
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.new_clients')
+                      .title-divider-round.mt-3
+                    .dropdown
+                      a#dropdownMenuButton.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-4.ml-3.dropdown-toggle.d-flex.justify-content-center aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+                      .dropdown-menu.dropdown-menu-right aria-labelledby="dropdownMenuButton"
+                        = link_to "#{t 'admin_path.for_today'}", admin_root_path(date: 'today'), remote: true, class: 'dropdown-item' 
+                        = link_to "#{t 'admin_path.for_tomorow'}", admin_root_path(date: 'yesterday'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_week'}", admin_root_path(date: 'week'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_month'}", admin_root_path(date: 'months'), remote: true, class: 'dropdown-item'
+                  .col-12 
+                    #new-users-count
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.admin = User.where('created_at >= ? AND created_at <= ?', Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).count
+                      .d-flex.justify-content-center.mt-4
+                        small.text-uppercase = (t 'admin_path.for_today')
+          .col-lg-12
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+              .row
+                .col-12
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = (t 'user_path.messages')
+                    .title-divider-round.mt-3
+                .col-12
+                  - if @messages.present?
+                    - @messages.each do |message|
+                      .row.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                        .col-md-9.col-xl-10.mb-2.mb-md-0
+                          .menages-message-first.d-flex.align-items-center
+                            - if message.admin
+                              = image_tag message.admin.image.url(:index), class: 'rounded-circle shadow message', alt: message.admin.name
+                            - else
+                              = image_tag message.user&.image.url(:index), class: 'rounded-circle shadow message', alt: message.user&.name
+                            .name-and-description-menages.ml-4
+                              - if message.admin
+                                h5.mb-0 = message.admin.name
+                              - else
+                                h5.mb-0 = message.user&.name
+                              small.font-italic = message.created_at.strftime('%d.%m.%Y')
+                              p.mb-0 = message.text
+                        - if message.admin
+                        - else
+                          .col-md-3.col-xl-2.text-md-right
+                            = link_to new_admin_message_path(user_id: params[:user_id]), class: 'btn btn-round btn-icon-only btn-light btn-sm mb-0'
+                              i.fas.fa-reply
+                    .d-flex.justify-content-center
+                      = link_to "#{t 'user_path.all_messages'}", admin_messages_path, class: 'btn btn-round btn-outline-primary mb-0'
+                  - else
+                    .d-flex.align-items-center.justify-content-center.py-5
+                      h4.mb-0.d-inline-block = (t 'admin_path.no_massage')
+                    .col-12.d-flex.justify-content-center
+                      = link_to "#{t 'admin_path.new_message'}", admin_users_path, class: 'btn btn-round btn-primary'
+
+- if current_admin.meneger?
+  .main-content.bg-light.pt-0
+    .section.mt-up75
+      .container
+        .row
+          .col-lg-8
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'user_path.orders')
+                      .title-divider-round.mt-3
+                  .col-12
+                    - if @items.present?
+                      table.table.table-custom-2.mb-5
+                        tbody
+                          - @items.each do |item|
+                            tr
+                              th scope="row" = item.order.number_with_sign
+                              td = link_to item.product_name, admin_order_path(item)
+                              td = count_format(item.product_circulation_count)
+                              td 
+                                - if item.changed_price.present?  
+                                  = price_format(item.changed_price.to_i + item.additional_services.sum(&:price))
+                                - else
+                                  = price_format(item.price.to_i + item.additional_services.sum(&:price))
+                              td = price_format item.profit
+                              td.d-flex.justify-content-between
+                                = item_status_tag(item)
+                                = link_to admin_order_path(item), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => 'top', :toggle => 'tooltips'}, title: "#{t 'admin_path.look_order'}"
+                                  i.far.fa-eye
+                    - else
+                      .d-flex.align-items-center.justify-content-center.py-5
+                        h4.mb-0.d-inline-block = (t 'admin_path.no_orders')
+
+          .col-lg-4
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.orders_in_work')
+                      .title-divider-round.mt-3
+                  .col-12
+                    .card-price.d-flex.justify-content-center.m-0
+                      .price.admin = @items_in_work.count
+                    .d-flex.justify-content-center.mt-4
+                      small.text-uppercase = (t 'admin_path.in_work')
+          .col-lg-8
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'user_path.messages')
+                      .title-divider-round.mt-3
+                  .col-12
+                    - if @messages.present?
+                      - @messages.each do |message|
+                        .row.align-items-center.justify-content-between.pt-1.pb-3.mb-4
+                          .col-md-9.col-xl-10.mb-2.mb-md-0
+                            .menages-message-first.d-flex.align-items-center
+                              - if message.admin
+                                = image_tag message.admin.image.url(:index), class: 'rounded-circle shadow message', alt: message.admin.name
+                              - else
+                                = image_tag message.user&.image.url(:index), class: 'rounded-circle shadow message', alt: message.user&.name
+                              .name-and-description-menages.ml-4
+                                - if message.admin
+                                  h5.mb-0 = message.admin.name
+                                - else
+                                  h5.mb-0 = message.user&.name
+                                small.font-italic = message.created_at.strftime('%d.%m.%Y')
+                                p.mb-0 = message.text
+                          - if message.admin
+                          - else
+                            .col-md-3.col-xl-2.text-md-right
+                              = link_to new_admin_message_path(user_id: params[:user_id]), class: 'btn btn-round btn-icon-only btn-light btn-sm mb-0'
+                                i.fas.fa-reply
+                      .d-flex.justify-content-center
+                        = link_to "#{t 'user_path.all_messages'}", admin_messages_path, class: 'btn btn-round btn-outline-primary mb-0'
+                    - else
+                      .d-flex.align-items-center.justify-content-center.py-5
+                        h4.mb-0.d-inline-block = (t 'admin_path.no_massage')
+                      .col-12.d-flex.justify-content-center
+                        = link_to "#{t 'admin_path.new_message'}", admin_users_path, class: 'btn btn-round btn-primary'
+          
+          .col-lg-4
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.new_clients')
+                      .title-divider-round.mt-3
+                    .dropdown
+                      a#dropdownMenuButton.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-4.ml-3.dropdown-toggle.d-flex.justify-content-center aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+                      .dropdown-menu.dropdown-menu-right aria-labelledby="dropdownMenuButton"
+                        = link_to "#{t 'admin_path.for_today'}", admin_root_path(date: 'today'), remote: true, class: 'dropdown-item' 
+                        = link_to "#{t 'admin_path.for_tomorow'}", admin_root_path(date: 'yesterday'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_week'}", admin_root_path(date: 'week'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_month'}", admin_root_path(date: 'months'), remote: true, class: 'dropdown-item'
+                  .col-12 
+                    #new-users-count
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.admin = User.where('created_at >= ? AND created_at <= ?', Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).count
+                      .d-flex.justify-content-center.mt-4
+                        small.text-uppercase = (t 'admin_path.for_today')
+
+- if current_admin.rabotnik?
+  .main-content.bg-light.pt-0
+    .section.mt-up75
+      .container
+        .row
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'user_path.orders')
+                      .title-divider-round.mt-3
+                  .col-12
+                    - if @items_in_work.present?
+                      table.table.table-custom-2.mb-5
+                        tbody
+                          - @items_in_work.each do |item|
+                            tr
+                              th scope="row" = item.order.number_with_sign
+                              td = link_to item.product_name, admin_order_path(item)
+                              td = count_format(item.product_circulation_count)
+                              td = price_format(item.price.to_i)
+                              td.d-flex.justify-content-between
+                                = item_status_tag(item)
+                                = link_to admin_order_path(item), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => 'top', :toggle => 'tooltips'}, title: "#{t 'admin_path.look_order'}"
+                                  i.far.fa-eye
+                    - else
+                      .row
+                        .col-12.d-flex.align-items-center.justify-content-center.py-5
+                          h4.mb-0.d-inline-block = (t 'admin_path.no_orders')
+
+- if current_admin.bugalter?
+  .main-content.bg-light.pt-0
+    .section.mt-up75
+      .container
+        .row
+          .col-lg-6
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.income')
+                      .title-divider-round.mt-3
+                    .dropdown
+                      a#dropdownMenuButton.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-4.ml-3.dropdown-toggle.d-flex.justify-content-center aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+                      .dropdown-menu aria-labelledby="dropdownMenuButton" 
+                        = link_to "#{t 'admin_path.for_today'}", admin_adminincomes_path(date: 'today'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_tomorow'}", admin_adminincomes_path(date: 'yesterday'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_week'}", admin_adminincomes_path(date: 'week'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_month'}", admin_adminincomes_path(date: 'months'), remote: true, class: 'dropdown-item'
+                  .col-12
+                    #total-income-count
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.admin = price_format(@items_all.sum(&:price) + @items_all_with_changed_price.sum(&:changed_price) + @items_all_additional_service.sum(&:price) + @items_all_with_changed_price_additional_service.sum(&:price))
+                      .d-flex.justify-content-center.mt-4
+                        small.text-uppercase = (t 'admin_path.for_today')
+          .col-lg-6
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'user_path.orders')
+                      .title-divider-round.mt-3
+                    .dropdown
+                      a#dropdownMenuButton.btn.btn-round.btn-icon-only.btn-light.btn-sm.tooltip-btn.mb-4.ml-3.dropdown-toggle.d-flex.justify-content-center aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+                      .dropdown-menu.dropdown-menu-right aria-labelledby="dropdownMenuButton" 
+                        = link_to "#{t 'admin_path.for_today'}", admin_adminjsorders_path(date: 'today'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_tomorow'}", admin_adminjsorders_path(date: 'yesterday'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_week'}", admin_adminjsorders_path(date: 'week'), remote: true, class: 'dropdown-item'
+                        = link_to "#{t 'admin_path.for_month'}", admin_adminjsorders_path(date: 'months'), remote: true, class: 'dropdown-item'
+                  .col-12
+                    #total-orders-count
+                      .card-price.d-flex.justify-content-center.m-0
+                        .price.admin = @items_all.count + @items_all_with_changed_price.count
+                      .d-flex.justify-content-center.mt-4
+                        small.text-uppercase = (t 'admin_path.for_today')
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-between
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.sales')
+                      .title-divider-round.mt-3
+                    .search-admin
+                  .col-12
+                    - if @items_bugalter.present?
+                      table.table.table-custom-2.mb-5
+                        tbody
+                          - @items_bugalter.each do |item|
+                            tr
+                              td = item.order.number_with_sign
+                              td = item.created_at.strftime("%d.%m.%Y %H:%M")
+                              td = item.product_name
+                              td = count_format(item.product_circulation_count)
+                              td = price_format(item.price.to_i)
+                              td = item_status_tag(item)
+                    - else
+                      .row
+                        .col-12.d-flex.align-items-center.justify-content-center.py-5
+                          h4.mb-0.d-inline-block = (t 'admin_path.no_seles')
+                    

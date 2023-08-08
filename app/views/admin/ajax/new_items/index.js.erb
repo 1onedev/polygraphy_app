@@ -1,0 +1,6 @@
+<% if @new_items.present? %>
+  var $html = $("<a href='/admin/new_orders' class='d-flex align-items-center'><i class='bx bx-bell'></i></a>");
+  $('#new_orders_button').html($html);
+<% else %>
+  // do nothing
+<% end %>

@@ -1,0 +1,206 @@
+/ do not remove .nested-fields class
+.col-12
+  .nested-fields
+    .form-row.edit-material-categories
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :assembly
+          p.mb-0 = t :assembly_text
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.paper_format')
+            .input-group-inner
+              = f.select :assembly, Product.assemblies.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'assembly'}" }, { class: 'custom-select custom-select-lg' }
+              .input-focus-bg
+      / .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+      /   .pr-4.pr-md-5
+      /     h6.font-weight-700 = (t 'admin_path.fast_category')
+      /     p.mb-0 = (t 'admin_path.set_fast_category')
+      / .col-md-5
+      /   .field
+      /     .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+      /       .input-group-inner
+      /         = f.collection_select :product_tag_id, @product_tags, :id, :name, { include_blank: "#{t 'admin_path.fast_category'}" }, { class: 'custom-select custom-select-lg' }
+      /         .input-focus-bg
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'admin_path.photo')
+          p.mb-0 = (t 'admin_path.photo_set')
+      .col-md-2.mb-md-3
+        .field
+          .img-product-preview
+            = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid border-radius-admin w-100', id: 'imgpreview'
+          .img-product-upload.d-flex.justify-content-center.pt-3.pb-3
+            label.btn.btn-lg.btn-round.btn-primary.mb-0
+              = t :upload
+              span style="display:none"
+                = f.file_field :image, id: 'imginput'
+      .col-md-1
+      .col-md-2.mb-md-3
+        .field
+          .img-product-preview
+            = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid border-radius-admin w-100', id: 'imgpreview2'
+          .img-product-upload.d-flex.justify-content-center.pt-3.pb-3
+            label.btn.btn-lg.btn-round.btn-primary.mb-0
+              = t :upload
+              span style="display:none"
+                = f.file_field :image2, id: 'imginput2'
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :name_of
+          p.mb-0 = (t 'admin_path.edit_categories_product_text1')
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_uk')
+            .input-group-inner
+              = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_uk'}", required: 'required'
+              .input-focus-bg
+      .col-md-7
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_ru')
+            .input-group-inner
+              = f.text_field :name_ru, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_ru'}"
+              .input-focus-bg
+      .col-md-7
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_en')
+            .input-group-inner
+              = f.text_field :name_en, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_en'}"
+              .input-focus-bg
+      .col-md-7
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.name_on_he')
+            .input-group-inner
+              = f.text_field :name_he, class: 'form-control form-control-lg', placeholder: "#{t 'admin_path.name_on_he'}"
+              .input-focus-bg
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :name_of
+          p.mb-0 = (t 'admin_path.edit_categories_product_text1')
+      .col-md-5
+        .field
+          .form-group
+            label.text-uppercase = (t 'admin_path.description_on_uk')
+            = f.text_area :description, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.description_on_uk'}", rows: 5
+      .col-md-7
+      .col-md-5
+        .field
+          .form-group
+            label.text-uppercase = (t 'admin_path.description_on_ru')
+            = f.text_area :description_ru, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.description_on_ru'}", rows: 5
+      .col-md-7
+      .col-md-5
+        .field
+          .form-group
+            label.text-uppercase = (t 'admin_path.description_on_en')
+            = f.text_area :description_en, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.description_on_en'}", rows: 5
+      .col-md-7
+      .col-md-5
+        .field
+          .form-group
+            label.text-uppercase = (t 'admin_path.description_on_he')
+            = f.text_area :description_he, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'admin_path.description_on_he'}", rows: 5
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :about_company_b_1_t_5
+          p.mb-0 = (t 'admin_path.edit_categories_product_text2')
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = t :about_company_b_1_t_5
+            .input-group-inner
+              = f.text_field :price, class: 'form-control form-control-lg', placeholder: "#{t 'about_company_b_1_t_5'}"
+              .input-focus-bg
+      .col-md-7.col-12.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'admin_path.product_size')
+          p.mb-0 = (t 'admin_path.edit_categories_product_text3')
+      .col-md-2.col-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.width')
+            .input-group-inner
+              = f.text_field :width, class: 'form-control form-control-lg', placeholder: '0'
+              .input-focus-bg
+      .col-md-1.col-2.d-flex.align-items-center.justify-content-center
+        |x
+      .col-md-2.col-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.height')
+            .input-group-inner
+              = f.text_field :height, class: 'form-control form-control-lg', placeholder: '0'
+              .input-focus-bg
+      .col-md-7.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'admin_path.paper_format')
+          p.mb-0 = (t 'admin_path.paper_format_text')
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            label.text-uppercase = (t 'admin_path.paper_format')
+            .input-group-inner
+              = f.select :paper_format, Product.paper_formats.map {|k, v| [t("enums.#{k}"), k]}, { include_blank: "#{t 'admin_path.paper_format'}" }, { class: 'custom-select custom-select-lg' }
+              .input-focus-bg
+      .col-md-7.col-12.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'admin_path.material_and_options')
+          p.mb-0 = (t 'admin_path.edit_categories_product_text4')
+      .col-md-5
+        .field
+          .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+            .input-group-inner
+              = f.select :material_ids, options_from_collection_for_select(Material.order(material_category_id: :asc, name: :asc), :id, :name_with_type, f.object.material_ids), { include_blank: true }, { class: 'form-control chosen-materials', multiple: true }
+      .col-md-7.col-12.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = t :page_count
+          p.mb-0 = t :page_count_text
+      .col-md-5
+        .field
+          #page_circulations
+            = f.fields_for :page_circulations do |page_circulation|
+              = render 'page_circulation_fields', f: page_circulation
+            .links.d-flex.align-items-center.mb-4
+              = link_to_add_association f, :page_circulations, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn'
+                i.fas.fa-plus
+
+      .col-md-7.col-12.d-flex.align-items-center.mb-3.mb-md-0
+        .pr-4.pr-md-5
+          h6.font-weight-700 = (t 'admin_path.product_circulations')
+          p.mb-0 = (t 'admin_path.edit_categories_product_text5')
+      .col-md-5
+        .field
+          #product_circulations
+            = f.fields_for :product_circulations do |product_circulation|
+              = render 'product_circulation_fields', f: product_circulation
+            .links
+              = link_to_add_association f, :product_circulations, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0'
+                i.fas.fa-plus
+
+      .col-12.d-flex.justify-content-center.p-3
+        = link_to_remove_association f, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0'
+          i.far.fa-trash-alt
+        span.ml-2.d-flex.align-items-center = (t 'delete')
+
+- content_for :js
+  javascript:
+    imginput.onchange = evt => {
+      const [file] = imginput.files
+      if (file) {
+        imgpreview.src = URL.createObjectURL(file)
+      }
+    }
+    imginput2.onchange = evt => {
+      const [file] = imginput2.files
+      if (file) {
+        imgpreview2.src = URL.createObjectURL(file)
+      }
+    }

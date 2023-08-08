@@ -1,0 +1,9 @@
+/ do not remove .nested-fields class
+.nested-fields
+  .field
+    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2.d-flex.align-items-center.justify-content-between
+      .input-group-inner.w-80
+        = f.number_field :count, min: 1, step: 1, class: 'form-control form-control-lg', placeholder: '0'
+        .input-focus-bg
+      = link_to_remove_association f, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0'
+        i.far.fa-trash-alt

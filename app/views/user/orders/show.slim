@@ -1,0 +1,134 @@
+.pb-3.mb-3
+  .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+    .header-with-action.d-flex.justify-content-between.align-items-center
+      .header-name-page
+        h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+          = t :order
+          =< @item.order.number_with_sign
+          .title-divider-round.mt-3
+    .row
+      .col-md-6.pb-4.pb-md-0
+        .rounded
+          = image_tag @item.product_circulation.product.image.url(:index), class: 'img-fluid w-100'
+      .col-md-6
+        = item_status_tag(@item)
+        h5.font-weight-700.mt-2
+          .text-dark-gray = @item.product_name
+        ul.meta-entry.mb-2
+          li.meta-entry-item = @item.product_circulation.product.product_category.name
+        .card-price.d-flex.align-items-center
+          - if @item.changed_price.present?
+            .price.line-through = price_format(@item.price.to_i + @item.additional_services.sum(:price))
+            .price.ml-3 = price_format(@item.changed_price.to_i + @item.additional_services.sum(:price))
+          - else
+            .price = price_format(@item.price.to_i + @item.additional_services.sum(:price))
+        .pb-2
+          .divider-2
+        h6.font-weight-700.section-title-4 = t :order_details
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'placeholder.name')
+          |:
+          span.ml-2 = current_user.name
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'placeholder.phone')
+          |:
+          span.ml-2 = current_user.phone
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'placeholder.email')
+          |:
+          span.ml-2 = current_user.email
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'comment_to_order')
+          |:
+          span.ml-2 = @item.order.comment
+        - if @item.order.pick_yourself?
+          .description-item.d-flex.align-items-center
+            p.mb-0 = (t 'pick_yourself')
+            |:
+            i.fas.fa-check.check-pick-yourself-icon
+        - else
+          .description-item.d-flex.align-items-center
+            p.mb-0 = (t 'city')
+            |:
+            span.ml-2 = @item.order.city
+          .description-item.d-flex.align-items-center
+            p.mb-0 = (t 'nova_poshta')
+            |:
+            span.ml-2 = @item.order.department
+        .pb-2.pt-2
+          .divider-2.mt-4-5
+        h6.font-weight-700.section-title-4 = t :order_description
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'user_path.type_order')
+          span.ml-2 = @item.product.product_category.name
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'user_path.order_size')
+          span.ml-2
+            - if @item.product.etiketka?
+              => @item.material_size_width
+              |x
+              =< @item.material_size_height
+              =< "мм"
+            - else
+              => @item.product.width
+              |x
+              =< @item.product.height
+              =< "мм"
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'user_path.order_count')
+          span.ml-2 = count_format(@item.product_circulation_count)
+        - if @item.product.brochure? || @item.product.magazine?
+          .description-item.d-flex.align-items-center
+            p.mb-0 = (t 'user_path.order_page_count')
+            span.ml-2 = count_format(@item.page_circulation_count)
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'user_path.order_material')
+          span.ml-2 = @item.material_base_name
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'user_path.order_chroma')
+          span.ml-2 = @item.material_color_name
+        - if @item.oborot.present?
+          .description-item.d-flex.align-items-center
+            p.mb-0 = (t 'oborot')
+            |:
+            span.ml-2 
+              - if @item.oborot == 'self'
+                = (t 'enums.self')
+              - else
+                = (t 'enums.foreign')
+        - if @item.product.brochure? || @item.product.magazine?
+          .description-item.d-flex.align-items-center
+            p.mb-0 = (t 'user_path.order_cover_material')
+            span.ml-2 = @item.material_cover_name
+          .description-item.d-flex.align-items-center
+            p.mb-0 = (t 'user_path.order_cover_chroma')
+            span.ml-2 = @item.material_cover_color_name
+        .description-item.d-flex.align-items-center
+          p.mb-0 = (t 'user_path.additional_service_count')
+          span.ml-2 = @item.additional_services.count
+        .pb-2.pt-2
+          .divider-2.mt-4-5
+        - if @item.ogidaet_proverki?
+          = link_to "#{t 'user_path.cencel_order'}", [:user, @item.order, @item], method: :delete, data: { confirm: "#{t 'delete_2'}" }, class: 'btn btn-round btn-primary mb-2'
+
+- if @item.additional_services.present?
+  .pb-3.mb-3
+    .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+      .header-with-action.d-flex.justify-content-between.align-items-center
+        .header-name-page
+          h5.font-weight-700.section-title-4.text-left.pb-2.mb-4 
+            = (t 'user_path.additional_services')
+            .title-divider-round.mt-3
+      .row
+        .col-12
+          table.table.table-striped.product-sum
+            tbody
+              - @item.additional_services.each do |additional_service|
+                tr
+                  th.align-middle scope="row" = @item.additional_services.index(additional_service) + 1
+                  td.align-middle = additional_service.name
+                  td.align-middle.value = price_format additional_service.price
+              tr
+                th 
+                td 
+                td.value.summ-item = price_format @item.additional_services.sum(&:price)

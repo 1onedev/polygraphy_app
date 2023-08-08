@@ -1,0 +1,32 @@
+.pb-3.mb-3
+  .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+      = (t 'user_path.messages')
+      .title-divider-round.mt-3
+    - if @messages.present?
+      - @messages.each do |message|
+        .row.align-items-center.justify-content-between.pt-1
+          .col-md-9.col-xl-10.mb-2.mb-md-0
+            .menages-message-first.d-flex.align-items-center
+              - if message.admin
+                = image_tag message.admin.image.url(:index), class: 'rounded-circle shadow message', alt: message.admin.name
+              - else
+                = image_tag message.user&.image.url(:index), class: 'rounded-circle shadow message', alt: message.user&.name
+              .name-and-description-menages.ml-4
+                - if message.admin
+                  h5.mb-0 = message.admin.name
+                - else
+                  h5.mb-0 = message.user&.name
+                small.font-italic = message.created_at.strftime('%d.%m.%Y')
+                p.mb-0 = message.text
+          - if message.admin
+            .col-md-3.col-xl-2.text-md-right
+              = link_to new_user_message_path(user_id: params[:user_id]), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => "top", :toggle => "tooltip"}, title: "#{t 'admin_path.replay'}" 
+                i.fas.fa-reply
+          - else
+          .divider-2.mt-4-5
+    - else
+      .row
+        .col-12.d-flex.align-items-center.justify-content-center.py-5
+          h4.mb-0.d-inline-block = (t 'admin_path.no_massage')
+    = paginate @messages

@@ -1,0 +1,297 @@
+doctype html
+html lang="uk" 
+  head
+    title = (t 'admin_seo_title')
+    meta charset="UTF-8"
+    meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport"
+    meta content="ie=edge" http-equiv="X-UA-Compatible"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+
+    link rel="icon" sizes="32x32" type="image/png" href='/favicon/favicon-32x32.png' 
+    link rel="icon" sizes="16x16" type="image/png" href='/favicon/favicon-16x16.png'
+    link rel="icon" sizes="192x192" type="image/png" href='/favicon/android-chrome-192x192.png'
+    link rel="icon" sizes="512x512" type="image/png" href='/favicon/android-chrome-512x512.png'
+    link rel="apple-touch-icon" sizes="180x180" href='/favicon/apple-touch-icon.png'
+    link rel="icon" href="/favicon/favicon.ico"
+
+    link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet"
+    link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet"
+
+  body
+    = render 'layouts/alert'
+    .navik-header.header-shadow.navik-mega-menu.mega-menu-fullwidth
+      .container
+        .navik-header-container
+          .logo data-mobile-logo="#{image_path 'logo-dark.svg'}" data-sticky-logo="#{image_path 'logo-dark.svg'}"
+            = link_to admin_root_path
+              = image_tag 'logo-dark.svg', alt: 'Polygraphy App'
+          nav.navik-menu.menu-caret.menu-hover-3.submenu-top-border.submenu-scale.admin-menu.d-flex.justify-content-center.justify-content-md-end
+            #new_orders_button.d-flex.align-items-center.mb-0.px-3
+            span.d-flex.align-items-center onclick="openNav()"
+              i.bx.bx-menu
+            .dropdown
+              a.px-3.mb-0.language-admin onclick="openNavLanguage()"
+                i.fas.fa-globe-europe
+
+    #mySidenavLanguage.sidenav
+      .close-button-admin
+        span href="javascript:void(0)" onclick="closeNavLanguage()"
+          i.bx.bx-x
+      #sidebarMenuLanguage.d-block.collapse.admin
+        ul.list-group.list-group-flush.pt-0
+          .border-active class="#{'active' if I18n.locale == :uk}"
+            = link_to ({:locale => :uk}), class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+              | UA
+          .border-active class="#{'active' if I18n.locale == :ru}"
+            = link_to ({:locale => :ru}), class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+              | RU
+          .border-active class="#{'active' if I18n.locale == :en}"
+            = link_to ({:locale => :en}), class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+              | EN
+          .border-active class="#{'active' if I18n.locale == :he}"
+            = link_to ({:locale => :he}), class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+              | HE
+
+    #mySidenav.sidenav
+      .close-button-admin
+        span href="javascript:void(0)" onclick="closeNav()"
+          i.bx.bx-x
+      #sidebarMenu.d-block.collapse.admin
+        ul.list-group.list-group-flush.pt-0
+          .border-active class="#{'active' if params[:controller] == 'admin/home'}"
+            = link_to "#{t 'home_page'}", admin_root_path, class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - if current_admin.vladelec? || current_admin.meneger?
+            .border-active class="#{'active' if params[:controller] == 'admin/orders' or params[:action] == 'new_orders' or params[:action] == 'completed_orders'}"
+              a.list-group-item.list-group-item-action.d-flex.align-items-center.px-4.px-md-5.px-lg-4.px-xl-5.justify-content-between data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
+                = (t 'user_path.orders')
+                i.fas.fa-plus
+              #collapseExample.collapse
+                ul.list-group.list-group-flush.pt-0.pb-0.pl-4.list-style-none
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:action] == 'new_orders'}"
+                      = link_to "#{t 'admin_path.new_orders'}", admin_new_orders_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:action] == 'completed_orders'}"
+                      = link_to "#{t 'admin_path.completed_orders'}", admin_completed_orders_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/orders'}"
+                      = link_to "#{t 'admin_path.all_orders'}", admin_orders_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - if current_admin.rabotnik?
+            .border-active class="#{'active' if params[:controller] == 'admin/orders'}"
+              = link_to "#{t 'user_path.orders'}", admin_root_path, class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - else
+          - if current_admin.vladelec? || current_admin.meneger?
+            .border-active class="#{'active' if params[:controller] == 'admin/feedbacks' or params[:controller] == 'admin/subscribers' or params[:controller] == 'admin/cooperations' or params[:controller] == 'admin/messages'}"
+              a.list-group-item.list-group-item-action.d-flex.align-items-center.px-4.px-md-5.px-lg-4.px-xl-5.justify-content-between data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2"
+                = (t 'user_path.notifications')
+                i.fas.fa-plus
+              #collapseExample2.collapse
+                ul.list-group.list-group-flush.pt-0.pb-0.pl-4.list-style-none
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/messages'}"
+                      = link_to "#{t 'user_path.messages'}", admin_messages_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/subscribers'}"
+                      = link_to "#{t 'admin_path.subscribers'}", admin_subscribers_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/cooperations'}"
+                      = link_to "#{t 'admin_path.cooperations'}", admin_cooperations_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/feedbacks'}"
+                      = link_to "#{t 'admin_path.feedback'}", admin_feedbacks_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - else      
+          - if current_admin.vladelec? || current_admin.meneger?                  
+            .border-active class="#{'active' if params[:action] == 'price_admin' or params[:action] == 'polygraphy_admin' or params[:controller] == 'admin/material_categories' or params[:controller] == 'admin/product_categories' or params[:controller] == 'admin/product_tags' or params[:controller] == 'admin/products' or params[:action] == 'ctp_admin' or params[:controller] == 'admin/calculation_settings'}"
+              a.list-group-item.list-group-item-action.d-flex.align-items-center.px-4.px-md-5.px-lg-4.px-xl-5.justify-content-between data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3"
+                = t :services_page
+                i.fas.fa-plus
+              #collapseExample3.collapse
+                ul.list-group.list-group-flush.pt-0.pb-0.pl-4.list-style-none
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:action] == 'price_admin' or params[:controller] == 'admin/material_categories'}"
+                      = link_to "#{t 'admin_path.prices'}", admin_price_admin_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/calculation_settings'}"
+                      = link_to "#{t 'calculations_settings'}", edit_admin_calculation_settings_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:action] == 'polygraphy_admin' or params[:controller] == 'admin/product_categories' or params[:controller] == 'admin/product_tags' or params[:controller] == 'admin/products'}"
+                      = link_to "#{t 'polygraphys_page'}", admin_polygraphy_admin_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:action] == 'ctp_admin'}"
+                      = link_to "#{t 'making_CTP_page'}", admin_ctp_admin_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - else
+          - if current_admin.vladelec? || current_admin.meneger?
+            .border-active class="#{'active' if params[:controller] == 'admin/users'}"
+              = link_to "#{t 'admin_path.clients'}", admin_users_path, class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - else
+          - if current_admin.vladelec? || current_admin.meneger?
+            .border-active class="#{'active' if params[:controller] == 'admin/admins'}"
+              = link_to "#{t 'admin_path.admins_role'}", admin_admins_path, class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - else
+          - if current_admin.vladelec? || current_admin.meneger?
+            .border-active class="#{'active' if params[:controller] == 'admin/sliders' or params[:controller] == 'admin/reviews' or params[:controller] == 'admin/newsandpromos' or params[:controller] == 'admin/answers' or params[:controller] == 'admin/documents' or params[:controller] == 'admin/partners'}"
+              a.list-group-item.list-group-item-action.d-flex.align-items-center.px-4.px-md-5.px-lg-4.px-xl-5.justify-content-between data-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample6"
+                = (t 'admin_path.filling_pages')
+                i.fas.fa-plus
+              #collapseExample6.collapse
+                ul.list-group.list-group-flush.pt-0.pb-0.pl-4.list-style-none
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/sliders'}"
+                      = link_to "#{t 'admin_path.sliders'}", admin_sliders_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/reviews'}"
+                      = link_to "#{t 'admin_path.reviews'}", admin_reviews_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/newsandpromos'}"
+                      = link_to "#{t 'admin_path.news'}", admin_newsandpromos_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/answers'}"
+                      = link_to "#{t 'faqs_page'}", admin_answers_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  li.pt-2.pb-2
+                    .child-border-active class="#{'active' if params[:controller] == 'admin/partners'}"
+                      = link_to "#{t 'admin_path.partners'}", admin_partners_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+                  / li.pt-2.pb-2
+                  /   .child-border-active class="#{'active' if params[:controller] == 'admin/documents'}"
+                  /     = link_to "#{t 'admin_path.documents'}", edit_admin_documents_path, class: 'child-item-list-group list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - else
+          - if current_admin.vladelec? || current_admin.meneger?
+            .border-active class="#{'active' if params[:action] == 'files'}"
+              = link_to "#{t 'admin_path.files'}", admin_files_path, class: 'list-group-item list-group-item-action d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5'
+          - else
+      
+    .d-flex.flex-column.w-100
+      .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-25.jpg'}" 
+        .container.page-title-container
+          .bg-white.rounded-xl.shadow-sm.py-5
+            .row.align-items-center
+              .col-6.d-flex.align-items-center.justify-content-between
+                .px-4.px-md-5.px-lg-4.px-xl-5.d-flex.align-items-center
+                  - if current_admin.image.exists?
+                    = image_tag current_admin.image.url(:index), class: 'rounded-circle shadow admin-image'
+                  - else
+                    = image_tag 'placeholder/default-avatar.jpg', class: 'rounded-circle shadow admin-image'
+                  .admin-info.ml-lg-5.ml-3
+                    = admin_roles_tag(current_admin)
+                    h5.font-weight-700.mb-0 = current_admin.name
+                    small = current_admin.email
+              .col-6.d-flex.justify-content-md-end
+                .px-4.px-md-5.px-lg-4.px-xl-5.d-flex.align-items-center
+                  .link-small class="#{'current-page' if params[:controller] == 'admin/profiles'}"
+                    = link_to admin_profile_path(current_admin), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+                      i.fas.fa-cog
+                  .link-small
+                    = link_to destroy_admin_session_path, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+                      i.fas.fa-sign-out-alt
+          div data-height="40px" 
+    
+    = yield
+
+    /! Footer
+    .bg-viridian-500.text-white-50
+      .py-5
+        .container
+          .row.py-5.d-flex.justify-content-between
+            .col-lg-3.mb-5.mb-lg-0
+              .widget
+                = image_tag 'logo-light.svg', class: 'img-fluid d-block mb-4', alt: "Polygraphy App", data: {:height => '42px', :width => '146px'}, style: 'height: 42px; width: 146px;'
+                div data-height="5px" 
+                p = t :text_footer
+              / .widget
+              /   h6.widget-title.text-white.text-uppercase.font-weight-700.mb-4 = t :follow_us
+              /   .d-flex.ml-n2
+              /     a.d-flex.align-items-center.justify-content-center.text-white-25.text-hover-primary data-height="36px" data-width="36px" href="#" target="_blank" 
+              /       i.fab.fa-facebook-f
+              /     a.d-flex.align-items-center.justify-content-center.text-white-25.text-hover-primary data-height="36px" data-width="36px" href="#" target="_blank" 
+              /       i.fab.fa-instagram
+              /     a.d-flex.align-items-center.justify-content-center.text-white-25.text-hover-primary data-height="36px" data-width="36px" href="#" target="_blank" 
+              /       i.fab.fa-twitter
+            .col-lg-3.mb-5.mb-lg-0
+              .widget
+                h6.widget-title.text-white.text-uppercase.font-weight-700 = t :contacts_page
+                ul.custom-list.fa-ul.mb-0.ml-4
+                  li.mb-3
+                    span.fa-li
+                      i.fas.fa-map-marker-alt.text-primary
+                    = t :adress_name
+                  li.mb-3
+                    span.fa-li
+                      i.fas.fa-phone-alt.text-primary
+                    a.text-white-50 href="tel:+111111111" +111111111
+                  li
+                    span.fa-li
+                      i.fas.fa-envelope.text-primary
+                    a.text-white-50 href="mailto:polygraphyapp@gmail.com" polygraphyapp@gmail.com
+            / .col-lg-3.mb-5.mb-lg-0
+            /   .widget
+            /     h6.widget-title.text-white.text-uppercase.font-weight-700 = t :help
+            /     ul.custom-list.fa-ul.mb-0.ml-4
+            /       li class="#{'current-menu-help' if params[:action] == 'payments'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to payments_path(params[:locale]), class: 'text-white-50 text-hover-primary'
+            /           = t :payments_page
+            /       li class="#{'current-menu-help' if params[:action] == 'delivery'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to delivery_path(params[:locale]), class: 'text-white-50 text-hover-primary'
+            /           = t :delivery_page
+            /       li class="#{'current-menu-help' if params[:action] == 'return'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to return_path(params[:locale]), class: 'text-white-50 text-hover-primary' 
+            /           = t :return_page
+            /       li class="#{'current-menu-help' if params[:action] == 'protect_your_data'}"
+            /         span.fa-li
+            /           i.fas.fa-angle-right.text-primary
+            /         = link_to protect_your_data_path(params[:locale]), class: 'text-white-50 text-hover-primary' 
+            /           = t :protect_your_data_page
+            / .col-lg-3.mb-5.mb-lg-0
+            /   .widget
+            /     h6.widget-title.text-white.text-uppercase.font-weight-700 = t :fast_category
+            /     div
+            /       .nav-link-tag-application class="#{'active' if params[:product_tag] == nil && params[:controller] == 'polygraphys'}"
+            /         = link_to polygraphys_path(params[:locale], product_tag: nil), class: 'btn btn-round btn-sm btn-outline-primary mr-1 mb-2'
+            /           = t :all_categories
+            /       - product_tag_applications.each do |product_tag|
+            /         .nav-link-tag-application class="#{'active' if params[:product_tag] == product_tag.id.to_s}"
+            /           = link_to polygraphys_path(params[:locale], product_tag: product_tag.id), class: 'btn btn-round btn-sm btn-outline-primary mr-1 mb-2'
+            /             = product_tag.name
+      .footer-bottom.py-4
+        .container.footer-bottom-container
+          .row.py-3
+            .col-lg-6.text-center.text-lg-left.mb-2.mb-lg-0
+              small
+                | created by
+                a.ml-1 href='https://1onedev.com' target='_blank' 1ONEDEV
+            / .col-lg-6.text-center.text-lg-right
+            /   ul.menu-help2 
+            /     li class="#{'current-menu-help' if params[:action] == 'terms_of_use'}"
+            /       = link_to terms_of_use_path(params[:locale]), class: 'text-white-50 text-hover-primary mr-4'
+            /         = t :terms_of_use_page
+            /     li class="#{'current-menu-help' if params[:action] == 'privacy_policy'}"
+            /       = link_to privacy_policy_path(params[:locale]), class: 'text-white-50 text-hover-primary mr-4'
+            /         = t :privacy_policy_page 
+    /! Go to top
+    .go-to-top
+      a.rounded-circle href="#" 
+        i.fas.fa-chevron-up
+
+    = javascript_include_tag 'application'
+
+    = yield :js
+
+    javascript:
+      setInterval(function()
+        { 
+          $.ajax({
+            type: "get",
+            url: "/admin/ajax/new_items.js",
+            datatype: "js",
+            success: function(data)
+            {
+              console.log('ok')
+            }
+          });
+        }, 10000)

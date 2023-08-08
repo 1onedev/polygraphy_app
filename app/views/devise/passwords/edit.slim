@@ -1,0 +1,101 @@
+doctype html
+html lang="uk" 
+  head
+    meta charset="UTF-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible" 
+    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"
+    
+    title = (t 'devise.seo.passwords_title')
+    meta name="description" content="#{t 'devise.seo.description'}"
+    meta name="image" content="/favicon/ou.jpg"
+    meta property="og:title" content="#{t 'devise.seo.passwords_title'}"
+    meta property="og:description" content="#{t 'devise.seo.description'}"
+    meta property="og:image" content="/favicon/ou.jpg"
+    meta property="twitter:title" content="#{t 'devise.seo.passwords_title'}"
+    meta property="twitter:description" content="#{t 'devise.seo.description'}"
+    meta property="twitter:image" content="/favicon/ou.jpg"
+    meta property="twitter:card" content="summary_large_image"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+
+    link rel="icon" sizes="32x32" type="image/png" href='/favicon/favicon-32x32.png' 
+    link rel="icon" sizes="16x16" type="image/png" href='/favicon/favicon-16x16.png'
+    link rel="icon" sizes="192x192" type="image/png" href='/favicon/android-chrome-192x192.png'
+    link rel="icon" sizes="512x512" type="image/png" href='/favicon/android-chrome-512x512.png'
+    link rel="apple-touch-icon" sizes="180x180" href='/favicon/apple-touch-icon.png'
+    link rel="icon" href="/favicon/favicon.ico"
+
+  body
+    = render 'layouts/alert'
+    .container-fluid
+      .row.min-vh-100
+        .col-lg-4.bg-image.order-2.order-lg-1 data-img-src="#{image_path 'sign-in-page-bg-03.jpg'}" 
+          .row.h-100.align-content-between
+            .col-12.d-none.d-lg-block
+              .px-3.py-4.p-xl-4
+                = link_to root_path(params[:locale])
+                  = image_tag 'logo-white.svg', data: {:height => '42px', :width => '146px'}, alt: 'Polygraphy App'
+            .col-12.pt-5.mt-4.pt-lg-0.mt-lg-0
+              .px-3.px-xl-4
+                blockquote.blockquote-2.blockquote-light-2.border-left.mb-5.mb-lg-0
+                  p.mb-0 = (t 'devise.qoute.text_3')
+                  footer.blockquote-footer = (t 'devise.qoute.name_3')
+            .col-12.pt-lg-3
+              .text-white-75.px-3.py-4.p-xl-4.mt-lg-1
+                small
+                  | created by
+                  a.ml-1 href='https://1onedev.com' target='_blank' 1ONEDEV
+        .col-lg-8.order-1.order-lg-2
+          .row.h-100.align-content-between
+            .col-12
+              .row.align-items-center.py-4.mb-4.mb-lg-0
+                .col-6.d-lg-none
+                  .px-3
+                    = link_to root_path(params[:locale])
+                      = image_tag 'logo-dark.svg', data: {:height => '42px', :width => '146px'}, alt: 'Polygraphy App'
+                .col-6.col-lg-12
+                  .text-right.px-3.px-xl-4.mt-xl-2
+                    = link_to :back, class: 'text-dark font-weight-600 text-uppercase' 
+                      i.fas.fa-angle-left.mr-2
+                      = (t 'devise.back')
+            .col-12
+              .container
+                .row.mb-5
+                  .col-md-8.offset-md-2.col-xl-6.offset-xl-3
+                    .p-lg-4.mb-4.mb-xl-5
+                      .mb-4.text-center
+                        = image_tag 'password-01.svg', data: {:height => '64px', :width => '64px'}, alt: 'Polygraphy App'
+                      .pb-1
+                      h3.section-title-4.text-center.font-weight-800.mb-4
+                        = (t 'devise.passwords.reset_password_page')
+                        .title-divider-round
+                      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+                        = devise_error_messages!
+                        = f.hidden_field :reset_password_token
+                        .form-row
+                          .col-12
+                            .input-group.input-group-lg.input-group-round.mb-4
+                              label.text-uppercase.px-3 = (t 'user_path.new_password')
+                              .input-group-inner
+                                .input-group-prepend
+                                  span.input-group-text.input-group-icon
+                                    i.fas.fa-unlock-alt
+                                = f.password_field :password, class: 'form-control form-control-lg', required: 'required', placeholder: "#{t 'user_path.new_password'}"
+                                .input-focus-bg
+                          .col-12
+                            .input-group.input-group-lg.input-group-round.mb-4
+                              label.text-uppercase.px-3 = (t 'user_path.new_password_again')
+                              .input-group-inner
+                                .input-group-prepend
+                                  span.input-group-text.input-group-icon
+                                    i.fas.fa-unlock-alt
+                                = f.password_field :password_confirmation, class: 'form-control form-control-lg', required: 'required', placeholder: "#{t 'user_path.new_password_again'}"
+                                .input-focus-bg
+                        div data-height="5px" 
+                        = f.button class: 'btn btn-lg btn-round btn-primary btn-block'
+                          = (t 'devise.passwords.reset_password')
+
+    = javascript_include_tag 'application'
+
+    = yield :js

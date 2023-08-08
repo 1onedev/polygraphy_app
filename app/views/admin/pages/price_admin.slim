@@ -1,0 +1,79 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_root_path
+                = t :home_page
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.prices')
+        div data-height="6px" 
+.main-content.pt-0.mt-3.mt-lg-5
+  .section
+    .container
+      .row
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+              .header-with-action.d-flex.justify-content-between.align-items-center
+                .header-name-page
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = (t 'admin_path.categories_materials')
+                    .title-divider-round.mt-3
+                .header-action-page.pb-2.mb-4
+                  = link_to new_admin_material_category_path, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => 'top', :toggle => 'tooltips'}, title: "#{t 'admin_path.new_categories_materials'}"
+                    i.fas.fa-plus
+              - if @material_categories.present?
+                - @material_categories.each do |material_category|
+                  .row.align-items-center.justify-content-between.py-4
+                    .col-12.mb-4.mb-md-0
+                      .d-flex.align-items-center.my-2.justify-content-between
+                        .answer-block.d-flex.align-items-center
+                          = link_to admin_material_category_path(material_category)
+                            h6.mb-0 = material_category.name
+                          span.badge.badge-pill.badge-primary.ml-2 = Material.where(material_category_id: material_category.id).count
+                        .links-block
+                          = link_to edit_admin_material_category_path(material_category), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+                            i.fas.fa-pen
+                          = link_to [:admin, material_category], method: :delete, data: { confirm: 'Удалить?', placement: 'top', toggle: 'tooltip', title: 'Удалить' }, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 ml-3'
+                            i.far.fa-trash-alt
+                  .divider-2.mb-0
+              - else
+                h5.font-weight-700.section-title-4.my-5
+                  .text-center = (t 'admin_path.no_data')
+              .pt-4
+                = paginate @material_categories
+        .col-lg-12
+          .pb-3.mb-3
+            .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+              .header-with-action.d-flex.justify-content-between.align-items-center
+                .header-name-page
+                  h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                    = t :chroma
+                    .title-divider-round.mt-3
+                .header-action-page.pb-2.mb-4
+                  - unless @material_categories_color.present?
+                    = link_to new_admin_material_category_path, class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0 mr-3', data: {:placement => 'top', :toggle => 'tooltips'}, title: "#{t 'admin_path.new_categories_materials'}"
+                      i.fas.fa-plus
+                  - if @material_categories_color.present?
+                    = link_to edit_admin_material_category_path(@material_categories_color), class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => 'top', :toggle => 'tooltips'}, title: "#{t 'admin_path.edit_categories_materials'}"
+                      i.fas.fa-pen
+              - if @material_categories_color.present?
+                - @colors.each do |material|
+                  .row.align-items-center.justify-content-between.py-4
+                    .col-12.mb-4.mb-md-0
+                      .d-flex.align-items-center.my-2.justify-content-between
+                        .answer-block.d-flex.align-items-center
+                          h6.mb-0 = material.width
+                          h6.mb-0 +
+                          h6.mb-0 = material.height
+                        .price
+                          p.m-0 = price_format(material.price)
+                  .divider-2.mb-0
+              - else
+                h5.font-weight-700.section-title-4.my-5
+                  .text-center = (t 'admin_path.no_data')
+              .pt-4
+                = paginate @colors

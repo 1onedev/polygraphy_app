@@ -1,0 +1,179 @@
+.d-flex.flex-column.w-100
+  .page-title.d-flex.align-items-center.bg-image.py-5 data-img-src="#{image_path 'page-title-bg-cart.jpg'}" 
+    .container.page-title-container
+      .row.py-5
+        .col.text-center
+          h1.display-3.font-weight-800.text-white.mb-0.text-uppercase
+            = t :carts_page
+          nav aria-label="breadcrumb" 
+            ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+              li.breadcrumb-item.text-uppercase
+                = link_to root_path(params[:locale])
+                  = t :home_page
+              li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = t :carts_page
+
+
+.main-content.py-0
+  .section
+    .container
+      - if current_order.items.present?
+        - unless current_user
+          .row
+            .col-12.mt-4.mb-4
+              .bg-indigo.rounded-xl.shadow-lg.px-4.py-1.p-3
+                p.text-light.m-0.text-left 
+                  = (t 'devise.has_account')
+                  span
+                    =< link_to (t 'devise.sign_in_cart'), new_user_session_path, class: 'text-white-50'
+        = form_for current_order do |f|
+          = hidden_field_tag :complete, true
+          .row.no-gutters.overflow-s
+            .col-12
+              .pb-3.mb-3  
+                table.table.table-custom-2.mb-5
+                  tbody
+                    - current_order.items.each do |item|
+                      tr
+                        td.w-20.pl-0
+                          = link_to polygraphy_path(item.product_circulation.product)
+                            = image_tag item.product_circulation.product.image.url(:index), class: 'img-fluid cart-page-product-image', style: 'min-width: 84px'
+                        td.w-40.align-middle
+                          .cart-page-product-info
+                            .cart-page-product-name
+                              h5.font-weight-700.mt-2 = link_to item.product_name, polygraphy_path(item.product_circulation.product)
+                            .cart-page-product-description
+                              p.m-0 = truncate_markup item.product_description, 100
+                        td.align-middle.text-center = count_format(item.product_circulation.count)
+                        td.align-middle.text-center = price_format(item.price.to_i)
+                        td.pr-0.align-middle.text-center
+                          = link_to order_item_path(current_order, item), method: :delete, data: { confirm: "#{t 'delete_2'}" }
+                            i.fa.fa-times
+
+          .row
+            .col-lg-7
+              .bg-light.rounded-xl.shadow-lg.px-4.py-5.p-md-5.mt-5.mt-md-0.mb-5
+                h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                  = t :order_details
+                  .title-divider-round.mt-3
+                .form-row
+                  - unless current_user.present?
+                    .col-lg-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'devise.registrations.name')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-user-circle
+                          = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'devise.registrations.name'}", required: 'required'
+                          .input-focus-bg
+                    .col-lg-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'devise.sessions.email')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.far.fa-envelope
+                          = f.text_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'devise.sessions.email'}", required: 'required'
+                          .input-focus-bg
+                    .col-lg-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = (t 'placeholder.phone')
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.fas.fa-mobile-alt
+                          = f.text_field :phone, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.phone'}", required: 'required'
+                          .input-focus-bg
+                  - if current_user.present?
+                    - if current_user.phone.blank?
+                      .col-lg-12
+                        .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                          label.text-uppercase = (t 'placeholder.phone')
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.fas.fa-mobile-alt
+                            = f.text_field :phone, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.phone'}", required: 'required'
+                            .input-focus-bg
+                    .col-lg-12
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = t :city
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.far.fa-map
+                          = f.text_field :city, class: 'form-control form-control-lg', placeholder: "#{t 'city'}"
+                          .input-focus-bg
+                  - else
+                    .col-lg-6
+                      .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                        label.text-uppercase = t :city
+                        .input-group-inner
+                          .input-group-prepend
+                            span.input-group-text.input-group-icon
+                              i.far.fa-map
+                          = f.text_field :city, class: 'form-control form-control-lg', placeholder: "#{t 'city'}"
+                          .input-focus-bg
+                  .col-lg-5
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = t :delivery_page
+                      .input-group-inner
+                        .input-group-prepend
+                          span.input-group-text.input-group-icon
+                            i.fas.fa-map-marker-alt
+                        = f.text_field :department, class: 'form-control form-control-lg', placeholder: "#{t 'nova_poshta'}"
+                        .input-focus-bg
+                  .col-lg-2.d-flex.align-items-center.justify-content-lg-center
+                    label.text-uppercase.m-0 = t :or
+                  .col-lg-5.d-flex.align-items-center.pt-3.pb-3.pt-lg-0.pb-lg-0
+                    .form-group.custom-control.custom-checkbox.text-center.py-2.mb-0
+                      label.m-0
+                        = f.check_box :pick_yourself, class: 'custom-control-input', id: 'modalRegisterCheck'
+                        = f.label :pick_yourself, class: 'custom-control-label', for: "modalRegisterCheck"
+                          = t :pick_yourself
+                  .col-12
+                    .form-group
+                      label.text-uppercase = (t 'comment_to_order')
+                      = f.text_area :comment, class: 'form-control form-round form-control-lg p-3', placeholder: "#{t 'comment_to_order'}", rows: 5
+                  - unless current_user.present?
+                    .col-12
+                      .account-create.account-create-hide.pb-3
+                        .input-group.input-group-lg.input-group-round.mb-3
+                          label.text-uppercase = (t 'devise.sessions.password')
+                          .input-group-inner
+                            .input-group-prepend
+                              span.input-group-text.input-group-icon
+                                i.far.fa-eye-slash
+                            = password_field_tag :password, nil, class: 'form-control form-control-lg', placeholder: "#{t 'devise.sessions.password'}"
+                            .input-focus-bg 
+                        p.m-0
+                          = t :order_details_text_1
+                      .bg-indigo.rounded-xl.shadow-lg.px-4.py-1.mt-3.mt-md-0
+                        .form-group.custom-control.custom-checkbox.py-2.mb-0.d-flex.justify-content-center
+                          label.m-0
+                            = f.check_box :create_account, class: 'custom-control-input', id: 'order_create_account'
+                            = f.label :create_account, class: 'custom-control-label text-light', for: "order_create_account"
+                              = (t 'devise.create_account')
+            .col-lg-5
+              .bg-indigo.rounded-xl.shadow-lg.px-4.py-5.p-md-5.mb-5.mt-md-0
+                table.table.m-0
+                  tr.total
+                    td.pl-0
+                      h5.font-weight-700.section-title-4.text-left.text-light = t :total_to_pay
+                    td.total-amount.text-right.pr-0
+                      .card-price.m-0
+                        .price.text-light = price_format(current_order.items.sum(&:price).to_i)
+                .complate-button.d-flex.justify-content-end.mt-2.pt-2
+                  = f.button "#{t 'finish_order'}", class: 'btn btn-lg btn-round btn-light mb-0', data: { 'disable-with' => "#{t 'finishing'}" }
+
+                    
+      - else
+        .row.mt-4.mb-4.py-5
+          .col-12
+            .bg-indigo.rounded-xl.shadow-lg.px-4.py-1.p-3
+              h5.font-weight-700.section-title-4.text-center.text-light = t :your_cart_empty
+              p.text-light.m-0.text-center = t :link_to_products
+              .d-flex.justify-content-center.pt-3.pb-3
+                i.fas.fa-chevron-down.text-light
+              .d-flex.justify-content-center
+                = link_to "#{t :polygraphys_page}", polygraphys_path(params[:locale]), class: 'btn btn-round btn-outline-light m-0'

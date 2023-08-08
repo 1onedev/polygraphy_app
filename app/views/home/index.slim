@@ -1,0 +1,338 @@
+.banner-slides-wrapper.arrow-nav-overflow data-dots="true" data-nav="true" 
+  .banner-slides-container.owl-carousel.owl-theme.owl-dot-light-1
+    - @slides.each do |slider|
+      .d-flex.flex-column
+        - if slider.video.present? 
+          .video-bg-block.d-flex.align-items-center.justify-content-center
+            = video_tag slider.video, autoplay: :autoplay, loop: :loop, muted: :muted, playsinline: true, class: 'bg-image', id: 'video_home'
+            .container.video-bg
+              .row
+                .col-lg-8.col-xl-6.text-center.text-lg-left.py-5
+                  .px-md-5.pr-xl-0.py-5
+                    h2.h3.font-weight-300.text-white.add-animate.slide-animate data-animated="fadeInLeft"  = slider.text
+                    h1.display-4.font-weight-800.text-white.mb-3.add-animate.slide-animate data-animated="fadeInRight" 
+                      = slider.text2
+                    .lead-sm.text-white-75.pb-3.mb-5.add-animate.slide-animate data-animated="fadeInLeft" = slider.text3
+                    - if slider.button_url.present?
+                      .add-animate.slide-animate data-animated="fadeIn" 
+                        = link_to slider.button_url, class: 'btn btn-lg btn-round btn-primary btn-gray-shadow mx-2 ml-lg-0' 
+                          = slider.button_title
+        - else
+          .page-header-block-height.d-flex.align-items-center.bg-image data-img-src="#{image_path slider.image.url(:index)}" 
+            .container
+              .row
+                .col-lg-8.col-xl-6.text-center.text-lg-left.py-5
+                  .px-md-5.pr-xl-0.py-5
+                    h2.h3.font-weight-300.text-white.add-animate.slide-animate data-animated="fadeInLeft"  = slider.text
+                    h1.display-4.font-weight-800.text-white.mb-3.add-animate.slide-animate data-animated="fadeInRight" 
+                      = slider.text2
+                    .lead-sm.text-white-75.pb-3.mb-5.add-animate.slide-animate data-animated="fadeInLeft" = slider.text3
+                    .add-animate.slide-animate data-animated="fadeIn" 
+                      = link_to slider.button_url, class: 'btn btn-lg btn-round btn-primary btn-gray-shadow mx-2 ml-lg-0' 
+                        = slider.button_title
+  .carousel-custom-nav.carousel-nav-lg.d-none.d-lg-block
+    a.carousel-control-prev data-width="9%" href="#" 
+      span.carousel-control-prev-icon aria-hidden="true" 
+      span.sr-only Previous
+    a.carousel-control-next data-width="9%" href="#" 
+      span.carousel-control-next-icon aria-hidden="true" 
+      span.sr-only Next
+
+
+.main-content.py-0
+  .section.py-5.pt-lg-0
+    .container
+      .row.pb-4.my-5.mt-lg-0
+        .col-lg-7.align-self-end.order-2.order-lg-1
+          .d-none.d-lg-block data-height="120px" 
+          .row
+            .col-md-6
+              .pr-xl-2
+                .icon-info-4.hover-item.hover-box-shadow
+                  .hover-inner-wrap.bg-white.rounded-ultra.shadow.px-4.py-5
+                    .px-3
+                      a.icon-info-link href="#" 
+                      .icon-element.mb-4
+                        = image_tag 'service-icon-13.svg', class: 'add-animate faster', data: {:height => '58px', :width => '58px', :animated => 'zoomIn'}
+                      .icon-info-text.pt-1
+                        h5.font-weight-700.mb-3 = t :home_b_1_t_1
+                        p.mb-0 = t :home_b_1_t_2
+                div data-height="46px" 
+                .icon-info-4.hover-item.hover-box-shadow
+                  .hover-inner-wrap.bg-white.rounded-ultra.shadow.px-4.py-5
+                    .px-3
+                      a.icon-info-link href="#" 
+                      .icon-element.mb-4
+                        = image_tag 'service-icon-15.svg', class: 'add-animate faster', data: {:height => '58px', :width => '58px', :animated => 'zoomIn'}
+                      .icon-info-text.pt-1
+                        h5.font-weight-700.mb-3 = t :home_b_1_t_3
+                        p.mb-0 = t :home_b_1_t_4
+                div data-height="46px" 
+            .col-md-6
+              .pl-xl-2
+                .d-none.d-md-block data-height="80px" 
+                .icon-info-4.hover-item.hover-box-shadow
+                  .hover-inner-wrap.bg-white.rounded-ultra.shadow.px-4.py-5
+                    .px-3
+                      a.icon-info-link href="#" 
+                      .icon-element.mb-4
+                        = image_tag 'service-icon-14.svg', class: 'add-animate faster', data: {:height => '58px', :width => '58px', :animated => 'zoomIn'}
+                      .icon-info-text.pt-1
+                        h5.font-weight-700.mb-3 = t :home_b_1_t_5
+                        p.mb-0 = t :home_b_1_t_6
+                div data-height="46px" 
+                .icon-info-4.hover-item.hover-box-shadow
+                  .hover-inner-wrap.bg-white.rounded-ultra.shadow.px-4.py-5
+                    .px-3
+                      a.icon-info-link href="#" 
+                      .icon-element.mb-4
+                        = image_tag 'service-icon-16.svg', class: 'add-animate faster', data: {:height => '58px', :width => '58px', :animated => 'zoomIn'}
+                      .icon-info-text.pt-1
+                        h5.font-weight-700.mb-3 = t :home_b_1_t_7
+                        p.mb-0 = t :home_b_1_t_8
+        .col-lg-5.order-1.order-lg-2
+          .pl-xl-3.pb-5.pb-lg-0
+            .position-relative.z-index-1.rounded-ultra.shadow-lg.px-4.py-5.p-md-5.px-lg-4.p-xl-5.mb-5.mb-lg-0.text-white-75.mt-lg-up100.bg-image data-img-src="#{image_path 'services-info-box-bg.jpg'}" 
+              .p-3
+                .d-none.d-md-block data-height="32px" 
+                h5.font-weight-400.text-white-75.mb-3 = t :home_b_1_t_9
+                h2.h1.section-title-3.title-light-1.text-left.font-weight-800 = t :home_b_1_t_10
+                .lead-sm.pt-2
+                  = t :home_b_1_t_11
+                div data-height="180px" 
+                .text-right
+                  = link_to new_user_registration_path, class: 'btn btn-lg btn-round btn-secondary btn-gray-shadow'
+                    = t :sign_up
+
+  .section
+    .container-fluid.p-0
+      .row.no-gutters
+        .col-lg-6.bg-image data-img-src="#{image_path 'startup-benefits-img-03.jpg'}" 
+          .d-lg-none data-height="70vw" 
+        .col-lg-6.bg-light
+          .py-5
+            .row.no-gutters
+              .col-md-10.offset-md-1.px-4
+                div data-height="7vw" 
+                h5.font-weight-400.mb-3 = t :home_b_2_t_1
+                h2.h1.section-title-3.font-weight-800.text-left = t :home_b_2_t_2
+                .lead-sm.pt-2.mb-5
+                  = t :home_b_2_t_3
+                div data-height="10px" 
+                = link_to polygraphys_path(params[:locale]), class: 'btn btn-lg btn-round btn-primary mb-0'
+                  = t :polygraphys_page
+                div data-height="7vw" 
+
+  .section.py-5.pb-lg-0
+    .container
+      .row.my-5
+        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+          .text-center.mt-3.mb-4
+            h2.h1.section-title-3.font-weight-800 = t :home_b_3_t_1
+            .lead-sm.pt-2
+              = t :home_b_3_t_2
+      .row.align-items-lg-center
+        .col-md-6.col-lg-4.order-2.order-lg-1
+          .px-4.px-lg-0.pl-xl-4.pr-xl-5
+            .icon-info-3.pb-2.mb-5.add-animate data-animated="fadeInLeft" 
+              .icon-title.d-flex.justify-content-start.justify-content-lg-end.align-items-center.mb-3
+                = image_tag 'service-icon-27.svg', class: 'mr-3 mr-lg-0 ml-lg-3 order-lg-2', data: {:height => '50px', :width => '50px'}, alt: 'Polygraphy App'
+                h5.mb-0.font-weight-700.text-lg-right.order-lg-1 = t :home_b_3_t_3
+              .text-lg-right
+                p = t :home_b_3_t_4
+            .icon-info-3.pb-2.mb-5.add-animate data-animated="fadeInLeft" 
+              .icon-title.d-flex.justify-content-start.justify-content-lg-end.align-items-center.mb-3
+                = image_tag 'feature-much-more-safe.svg', class: 'mr-3 mr-lg-0 ml-lg-3 order-lg-2', data: {:height => '50px', :width => '50px'}, alt: 'Polygraphy App'
+                h5.mb-0.font-weight-700.text-lg-right.order-lg-1 = t :home_b_3_t_5
+              .text-lg-right
+                p = t :home_b_3_t_6
+            .d-none.d-lg-block data-height="125px" 
+        .col-lg-4.order-1.order-lg-2
+          .text-center.px-4.pb-4.mb-5.pb-lg-0.mb-lg-0
+            - case 
+            - when I18n.locale == :ru
+              = image_tag 'phone-mockup-06.png', class: 'img-fluid add-animate', data: {:animated => 'fadeInUp'}, alt: 'Polygraphy App'
+            - when I18n.locale == :uk
+              = image_tag 'phone-mockup-05.png', class: 'img-fluid add-animate', data: {:animated => 'fadeInUp'}, alt: 'Polygraphy App'
+            - when I18n.locale == :en
+              = image_tag 'phone-mockup-07.png', class: 'img-fluid add-animate', data: {:animated => 'fadeInUp'}, alt: 'Polygraphy App'
+            - when I18n.locale == :he
+              = image_tag 'phone-mockup-08.png', class: 'img-fluid add-animate', data: {:animated => 'fadeInUp'}, alt: 'Polygraphy App'
+            - else
+              = image_tag 'phone-mockup-05.png', class: 'img-fluid add-animate', data: {:animated => 'fadeInUp'}, alt: 'Polygraphy App'
+            end 
+        .col-md-6.col-lg-4.order-3.order-lg-3
+          .px-4.px-lg-0.pl-xl-5.pr-xl-4
+            .icon-info-3.pb-2.mb-5.add-animate data-animated="fadeInRight" 
+              .icon-title.d-flex.justify-content-start.align-items-center.mb-3
+                = image_tag 'feature-pricing-table.svg', class: 'mr-3', data: {:height => '50px', :width => '50px'}, alt: 'Polygraphy App'
+                h5.mb-0.font-weight-700 = t :home_b_3_t_7
+              div
+                p = t :home_b_3_t_8
+            .icon-info-3.pb-2.mb-5.add-animate data-animated="fadeInRight" 
+              .icon-title.d-flex.justify-content-start.align-items-center.mb-3
+                = image_tag 'feature-testimonial-modules.svg', class: 'mr-3', data: {:height => '50px', :width => '50px'}, alt: 'Polygraphy App'
+                h5.mb-0.font-weight-700 = t :home_b_3_t_9
+              div
+                p = t :home_b_3_t_10
+            .d-none.d-lg-block data-height="125px" 
+
+  .section.py-5.mt-lg-up100.mt-xl-up125.bg-image data-img-src="#{image_path 'number-counter-bg.jpg'}"
+    .container
+      .d-none.d-lg-block data-height="110px" 
+      .row.pt-5.pb-2.py-lg-2.my-5.mt-lg-0.my-xl-5
+        .col-md-6.col-xl-3.mb-5.mb-xl-0
+          .num-counter
+            .nuber-counter-double.d-flex.justify-content-center
+              h2.count-value.count-run.display-4.font-weight-800.text-center.text-white.mb-4.d-inline-block 10
+              h2.display-4.font-weight-800.text-center.text-white.mb-4.d-inline-block +
+            .icon-info-3
+              .icon-title.d-flex.justify-content-center.align-items-end.mb-2
+                = image_tag 'counter-icon-14.svg', class: 'mr-2', data: {:height => '34px', :width => '34px'}, alt: 'Polygraphy App'
+                h4.mb-0.text-white.font-weight-700 = t :home_b_4_t_1
+              .text-center.text-white-75
+                p = t :home_b_4_t_2
+        .col-md-6.col-xl-3.mb-5.mb-xl-0
+          .num-counter
+            h2.count-value.count-run.display-4.font-weight-800.text-center.text-white.mb-4
+              = User.count + 300
+            .icon-info-3
+              .icon-title.d-flex.justify-content-center.align-items-end.mb-2
+                = image_tag 'counter-icon-01.svg', class: 'mr-2', data: {:height => '34px', :width => '34px'}, alt: 'Polygraphy App'
+                h4.mb-0.text-white.font-weight-700 = t :home_b_4_t_3
+              .text-center.text-white-75
+                p = t :home_b_4_t_4
+        .col-md-6.col-xl-3.mb-5.mb-md-0
+          .num-counter
+            h2.count-value.count-run.display-4.font-weight-800.text-center.text-white.mb-4 = Item.includes(:order).where(orders: { status: :pending }).count + 300
+            .icon-info-3
+              .icon-title.d-flex.justify-content-center.align-items-end.mb-2
+                = image_tag 'counter-icon-123.svg', class: 'mr-2', data: {:height => '30px', :width => '30px'}, alt: 'Polygraphy App'
+                h4.mb-0.text-white.font-weight-700 = t :home_b_4_t_5
+              .text-center.text-white-75
+                p = t :home_b_4_t_6
+        .col-md-6.col-xl-3
+          .num-counter
+            .nuber-counter-double.d-flex.justify-content-center
+              h2.count-value.count-run.display-4.font-weight-800.text-center.text-white.mb-4.d-inline-block 150000
+              h2.display-4.font-weight-800.text-center.text-white.mb-4.d-inline-block +
+            .icon-info-3
+              .icon-title.d-flex.justify-content-center.align-items-end.mb-2
+                = image_tag 'counter-icon-15.svg', class: 'mr-2', data: {:height => '30px', :width => '30px'}, alt: 'Polygraphy App'
+                h4.mb-0.text-white.font-weight-700 = t :home_b_4_t_7
+              .text-center.text-white-75
+                p = t :home_b_4_t_8
+      div data-height="80px" 
+
+
+  .section
+    .container
+      .bg-transparent data-height="4px" 
+      .row.no-gutters
+        .col.overflow-hidden.rounded-ultra.shadow-lg.mt-up75
+          .row.no-gutters
+            .col-lg-6.bg-viridian-500.p-4.px-md-5
+              div data-height="20px" 
+              .icon-info-1
+                a.icon-info-link href="" 
+                  .icon-element
+                    = image_tag 'contact-icon-23.svg', class: 'img-fluid add-animate fast', data: {:animated => 'zoomIn', :height => '48px', :width => '48px'}, alt: 'Polygraphy App'
+                .icon-info-text.text-white-50.pl-4
+                  h4.font-weight-700.text-white.mb-1 = t :home_b_5_t_1
+                  p.mb-0 = t :home_b_5_t_2
+              div data-height="19px" 
+            .col-lg-6.bg-white.p-4.px-md-5
+              div data-height="20px" 
+              .icon-info-1
+                a.icon-info-link href="" 
+                  .icon-element
+                    = image_tag 'contact-icon-24.svg', class: 'img-fluid add-animate fast', data: {:animated => 'zoomIn', :height => '48px', :width => '48px'}, alt: 'Polygraphy App'
+                .icon-info-text.pl-4
+                  h4.font-weight-700.mb-1 = t :home_b_5_t_3
+                  p.mb-0 = t :home_b_5_t_4
+              div data-height="19px" 
+      
+  
+
+  - if Review.present?
+    .section.pt-5
+      .container
+        .row
+          .col-lg-8.offset-lg-2.col-xl-6.offset-xl-0.align-self-end.order-2.order-xl-1
+            .text-center.px-md-5.section-review-padding
+              .px-3
+                = image_tag 'review_icon.svg', class: 'img-fluid add-animate', data: {:animated => 'fadeIn'}, alt: 'Polygraphy App'
+          .col-lg-10.offset-lg-1.col-xl-6.offset-xl-0.align-self-center.order-1.order-xl-2
+            .pb-4.pb-md-5.mb-xl-5
+              .text-center.text-xl-left
+                h5.font-weight-400.mb-3 = t :home_b_6_t_1
+                h2.h1.font-weight-800.mb-4 = t :home_b_6_t_2
+              .carousel-component.mb-5.mb-xl-4 data-autoplay="true" data-carousel-col="1" data-carousel-col-lg="1" data-carousel-col-md="1" data-carousel-col-sm="1" data-carousel-col-xl="1" data-carousel-gutter="30" data-dots="true" data-nav="false" 
+                .carousel-component-inner.owl-carousel.owl-theme
+                  - @reviews.each do |review|
+                    .carousel-component-item
+                      .py-2
+                      .testimonial-2.my-5
+                        .testimonial-image
+                          figure
+                            = image_tag review.image.url(:index), class: 'img-fluid', alt: review.client
+                        .testimonial-details
+                          .font-italic
+                            p = review.text
+                          .tesimonial-name
+                            = review.client
+                      .py-2
+  .bg-indigo
+    - if @partners.present?
+      .section
+        .container
+          .row
+            .col
+              .bg-white.rounded-ultra.shadow-lg.px-4.py-5.p-md-5.mt-up100
+                .row.my-4
+                  .col-lg-10.offset-lg-1.col-xl-8.offset-xl-2
+                    .text-center
+                      h2.h1.font-weight-800 = t :subscribe_t_1
+                      .lead-sm.mb-5
+                        = t :subscribe_t_2
+                      .row
+                        .col-lg-10.offset-lg-1
+                          = form_for Subscriber.new, remote: true, html: { id: 'new_subscriber', class: 'px-md-4 mb-1' } do |f|
+                            .input-group.input-group-lg.input-group-round
+                              .input-group-inner
+                                = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                                .input-group-append
+                                  = f.button class: 'btn btn-lg btn-round btn-primary mb-0', id: 'new_subscriber_send'
+                                    = t :subscribe
+                                .input-focus-bg
+    - else
+      .section.pb-5
+        .container
+          .row
+            .col
+              .bg-white.rounded-ultra.shadow-lg.px-4.py-5.p-md-5.mt-up100
+                .row.my-4
+                  .col-lg-10.offset-lg-1.col-xl-8.offset-xl-2
+                    .text-center
+                      h2.h1.font-weight-800 = t :subscribe_t_1
+                      .lead-sm.mb-5
+                        = t :subscribe_t_2
+                      .row
+                        .col-lg-10.offset-lg-1
+                          = form_for Subscriber.new, remote: true, html: { id: 'new_subscriber', class: 'px-md-4 mb-1' } do |f|
+                            .input-group.input-group-lg.input-group-round
+                              .input-group-inner
+                                = f.email_field :email, class: 'form-control form-control-lg', placeholder: "#{t 'placeholder.email'}", required: 'required'
+                                .input-group-append
+                                  = f.button class: 'btn btn-lg btn-round btn-primary mb-0', id: 'new_subscriber_send'
+                                    = t :subscribe
+                                .input-focus-bg
+
+    - if @partners.present?
+      .section
+        .container
+          .row.align-items-center.py-5
+            - @partners.each do |partner|
+              .col-6.col-md-4.col-lg-2
+                .text-center.px-2
+                  = image_tag partner.image.url(:index), class: 'img-fluid', alt: partner.name

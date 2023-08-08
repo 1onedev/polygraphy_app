@@ -1,0 +1,28 @@
+<table cellspacing="0" cellpadding="0" border="0" align="center">
+  <tr>
+    <td align="center" width="100%" style="padding: 50px 0 50px 0;">
+      <%= email_image_tag "images/logo.jpg", style: "display: block", width: "300px", height: "auto"%>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="100%" style="background: #2296f3;font-weight: 800;line-height: 1.2;color: #fff;font-family: Montserrat, sans-serif;padding: 50px 50px 0 50px;border-radius: 2rem 2rem 0 0;">
+      <h3 style="margin: 0;font-size: 30px;">Вітаємо <%= @resource.name %>!</h3>
+      <h3 style="margin: 13px 0 0 0;font-size: 20px;">Ми дуже вдячні вам за реєстрацію</h3>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="100%" style="font-family: Montserrat, sans-serif;background: #2296f3;padding: 40px 50px 40px 50px;">
+      <p style="color: #fff;margin: 0;">
+        Залишилось лише підтвердити електронну адресу!
+      </p>
+      <p style="color: #fff;margin: 5px 0 0 0;">
+        Для цього вам просто потрібно натиснути на кнопку нижче
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="100%" style="font-family: Montserrat, sans-serif;background: #2296f3;border-radius: 0 0 2rem 2rem;padding: 0 50px 50px 50px;">
+      <%= link_to 'Підтвердити', confirmation_url(@resource, confirmation_token: @token), style: "border-radius: 1.3125rem;color: #fff;background-color: transparent;background-image: none;box-shadow: none;text-transform: uppercase;padding: .625rem 1.625rem;font-size: .75rem;line-height: 1.6;text-align: center;vertical-align: middle;font-weight: 600;border: 2px solid #fff;text-decoration: none;", onmouseover: "this.style.backgroundColor='#fff'; this.style.color='#2296f3'", onmouseout: "this.style.backgroundColor='transparent'; this.style.color='#fff'"%>
+    </td>
+  </tr>
+</table>

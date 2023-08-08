@@ -1,0 +1,48 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_root_path
+                = t :home_page
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.message_cooperation')
+        div data-height="6px" 
+- if current_admin.vladelec? || current_admin.meneger?
+  .main-content.pt-0.mt-3.mt-lg-5
+    .section
+      .container
+        .row
+          .col-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .header-with-action.d-flex.justify-content-between.align-items-center
+                  .header-name-page
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.message_cooperation')
+                      .title-divider-round.mt-3
+                - if @cooperations.present?
+                  - @cooperations.each do |cooperation|
+                    .row.align-items-center.justify-content-between.pt-1
+                      .col-md-9.col-xl-10.mb-2.mb-md-0
+                        .menages-message-first.d-flex.align-items-center
+                          .name-and-description-menages
+                            small.font-italic = cooperation.created_at.strftime('%d.%m.%Y %H:%M')
+                            h5.mb-0 = cooperation.name
+                            p.mb-0 = cooperation.email
+                            p.mb-2 = cooperation.phone
+                            p.mb-0 = cooperation.text
+                      .col-md-3.col-xl-2.text-md-right
+                        = link_to [:admin, cooperation],  method: :delete, data: { confirm: "#{t 'delete_2'}" }, class: 'mr-3', class: 'btn btn-round btn-icon-only btn-light btn-sm tooltip-btn mb-0', data: {:placement => "top", :toggle => "tooltip"}, title: "#{t 'delete'}" 
+                          i.far.fa-trash-alt
+                      .divider-2.mt-4-5
+                - else
+                  .row
+                    .col-12.d-flex.align-items-center.justify-content-center.py-5
+                      h4.mb-0.d-inline-block = (t 'admin_path.no_message_cooperation')
+                .pt-4
+                  = paginate @cooperations
+- else
+  = render 'admin/no_access/noaccess'

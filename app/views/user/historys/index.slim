@@ -1,0 +1,21 @@
+.pb-3.mb-3
+  .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5.card-overflow
+    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+      = (t 'user_path.orders_history')
+      .title-divider-round.mt-3
+    - if @items.present?
+      table.table.table-custom-2.mb-5
+        tbody 
+          tr
+            - @items.each do |item|
+              th scope="row" = item.order.number_with_sign
+              td = item.product_name
+              td = count_format(item.product_circulation.count)
+              td = price_format(item.price.to_i)
+              td.d-flex.justify-content-end
+                = item_status_tag(item)
+    - else
+      .row
+        .col-12.d-flex.align-items-center.justify-content-center.py-5
+          h4.mb-0.d-inline-block = (t 'admin_path.no_orders')
+      

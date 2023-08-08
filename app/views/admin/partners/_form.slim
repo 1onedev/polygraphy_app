@@ -1,0 +1,58 @@
+.container
+  .row
+    .col
+      .bg-primary.py-4.mt-up75.rounded-xl.shadow-lg
+        div data-height="6px" 
+        nav aria-label="breadcrumb" 
+          ol.breadcrumb.breadcrumb-light-2.justify-content-center.mb-0
+            li.breadcrumb-item.text-uppercase
+              = link_to admin_partners_path
+                = (t 'admin_path.partners')
+            li.breadcrumb-item.text-uppercase.text-nowrap.active aria-current="page" = (t 'admin_path.edit_partners')
+        div data-height="6px" 
+= form_for [:admin, @partner], html: { class: 'needs-validation form-custom' } do |f|
+  .main-content.pt-0.mt-3.mt-lg-5
+    .section
+      .container
+        .row
+          .col-lg-12
+            .pb-3.mb-3
+              .bg-white.rounded-xl.shadow-sm.px-4.py-5.p-md-5
+                .row
+                  .col-6
+                    h5.font-weight-700.section-title-4.text-left.pb-2.mb-4
+                      = (t 'admin_path.edit_partners')
+                      .title-divider-round.mt-3
+                label.text-uppercase = (t 'admin_path.main_photo')
+                .row
+                  .col-md-6.text-center.text-md-left.mb-3.mb-md-0
+                    - if @partner.image.exists?
+                      = image_tag @partner.image.url(:index), class: 'shadow img-fluid img-radius-standart admin-img-background-2', id: 'imgpreview'
+                    - else
+                      = image_tag 'placeholder/upload.jpg', class: 'shadow img-fluid img-radius-standart', id: 'imgpreview'
+                  .col-md-6.d-flex.align-items-center.justify-content-center
+                    .buttons-admin-group.text-center
+                      label.btn.btn-lg.btn-round.btn-primary.mr-1.mr-md-2.mb-0
+                        = t :upload
+                        span style="display:none"
+                          = f.file_field :image, id: 'imginput'
+                      p.mb-0.mt-4 = (t 'admin_path.photo_set')
+                .form-row.mt-4
+                  .col-12
+                    .input-group.input-group-lg.input-group-round.mb-4.pr-md-2
+                      label.text-uppercase = (t 'name_of')
+                      .input-group-inner
+                        = f.text_field :name, class: 'form-control form-control-lg', placeholder: "#{t 'name_of'}" 
+                        .input-focus-bg
+                .form-row
+                  = f.submit "#{t 'admin_path.save'}", class: 'btn btn-lg btn-round btn-primary mr-2'
+                  = link_to "#{t 'cencel'}", admin_partners_path, class: 'btn btn-lg btn-round btn-outline-primary'
+
+- content_for :js
+  javascript:
+    imginput.onchange = evt => {
+      const [file] = imginput.files
+      if (file) {
+        imgpreview.src = URL.createObjectURL(file)
+      }
+    }
