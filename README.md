@@ -26,7 +26,7 @@ The project was developed using the following technologies:
 ## Installation and Setup
 
 1. Clone the repository:
-  $ git clone https://github.com/your-username/polygraphy_app.git
+  $ git clone https://github.com/1onedev/polygraphy_app.git
 2. Navigate to the project directory:
   $ cd polygraphy_app
 3. Install dependencies:
